@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🗺️ Flowchart Shapes — Module 1</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #1a1a3e 50%, #24243e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            background: linear-gradient(90deg, #00d2ff, #7b2ff7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #8888aa;
+            margin-bottom: 40px;
+            font-size: 1rem;
+        }
+
+        .shapes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto 60px;
+        }
+
+        .shape-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .shape-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(123, 47, 247, 0.5);
+            box-shadow: 0 10px 30px rgba(123, 47, 247, 0.15);
+        }
+
+        .shape-card svg {
+            margin: 0 auto 20px;
+            display: block;
+        }
+
+        .shape-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .shape-meaning {
+            color: #aab0c6;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .shape-example {
+            margin-top: 12px;
+            padding: 8px 14px;
+            background: rgba(123, 47, 247, 0.15);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: #c5b3f0;
+            display: inline-block;
+        }
+
+        /* ===== INTERACTIVE FLOWCHART DEMO ===== */
+        .demo-section {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .demo-title {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .demo-subtitle {
+            text-align: center;
+            color: #8888aa;
+            margin-bottom: 30px;
+        }
+
+        .flowchart-container {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .flow-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 0;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .flow-step:nth-child(1) { animation-delay: 0.2s; }
+        .flow-step:nth-child(2) { animation-delay: 0.5s; }
+        .flow-step:nth-child(3) { animation-delay: 0.8s; }
+        .flow-step:nth-child(4) { animation-delay: 1.1s; }
+        .flow-step:nth-child(5) { animation-delay: 1.4s; }
+        .flow-step:nth-child(6) { animation-delay: 1.7s; }
+        .flow-step:nth-child(7) { animation-delay: 2.0s; }
+        .flow-step:nth-child(8) { animation-delay: 2.3s; }
+        .flow-step:nth-child(9) { animation-delay: 2.6s; }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .flow-oval {
+            background: linear-gradient(135deg, #00d2ff, #0090ff);
+            color: white;
+            font-weight: 600;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
+        }
+
+        .flow-rect {
+            background: linear-gradient(135deg, #7b2ff7, #9b59ff);
+            color: white;
+            font-weight: 500;
+            padding: 14px 30px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 15px rgba(123, 47, 247, 0.3);
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .flow-diamond-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .flow-diamond {
+            width: 160px;
+            height: 100px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flow-diamond::before {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            transform: rotate(45deg);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .flow-diamond span {
+            position: relative;
+            z-index: 1;
+            color: white;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .diamond-branch {
+            color: #aab0c6;
+            font-size: 0.85rem;
+            padding: 6px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        .diamond-branch.yes { border-left: 3px solid #2ed573; }
+        .diamond-branch.no { border-left: 3px solid #ff4757; }
+
+        .flow-arrow {
+            display: flex;
+            justify-content: center;
+            padding: 8px 0;
+            color: #555577;
+            font-size: 1.2rem;
+        }
+
+        .parallelogram {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            font-weight: 500;
+            padding: 14px 30px;
+            border-radius: 6px;
+            transform: skewX(-10deg);
+            font-size: 0.95rem;
+            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .parallelogram span {
+            display: inline-block;
+            transform: skewX(10deg);
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: #8888aa;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.blue { background: #00d2ff; }
+        .legend-dot.purple { background: #7b2ff7; }
+        .legend-dot.red { background: #ff6b6b; }
+        .legend-dot.orange { background: #f39c12; }
+
+        .tip-box {
+            max-width: 700px;
+            margin: 40px auto 0;
+            background: rgba(46, 213, 115, 0.08);
+            border: 1px solid rgba(46, 213, 115, 0.2);
+            border-radius: 12px;
+            padding: 20px 24px;
+            color: #7ee8a8;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .tip-box strong { color: #2ed573; }
+    </style>
+</head>
+<body>
+
+    <h1>🗺️ The 4 Flowchart Shapes You Need to Know</h1>
+    <p class="subtitle">Module 1 — Before we write code, we learn to plan with pictures!</p>
+
+    <!-- SHAPE CARDS -->
+    <div class="shapes-grid">
+        <div class="shape-card">
+            <svg width="140" height="70" viewBox="0 0 140 70">
+                <ellipse cx="70" cy="35" rx="65" ry="30" fill="none" stroke="#00d2ff" stroke-width="2.5"/>
+                <text x="70" y="40" text-anchor="middle" fill="#00d2ff" font-size="14" font-weight="600">START / END</text>
+            </svg>
+            <div class="shape-name">Oval (Terminator)</div>
+            <div class="shape-meaning">Marks the <strong>beginning</strong> or <strong>end</strong> of your program.</div>
+            <div class="shape-example">🟢 "Start cooking" / "Serve the dish" 🔴</div>
+        </div>
+
+        <div class="shape-card">
+            <svg width="160" height="70" viewBox="0 0 160 70">
+                <rect x="5" y="10" width="150" height="50" rx="8" fill="none" stroke="#9b59ff" stroke-width="2.5"/>
+                <text x="80" y="42" text-anchor="middle" fill="#9b59ff" font-size="14" font-weight="600">ACTION / STEP</text>
+            </svg>
+            <div class="shape-name">Rectangle (Process)</div>
+            <div class="shape-meaning">An <strong>action</strong> or <strong>step</strong> the computer performs.</div>
+            <div class="shape-example">🟣 "Add 2 eggs to the bowl"</div>
+        </div>
+
+        <div class="shape-card">
+            <svg width="130" height="100" viewBox="0 0 130 100">
+                <polygon points="65,5 125,50 65,95 5,50" fill="none" stroke="#ff6b6b" stroke-width="2.5"/>
+                <text x="65" y="46" text-anchor="middle" fill="#ff6b6b" font-size="12" font-weight="600">YES or</text>
+                <text x="65" y="62" text-anchor="middle" fill="#ff6b6b" font-size="12" font-weight="600">NO?</text>
+            </svg>
+            <div class="shape-name">Diamond (Decision)</div>
+            <div class="shape-meaning">A <strong>question</strong> with Yes/No answer. The flow splits into two paths.</div>
+            <div class="shape-example">🔴 "Is the water boiling?"</div>
+        </div>
+
+        <div class="shape-card">
+            <svg width="160" height="70" viewBox="0 0 160 70">
+                <polygon points="25,10 155,10 135,60 5,60" fill="none" stroke="#f39c12" stroke-width="2.5"/>
+                <text x="80" y="42" text-anchor="middle" fill="#f39c12" font-size="13" font-weight="600">INPUT / OUTPUT</text>
+            </svg>
+            <div class="shape-name">Parallelogram (I/O)</div>
+            <div class="shape-meaning"><strong>Input</strong> (reading data from user) or <strong>Output</strong> (showing results on screen).</div>
+            <div class="shape-example">🟠 "Ask user: How many eggs?" / "Display: Done!"</div>
+        </div>
+    </div>
+
+    <!-- INTERACTIVE FLOWCHART DEMO -->
+    <div class="demo-section">
+        <h2 class="demo-title">☕ Example: Flowchart for Making Tea</h2>
+        <p class="demo-subtitle">Watch the flowchart build itself step by step!</p>
+
+        <div class="flowchart-container">
+            <div class="flow-step">
+                <div class="flow-oval">START</div>
+            </div>
+            <div class="flow-step"><div class="flow-arrow">▼</div></div>
+
+            <div class="flow-step">
+                <div class="flow-rect">Boil water in kettle</div>
+            </div>
+            <div class="flow-step"><div class="flow-arrow">▼</div></div>
+
+            <div class="flow-step">
+                <div class="flow-diamond-wrapper">
+                    <div class="diamond-branch no">No → Keep waiting</div>
+                    <div class="flow-diamond">
+                        <span>Is water<br>boiling?</span>
+                    </div>
+                    <div class="diamond-branch yes">Yes ↓</div>
+                </div>
+            </div>
+            <div class="flow-step"><div class="flow-arrow">▼</div></div>
+
+            <div class="flow-step">
+                <div class="flow-rect">Pour water into cup with tea bag</div>
+            </div>
+            <div class="flow-step"><div class="flow-arrow">▼</div></div>
+
+            <div class="flow-step">
+                <div class="flow-rect">Wait 3 minutes, then remove tea bag</div>
+            </div>
+            <div class="flow-step"><div class="flow-arrow">▼</div></div>
+
+            <div class="flow-step">
+                <div class="flow-diamond-wrapper">
+                    <div class="diamond-branch no">No → Skip</div>
+                    <div class="flow-diamond">
+                        <span>Want<br>sugar?</span>
+                    </div>
+                    <div class="diamond-branch yes">Yes → Add sugar</div>
+                </div>
+            </div>
+            <div class="flow-step"><div class="flow-arrow">▼</div></div>
+
+            <div class="flow-step">
+                <div class="parallelogram"><span>Display: "Your tea is ready! ☕"</span></div>
+            </div>
+            <div class="flow-step"><div class="flow-arrow">▼</div></div>
+
+            <div class="flow-step">
+                <div class="flow-oval">END</div>
+            </div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item"><div class="legend-dot blue"></div> Start / End</div>
+            <div class="legend-item"><div class="legend-dot purple"></div> Process / Action</div>
+            <div class="legend-item"><div class="legend-dot red"></div> Decision (Yes/No)</div>
+            <div class="legend-item"><div class="legend-dot orange"></div> Input / Output</div>
+        </div>
+    </div>
+
+    <div class="tip-box">
+        <strong>💡 Tip:</strong> Before writing any Java code, professional programmers always draw a flowchart first!
+        It is like drawing a map before a road trip — you figure out every turn and decision <em>before</em> you start driving.
+        This simple habit will save you hours of confusion later.
+    </div>
+
+</body>
+</html>

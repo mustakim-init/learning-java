@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ How Java Code Runs — Module 1</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #1a1a3e 50%, #24243e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 1.8rem;
+            background: linear-gradient(90deg, #f7971e, #ffd200);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .subtitle { text-align: center; color: #8888aa; margin-bottom: 40px; }
+
+        .timeline {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #7b2ff7, #00d2ff, #2ed573);
+            border-radius: 3px;
+        }
+
+        .step {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: slideIn 0.6s ease forwards;
+            position: relative;
+        }
+
+        .step:nth-child(1) { animation-delay: 0.3s; }
+        .step:nth-child(2) { animation-delay: 0.7s; }
+        .step:nth-child(3) { animation-delay: 1.1s; }
+        .step:nth-child(4) { animation-delay: 1.5s; }
+        .step:nth-child(5) { animation-delay: 1.9s; }
+        .step:nth-child(6) { animation-delay: 2.3s; }
+
+        @keyframes slideIn {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .step-dot {
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            border-radius: 50%;
+            margin-top: 15px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 0 12px currentColor;
+        }
+
+        .step-dot.write { background: #ffd200; color: #ffd200; }
+        .step-dot.check { background: #ff6b6b; color: #ff6b6b; }
+        .step-dot.translate { background: #9b59ff; color: #9b59ff; }
+        .step-dot.load { background: #00d2ff; color: #00d2ff; }
+        .step-dot.run { background: #2ed573; color: #2ed573; }
+        .step-dot.screen { background: #f39c12; color: #f39c12; }
+
+        .step-content {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            flex: 1;
+            transition: border-color 0.3s;
+        }
+
+        .step-content:hover {
+            border-color: rgba(123, 47, 247, 0.4);
+        }
+
+        .step-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .step-label.write { color: #ffd200; }
+        .step-label.check { color: #ff6b6b; }
+        .step-label.translate { color: #9b59ff; }
+        .step-label.load { color: #00d2ff; }
+        .step-label.run { color: #2ed573; }
+        .step-label.screen { color: #f39c12; }
+
+        .step-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .step-desc {
+            color: #aab0c6;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .step-analogy {
+            margin-top: 10px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            background: rgba(255, 255, 255, 0.04);
+            border-left: 3px solid;
+        }
+
+        .step-analogy.write { border-color: #ffd200; color: #e8d48a; }
+        .step-analogy.check { border-color: #ff6b6b; color: #e8a0a0; }
+        .step-analogy.translate { border-color: #9b59ff; color: #c5b3f0; }
+        .step-analogy.load { border-color: #00d2ff; color: #8cd8f0; }
+        .step-analogy.run { border-color: #2ed573; color: #8ee8a8; }
+        .step-analogy.screen { border-color: #f39c12; color: #e8c88a; }
+
+        .code-box {
+            max-width: 700px;
+            margin: 40px auto;
+            background: #1e1e2e;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .code-header {
+            background: rgba(255, 255, 255, 0.06);
+            padding: 10px 16px;
+            font-size: 0.8rem;
+            color: #8888aa;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .code-header .dot {
+            width: 10px; height: 10px; border-radius: 50%;
+        }
+
+        .code-header .dot.r { background: #ff5f56; }
+        .code-header .dot.y { background: #ffbd2e; }
+        .code-header .dot.g { background: #27c93f; }
+
+        .code-body {
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: #c0c0c0;
+        }
+
+        .code-body .kw { color: #c678dd; }
+        .code-body .cls { color: #e5c07b; }
+        .code-body .str { color: #98c379; }
+        .code-body .fn { color: #61afef; }
+        .code-body .cmt { color: #5c6370; font-style: italic; }
+    </style>
+</head>
+<body>
+
+    <h1>⚡ How Does Java Code Actually Run?</h1>
+    <p class="subtitle">The 6 simple steps from your keyboard to the screen</p>
+
+    <!-- THE CODE -->
+    <div class="code-box">
+        <div class="code-header">
+            <div class="dot r"></div>
+            <div class="dot y"></div>
+            <div class="dot g"></div>
+            HelloWorld.java
+        </div>
+        <div class="code-body">
+            <span class="kw">public class</span> <span class="cls">HelloWorld</span> {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">public static void</span> <span class="fn">main</span>(<span class="cls">String</span>[] args) {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.<span class="fn">println</span>(<span class="str">"Hello, I am learning Java!"</span>);<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+            }
+        </div>
+    </div>
+
+    <!-- THE TIMELINE -->
+    <div class="timeline">
+        <div class="step">
+            <div class="step-dot write"></div>
+            <div class="step-content">
+                <div class="step-label write">Step 1 — You</div>
+                <div class="step-title">📝 You Write the Recipe</div>
+                <div class="step-desc">You type your instructions in a <strong>.java</strong> text file. This is just a text file — the computer hasn't done anything yet.</div>
+                <div class="step-analogy write">🍳 Analogy: You write down a recipe on a piece of paper. The chef hasn't read it yet.</div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-dot check"></div>
+            <div class="step-content">
+                <div class="step-label check">Step 2 — javac (The Proofreader)</div>
+                <div class="step-title">🔍 The Strict Proofreader Checks for Typos</div>
+                <div class="step-desc">You run <code>javac HelloWorld.java</code>. This is the <strong>compiler</strong> — a strict proofreader that reads every line and checks for mistakes (missing semicolons, misspelled words, wrong types).</div>
+                <div class="step-analogy check">📋 Analogy: A picky editor reads your recipe and marks any mistakes in red ink. If there is even one error, they refuse to pass it on until you fix it.</div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-dot translate"></div>
+            <div class="step-content">
+                <div class="step-label translate">Step 3 — javac (The Translator)</div>
+                <div class="step-title">🔄 Translation to a Robot-Friendly Version</div>
+                <div class="step-desc">If no errors, <code>javac</code> creates a <strong>.class</strong> file. This is your recipe translated into a language the robot (computer) can understand.</div>
+                <div class="step-analogy translate">🌍 Analogy: Your English recipe gets translated into the robot's language. You get a new file: <code>HelloWorld.class</code></div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-dot load"></div>
+            <div class="step-content">
+                <div class="step-label load">Step 4 — java (Loading)</div>
+                <div class="step-title">📦 The Robot Picks Up the Recipe</div>
+                <div class="step-desc">You run <code>java HelloWorld</code>. The robot (JVM) loads your translated recipe from the hard drive into its kitchen counter (RAM) where it can read it quickly.</div>
+                <div class="step-analogy load">🏠 Analogy: The chef takes the recipe from the shelf (hard drive) and places it on the kitchen counter (RAM) so it's right in front of them.</div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-dot run"></div>
+            <div class="step-content">
+                <div class="step-label run">Step 5 — java (Execution)</div>
+                <div class="step-title">🤖 The Robot Follows Instructions, Line by Line</div>
+                <div class="step-desc">The robot (CPU) reads your instructions from top to bottom and executes each step. When it sees <code>System.out.println(...)</code>, it knows to send text to your screen.</div>
+                <div class="step-analogy run">👨‍🍳 Analogy: The chef follows the recipe: Step 1… Step 2… Step 3… done!</div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-dot screen"></div>
+            <div class="step-content">
+                <div class="step-label screen">Step 6 — Output</div>
+                <div class="step-title">🖥️ You See the Result on Your Screen!</div>
+                <div class="step-desc">The text <strong>"Hello, I am learning Java!"</strong> appears in your terminal. 🎉</div>
+                <div class="step-analogy screen">🍽️ Analogy: The chef places the finished dish on the counter for you to see and enjoy!</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

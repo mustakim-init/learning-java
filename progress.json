@@ -1,0 +1,47 @@
+{
+  "schema_version": "3.0.0",
+  "student": {
+    "title": "CSE110 Student — BRAC University",
+    "learning_style": "Visual learner, spoon-fed, real-world analogies, interactive diagrams",
+    "started_date": "2026-10-05",
+    "last_active": "2026-10-05"
+  },
+  "current_position": {
+    "phase_id": "module_1",
+    "phase_name": "Module 1: Flowchart",
+    "lesson_id": "M1_L3",
+    "lesson_title": "Introduction to Java & Your First Program",
+    "status": "ready_to_start",
+    "active_exercise_id": null
+  },
+  "completed_lessons": [
+    {
+      "id": "M1_L1",
+      "title": "What is Programming & What are Flowcharts?",
+      "completed_at": "2026-10-05",
+      "summary": "Mastered programming concept (kitchen robot) and 4 core flowchart shapes: Oval, Rectangle, Diamond, Parallelogram."
+    },
+    {
+      "id": "M1_L2",
+      "title": "Flowcharts with Decisions and Loops",
+      "phase_id": "module_1",
+      "completed_at": "2026-10-05",
+      "key_takeaway": "Mastered decisions (YES/NO diamond) and loops (backward arrow). Traced even/odd and dish-washing correctly. Prefers Python PNG visuals."
+    }
+  ],
+  "exercise_history": [],
+  "concepts_mastered": [
+    "Programming definition & robot analogy",
+    "Flowchart purpose (planning before code)",
+    "Flowchart shapes: Oval, Rectangle, Diamond, Parallelogram"
+  ],
+  "knowledge_gaps": [],
+  "notes_and_reflections": [],
+  "stats": {
+    "total_phases": 12,
+    "total_lessons": 25,
+    "completed_lessons_count": 2,
+    "exercises_passed": 0,
+    "overall_progress_percent": 8
+  }
+}

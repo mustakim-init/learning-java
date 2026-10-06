@@ -1,0 +1,23 @@
+# Java
+*.class
+*.jar
+*.war
+out/
+bin/
+target/
+.idea/
+*.iml
+.vscode/
+
+# Node (tutor.js)
+node_modules/
+package-lock.json
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Python visuals
+__pycache__/
+*.pyc

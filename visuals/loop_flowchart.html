@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M1_L2 - Loop Flowchart: Wash Dishes</title>
+<style>
+  * { box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+  body { background: #f0fdfa; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+  h1 { color: #134e4a; margin-bottom: 4px; }
+  .sub { color: #0f766e; margin-bottom: 16px; }
+  .board { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; width: 100%; max-width: 800px; }
+  .flow { background: white; border-radius: 16px; padding: 18px; box-shadow: 0 4px 16px rgba(0,0,0,.08); display: flex; flex-direction: column; align-items: center; min-width: 300px; flex: 1; }
+  .shape { padding: 10px 22px; text-align: center; font-weight: 700; min-width: 220px; max-width: 280px; transition: all .35s; opacity: .4; border: 3px solid transparent; }
+  .shape.active { opacity: 1; transform: scale(1.07); border-color: #f59e0b; box-shadow: 0 0 18px rgba(245,158,11,.7); }
+  .shape.done-flash { opacity: 1; border-color: #22c55e; }
+  .oval { border-radius: 50px; background: #dcfce7; color: #14532d; }
+  .rect { border-radius: 10px; background: #dbeafe; color: #1e3a8a; }
+  .para { transform: skewX(-12deg); background: #e0e7ff; color: #1e1b4b; border-radius: 8px; }
+  .diamond-wrap { width: 260px; height: 130px; display: flex; align-items: center; justify-content: center; opacity: .4; transition: all .35s; }
+  .diamond-wrap.active { opacity: 1; outline: 4px solid #f59e0b; }
+  .diamond { width: 220px; height: 105px; background: #fef3c7; clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); display: flex; align-items: center; justify-content: center; font-weight: 800; color: #78350f; font-size: 14px; }
+  .arrow { font-size: 20px; color: #0f766e; margin: 2px 0; }
+  .loop-arrow { color: #dc2626; font-weight: 800; font-size: 13px; background: #fee2e2; padding: 4px 12px; border-radius: 20px; margin: 4px 0; }
+  .sink { font-size: 40px; letter-spacing: 4px; min-height: 55px; }
+  .panel { background: white; border-radius: 16px; padding: 18px 22px; box-shadow: 0 4px 16px rgba(0,0,0,.08); margin-top: 18px; width: 100%; max-width: 800px; text-align: center; }
+  button { font-size: 16px; padding: 10px 20px; border-radius: 10px; border: none; cursor: pointer; margin: 5px; font-weight: 700; }
+  .run { background: #16a34a; color: white; } .step { background: #2563eb; color: white; } .reset { background: #e5e7eb; }
+  #log { background: #111827; color: #a7f3d0; border-radius: 10px; padding: 12px; text-align: left; font-family: Consolas, monospace; font-size: 14px; margin-top: 12px; min-height: 110px; white-space: pre-wrap; }
+  .counter { font-size: 18px; font-weight: 800; background: #ccfbf1; padding: 8px 16px; border-radius: 12px; margin-top: 8px; }
+</style>
+</head>
+<body>
+<h1>🔁 Loops: While Dishes Remain, Keep Washing!</h1>
+<div class="sub">M1_L2 Bite 2 — an arrow that goes BACKWARD = repeat</div>
+
+<div class="board">
+<div class="flow">
+  <div class="shape oval" id="f-start">🟢 START</div>
+  <div class="arrow">⬇</div>
+  <div class="shape rect" id="f-init">🍽 dishes = 3<br><small>3 dirty dishes in sink</small></div>
+  <div class="arrow">⬇</div>
+  <div class="diamond-wrap" id="f-check"><div class="diamond"><div>dishes &gt; 0 ?<br><small>any dishes left?</small></div></div></div>
+  <div style="display:flex;gap:16px;align-items:center;">
+    <span style="background:#22c55e;color:white;padding:2px 10px;border-radius:20px;font-size:12px;font-weight:800;">YES ⬇ wash one</span>
+    <span style="background:#6b7280;color:white;padding:2px 10px;border-radius:20px;font-size:12px;font-weight:800;">NO ⬇ go to END</span>
+  </div>
+  <div class="shape rect" id="f-wash">🧽 Wash 1 dish<br><small>dishes = dishes - 1</small></div>
+  <div class="loop-arrow">↩ LOOP BACK UP ⤴ (arrow goes backward!)</div>
+  <div class="shape oval" id="f-end">🔴 END: Sink empty! ✨</div>
+  <div class="counter" id="counter">dishes = 3</div>
+  <div class="sink" id="sink">🍽🍽🍽</div>
+</div>
+</div>
+
+<div class="panel">
+  <div>Press <b>Step</b> to be the robot. Watch the arrow jump backward!</div>
+  <button class="step" onclick="doStep()">👣 Step</button>
+  <button class="run" onclick="runAll()">▶ Run</button>
+  <button class="reset" onclick="resetAll()">↺ Reset</button>
+  <div id="log">Robot log will appear here... 🤖</div>
+</div>
+
+<script>
+let dishes = 3;
+let stage = 0; // 0 start, 1 init, 2 check, 3 wash/end cycle
+let finished = false;
+let logText = '';
+function clearActive(){
+  document.querySelectorAll('.shape').forEach(e=>e.classList.remove('active'));
+  document.getElementById('f-check').classList.remove('active');
+}
+function updateSink(){
+  document.getElementById('counter').textContent = 'dishes = ' + dishes;
+  document.getElementById('sink').textContent = dishes>0 ? '🍽'.repeat(dishes) + '🧽' : '✨ clean! ✨';
+}
+function setLog(t){ document.getElementById('log').textContent = t; }
+function resetAll(){
+  dishes = 3; stage = 0; finished = false; logText = '';
+  clearActive(); updateSink();
+  setLog('Robot log will appear here... 🤖\nPress Step! Be the robot.');
+}
+function stepOnce(){
+  if (finished) { setLog(logText + '\n✅ Finished! Press Reset to wash again.'); return; }
+  clearActive();
+  if (stage === 0) {
+    document.getElementById('f-start').classList.add('active');
+    logText = 'Step 1: 🟢 START — Robot wakes up.';
+    setLog(logText); stage = 1; return;
+  }
+  if (stage === 1) {
+    document.getElementById('f-init').classList.add('active');
+    logText += '\nStep 2: 🍽 Put 3 dirty dishes in sink. dishes = 3';
+    setLog(logText); stage = 2; return;
+  }
+  // check
+  document.getElementById('f-check').classList.add('active');
+  if (dishes > 0) {
+    logText += `\n🔷 Check: dishes (${dishes}) > 0? → YES, go wash one!`;
+    setLog(logText);
+    // next step will be wash - show wash immediately after short pause in step mode? do wash as next press
+    stage = 3;
+  } else {
+    logText += `\n🔷 Check: dishes (${dishes}) > 0? → NO! Exit loop.`;
+    setLog(logText);
+    clearActive();
+    document.getElementById('f-end').classList.add('active');
+    logText += '\n🔴 END — Sink empty! Robot sleeps. 😴 Loop ran 3 times.';
+    setLog(logText);
+    finished = true;
+  }
+  updateSink();
+}
+function doStep(){
+  // if we are at wash stage, do wash instead of check
+  if (stage === 3) {
+    clearActive();
+    document.getElementById('f-wash').classList.add('active');
+    dishes = dishes - 1;
+    logText += `\n🧽 Wash! Now dishes = ${dishes}. ↩ LOOP BACK to check again!`;
+    setLog(logText); updateSink();
+    stage = 2;
+    return;
+  }
+  stepOnce();
+}
+function runAll(){
+  resetAll();
+  let iv = setInterval(()=>{
+    if (finished) { clearInterval(iv); return; }
+    doStep();
+    if (logText.includes('Finished') || finished && stage!==2) { /* keep going until end shown */ }
+  }, 900);
+}
+resetAll();
+</script>
+</body>
+</html>

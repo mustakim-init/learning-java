@@ -1,0 +1,416 @@
+{
+  "curriculum_version": "3.0.0",
+  "title": "CSE110: Programming Language I (Java) — BRAC University Aligned",
+  "description": "Beginner-friendly Java course with real visual diagrams (Python + HTML/JS). Aligned with BRAC University CSE110 modules. Spoon-fed with everyday analogies.",
+  "phases": [
+    {
+      "id": "module_1",
+      "name": "Module 1: Flowchart",
+      "summary": "Learning to plan solutions visually before writing any code — like drawing a map before a road trip.",
+      "lessons": [
+        {
+          "id": "M1_L1",
+          "title": "What is Programming & What are Flowcharts?",
+          "objectives": [
+            "Understand what programming is (giving step-by-step instructions to an obedient robot)",
+            "Why we plan with flowcharts before coding (drawing a map before driving)",
+            "The basic flowchart shapes: Oval (Start/End), Rectangle (Action), Diamond (Decision), Arrow (Flow)",
+            "Drawing your first flowchart: Making a cup of tea"
+          ],
+          "analogy": "A flowchart is a GPS map for your program — it shows every turn and decision before you start driving.",
+          "visuals": ["flowchart_shapes.html", "tea_flowchart.py"],
+          "estimated_minutes": 40
+        },
+        {
+          "id": "M1_L2",
+          "title": "Flowcharts with Decisions and Loops",
+          "objectives": [
+            "Drawing flowcharts that make decisions (Diamond shape: Yes/No paths)",
+            "Drawing flowcharts that repeat steps (loops)",
+            "Converting a real-world problem into a flowchart step-by-step",
+            "Practice: Flowchart for checking if a number is even or odd"
+          ],
+          "analogy": "The diamond shape is a fork in the road — you check a condition and go left or right.",
+          "visuals": ["decision_flowchart.html", "loop_flowchart.py"],
+          "estimated_minutes": 45
+        },
+        {
+          "id": "M1_L3",
+          "title": "Introduction to Java & Your First Program",
+          "objectives": [
+            "How Java code runs: javac (proofreader) → java (executor)",
+            "Writing and running Hello World",
+            "What each piece means: class, main, System.out.println, semicolons",
+            "Connecting flowcharts to actual Java code"
+          ],
+          "analogy": "javac is the strict spell-checker, java is the robot that follows the checked recipe.",
+          "visuals": ["java_execution_flow.html"],
+          "estimated_minutes": 45
+        }
+      ]
+    },
+    {
+      "id": "module_2",
+      "name": "Module 2: Variables & Data Types",
+      "summary": "Teaching the computer to remember things using labeled boxes that only hold specific types of stuff.",
+      "lessons": [
+        {
+          "id": "M2_L1",
+          "title": "Variables: Labeled Boxes in the Computer's Memory",
+          "objectives": [
+            "What is a variable? (A labeled box that stores one value)",
+            "Declaring and initializing variables in Java",
+            "Naming rules: Why you can't start a name with a number",
+            "Changing the value inside a variable (reassignment)"
+          ],
+          "analogy": "A variable is like a labeled jar on a kitchen shelf — 'sugar' jar holds sugar, 'salt' jar holds salt.",
+          "visuals": ["variable_boxes.html", "variable_memory.py"],
+          "estimated_minutes": 40
+        },
+        {
+          "id": "M2_L2",
+          "title": "Data Types: The Shape of the Box Matters",
+          "objectives": [
+            "int (whole numbers), double (decimals), char (single letter), boolean (true/false), String (text)",
+            "Why you can't put text into a number box (type safety)",
+            "Type casting: Converting one type to another carefully",
+            "Printing and combining different types with +"
+          ],
+          "analogy": "A coin slot only accepts coins, not paper — the shape of the opening decides what fits.",
+          "visuals": ["data_types_visual.html", "type_boxes.py"],
+          "estimated_minutes": 50
+        },
+        {
+          "id": "M2_L3",
+          "title": "Printing Output & Writing Comments",
+          "objectives": [
+            "System.out.println vs System.out.print (with newline vs without)",
+            "Printing variables alongside text",
+            "Single-line comments (//) and multi-line comments (/* */)",
+            "Why comments are your future-self's best friend"
+          ],
+          "analogy": "Comments are sticky notes on a recipe that the chef ignores — they are just for you to remember why you did something.",
+          "visuals": ["print_demo.html"],
+          "estimated_minutes": 30
+        }
+      ]
+    },
+    {
+      "id": "module_3",
+      "name": "Module 3: Operators",
+      "summary": "Using the computer as a powerful calculator — math, comparisons, and logic.",
+      "lessons": [
+        {
+          "id": "M3_L1",
+          "title": "Arithmetic Operators: The Computer's Calculator",
+          "objectives": [
+            "Addition (+), Subtraction (-), Multiplication (*), Division (/)",
+            "Integer division trap: Why 5 / 2 = 2 and how to get 2.5",
+            "Modulo (%): Finding remainders (useful for even/odd checks)",
+            "Increment (++) and Decrement (--) shortcuts"
+          ],
+          "analogy": "Integer division is like cutting a pizza into whole slices — no half-slices unless you ask for decimals.",
+          "visuals": ["calculator_demo.html", "integer_division.py"],
+          "estimated_minutes": 45
+        },
+        {
+          "id": "M3_L2",
+          "title": "Comparison & Logical Operators",
+          "objectives": [
+            "Comparison: == (equal?), != (not equal?), >, <, >=, <=",
+            "The critical difference: = (put in box) vs == (check if same)",
+            "Logical AND (&&), OR (||), NOT (!)",
+            "Combining conditions: 'Is age > 18 AND has license?'"
+          ],
+          "analogy": "= is like putting a letter IN a mailbox. == is like asking 'Is there a letter in the mailbox?'",
+          "visuals": ["comparison_demo.html", "logic_gates.py"],
+          "estimated_minutes": 45
+        }
+      ]
+    },
+    {
+      "id": "module_4",
+      "name": "Module 4: User Input & Errors in Java",
+      "summary": "Making your programs interactive — listening to what the user types, and understanding error messages.",
+      "lessons": [
+        {
+          "id": "M4_L1",
+          "title": "Scanner: Giving the Computer Ears",
+          "objectives": [
+            "Importing Scanner (import java.util.Scanner)",
+            "Reading text (nextLine), numbers (nextInt, nextDouble) from keyboard",
+            "Building an interactive greeting program",
+            "Building a simple calculator that asks the user for 2 numbers"
+          ],
+          "analogy": "Scanner is like giving your robot a microphone — now it can listen to you!",
+          "visuals": ["scanner_flow.html"],
+          "estimated_minutes": 50
+        },
+        {
+          "id": "M4_L2",
+          "title": "Understanding Errors: Syntax, Runtime & Logic Errors",
+          "objectives": [
+            "Syntax Errors: Typos the compiler catches before running (missing semicolons, wrong brackets)",
+            "Runtime Errors: Crashes that happen while running (dividing by zero, wrong input type)",
+            "Logic Errors: The program runs but gives the wrong answer (the trickiest kind!)",
+            "How to read error messages calmly and fix bugs step by step"
+          ],
+          "analogy": "Syntax error = misspelled word in a recipe. Runtime error = the oven explodes. Logic error = you baked a cake but it tastes like salt because you mixed up sugar and salt.",
+          "visuals": ["error_types.html", "error_flowchart.py"],
+          "estimated_minutes": 40
+        }
+      ]
+    },
+    {
+      "id": "module_5",
+      "name": "Module 5: Branching (Conditional Statements)",
+      "summary": "Teaching your program to make decisions — like choosing which road to take at a fork.",
+      "lessons": [
+        {
+          "id": "M5_L1",
+          "title": "if, else if, and else: The Decision Maker",
+          "objectives": [
+            "The if statement: Do something only when a condition is true",
+            "The else branch: What to do when the condition is false",
+            "Chaining decisions with else if for multiple options",
+            "Nested if statements: Decisions inside decisions"
+          ],
+          "analogy": "If it's raining → bring umbrella. Else if it's sunny → wear sunglasses. Else → just go out normally.",
+          "visuals": ["branching_flowchart.html", "if_else_visual.py"],
+          "estimated_minutes": 50
+        },
+        {
+          "id": "M5_L2",
+          "title": "switch Statement & Ternary Operator",
+          "objectives": [
+            "The switch statement for choosing between many fixed options",
+            "When to use switch vs if-else chains",
+            "The ternary operator (? :) as a shortcut for simple if-else",
+            "Practice: Grade calculator and day-of-week printer"
+          ],
+          "analogy": "switch is like a vending machine — press button A1, A2, A3 to get different snacks.",
+          "visuals": ["switch_visual.html"],
+          "estimated_minutes": 45
+        }
+      ]
+    },
+    {
+      "id": "module_6",
+      "name": "Module 6: Iterations (Loops)",
+      "summary": "Making the computer repeat tasks automatically — no more copy-pasting the same code 100 times!",
+      "lessons": [
+        {
+          "id": "M6_L1",
+          "title": "while Loop: Keep Going Until Done",
+          "objectives": [
+            "Structure of a while loop: condition → body → repeat",
+            "Counter-controlled loops (counting from 1 to 10)",
+            "Sentinel-controlled loops (keep going until user says stop)",
+            "The danger of infinite loops and how to avoid them"
+          ],
+          "analogy": "While there are dirty dishes → wash one dish → check again. When the sink is empty, stop.",
+          "visuals": ["while_loop_animation.html", "loop_flowchart.py"],
+          "estimated_minutes": 50
+        },
+        {
+          "id": "M6_L2",
+          "title": "for Loop: Counting with Precision",
+          "objectives": [
+            "The 3 parts: initialization; condition; update",
+            "Counting upwards and counting backwards",
+            "Using for loops to calculate sums, factorials, and averages",
+            "Choosing between while and for: When to use which?"
+          ],
+          "analogy": "Do 10 pushups: start at 1, do one pushup, add 1, stop when you hit 10.",
+          "visuals": ["for_loop_animation.html", "for_vs_while.py"],
+          "estimated_minutes": 50
+        }
+      ]
+    },
+    {
+      "id": "module_7",
+      "name": "Module 7: Iterations (Nested)",
+      "summary": "Loops inside loops — like a clock where the minute hand goes around once for every hour tick.",
+      "lessons": [
+        {
+          "id": "M7_L1",
+          "title": "Nested Loops: Loops Inside Loops",
+          "objectives": [
+            "How nested loops work: the inner loop completes fully for each step of the outer loop",
+            "Building a multiplication table with nested for loops",
+            "Printing patterns with stars (* triangles, rectangles, pyramids)",
+            "Tracing through nested loop execution step by step"
+          ],
+          "analogy": "For each hour on a clock, the minute hand goes around 60 times. That's a nested loop!",
+          "visuals": ["nested_loop_animation.html", "pattern_builder.py"],
+          "estimated_minutes": 60
+        },
+        {
+          "id": "M7_L2",
+          "title": "break and continue: Controlling Loop Flow",
+          "objectives": [
+            "break: Emergency exit — leave the loop immediately",
+            "continue: Skip this round — jump to the next iteration",
+            "Using break to find the first match in a search",
+            "Common patterns with break and continue"
+          ],
+          "analogy": "break = walking out of a boring movie. continue = skipping a boring scene but staying for the rest.",
+          "visuals": ["break_continue_visual.html"],
+          "estimated_minutes": 40
+        }
+      ]
+    },
+    {
+      "id": "module_8",
+      "name": "Module 8: String",
+      "summary": "Working with text — words, sentences, and all the tricks you can do with them.",
+      "lessons": [
+        {
+          "id": "M8_L1",
+          "title": "Strings: Working with Text in Java",
+          "objectives": [
+            "What is a String? (A chain of characters, like beads on a necklace)",
+            "String length, charAt, substring, indexOf",
+            "Comparing strings: .equals() vs == (a critical Java trap!)",
+            "String concatenation (joining strings together with +)"
+          ],
+          "analogy": "A String is like a necklace of letter beads — each bead has a position number starting from 0.",
+          "visuals": ["string_necklace.html", "string_methods_visual.py"],
+          "estimated_minutes": 55
+        },
+        {
+          "id": "M8_L2",
+          "title": "String Manipulation & Common Operations",
+          "objectives": [
+            "toUpperCase, toLowerCase, trim, replace",
+            "Splitting strings into pieces (split)",
+            "Converting numbers to strings and strings to numbers",
+            "Practice: Password validator, word counter, text reverser"
+          ],
+          "analogy": "String methods are like text-editing superpowers — find-and-replace, capitalize, split a sentence into words.",
+          "visuals": ["string_manipulation.html"],
+          "estimated_minutes": 50
+        }
+      ]
+    },
+    {
+      "id": "module_9",
+      "name": "Module 9: Array",
+      "summary": "Storing lists of related data together — like an egg carton with numbered slots.",
+      "lessons": [
+        {
+          "id": "M9_L1",
+          "title": "Arrays: Numbered Boxes in a Row",
+          "objectives": [
+            "Why we need arrays (50 separate variables is a nightmare!)",
+            "Declaring, creating, and initializing arrays",
+            "Accessing elements by index (starting from 0)",
+            "Looping through arrays with for and for-each"
+          ],
+          "analogy": "An array is like an egg carton — 12 numbered slots (0-11), each holding exactly one egg.",
+          "visuals": ["array_carton.html", "array_visual.py"],
+          "estimated_minutes": 55
+        },
+        {
+          "id": "M9_L2",
+          "title": "Array Operations & Sorting",
+          "objectives": [
+            "Finding min, max, sum, and average in an array",
+            "Searching for a value (linear search)",
+            "Sorting arrays: Bubble Sort (the simple visual way)",
+            "Using Arrays.sort() for quick sorting"
+          ],
+          "analogy": "Sorting is like arranging books on a shelf by height — compare two neighbors, swap if needed, repeat.",
+          "visuals": ["bubble_sort_animation.html", "sorting_visual.py"],
+          "estimated_minutes": 60
+        },
+        {
+          "id": "M9_L3",
+          "title": "2D Arrays: Tables and Grids",
+          "objectives": [
+            "What is a 2D array? (A grid/table with rows and columns)",
+            "Declaring and using 2D arrays",
+            "Nested loops to traverse rows and columns",
+            "Practice: Tic-tac-toe board, student grade table"
+          ],
+          "analogy": "A 2D array is like a spreadsheet — rows and columns, and you say 'row 2, column 3' to find a cell.",
+          "visuals": ["grid_visual.html", "2d_array_visual.py"],
+          "estimated_minutes": 55
+        }
+      ]
+    },
+    {
+      "id": "module_10",
+      "name": "Module 10: Methods",
+      "summary": "Creating your own reusable commands — write once, use anywhere.",
+      "lessons": [
+        {
+          "id": "M10_L1",
+          "title": "Methods: Your Own Custom Commands",
+          "objectives": [
+            "Why methods exist (Don't Repeat Yourself!)",
+            "Declaring a method: return type, name, parameters",
+            "Calling a method from main",
+            "void methods vs methods that return a value"
+          ],
+          "analogy": "A method is like a saved recipe card — instead of repeating all the steps, you just say 'follow the pancake recipe'.",
+          "visuals": ["method_flow.html", "method_visual.py"],
+          "estimated_minutes": 55
+        },
+        {
+          "id": "M10_L2",
+          "title": "Parameters, Return Values & Method Overloading",
+          "objectives": [
+            "Passing information into methods (parameters = ingredients)",
+            "Getting information back (return = the finished dish)",
+            "Method overloading: Same name, different parameters",
+            "Scope: Why variables inside a method can't be seen outside"
+          ],
+          "analogy": "You put bread in a toaster (parameter), press the lever (call), and get toast back (return value).",
+          "visuals": ["parameter_return.html", "scope_visual.py"],
+          "estimated_minutes": 55
+        }
+      ]
+    },
+    {
+      "id": "module_11",
+      "name": "Module 11: Recursive Methods",
+      "summary": "Methods that call themselves — like a mirror reflecting into another mirror.",
+      "lessons": [
+        {
+          "id": "M11_L1",
+          "title": "Recursion: A Method That Calls Itself",
+          "objectives": [
+            "What is recursion? (Breaking a big problem into smaller identical problems)",
+            "Base case: When to STOP (the most critical part!)",
+            "Recursive case: The method calling itself with a smaller problem",
+            "Tracing recursion step by step: factorial, countdown"
+          ],
+          "analogy": "Russian nesting dolls — open one, there is a smaller one inside. Keep opening until you reach the tiniest doll (base case).",
+          "visuals": ["recursion_animation.html", "recursion_tree.py"],
+          "estimated_minutes": 60
+        }
+      ]
+    },
+    {
+      "id": "module_12",
+      "name": "Module 12: File I/O",
+      "summary": "Reading from and writing to files — saving your program's work permanently.",
+      "lessons": [
+        {
+          "id": "M12_L1",
+          "title": "Reading and Writing Files in Java",
+          "objectives": [
+            "Why we need files (RAM is temporary — files are permanent)",
+            "Reading text from a file line by line",
+            "Writing text to a file",
+            "Practice: Reading student grades from a file and calculating averages"
+          ],
+          "analogy": "RAM is the kitchen counter (temporary). Files are the pantry (permanent). When you turn off the stove, counter items vanish, but pantry items stay.",
+          "visuals": ["file_io_flow.html"],
+          "estimated_minutes": 50
+        }
+      ]
+    }
+  ]
+}
