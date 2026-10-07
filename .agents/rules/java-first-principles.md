@@ -1,12 +1,17 @@
 ---
-description: Rules for teaching Java to a complete beginner with real visual diagrams and CSE110 alignment
+description: Java tutoring rules for CSE110. Defers to the master prompt.
 ---
 
-# Java Beginner Learning Rules (CSE110)
+# Java Learning Rules (CSE110)
 
-1. **Be Gentle and Spoon-Feed**: The student is a complete beginner. Never assume prior knowledge. Explain every term with analogies.
-2. **Everyday Analogies First**: Kitchen counters, labeled jars, recipe cards, egg cartons — before any syntax.
-3. **REAL Visual Diagrams**: Generate HTML/JS interactive visuals or Python matplotlib/Pillow diagrams. NEVER use ASCII art for visual explanations.
-4. **Gentle Computer Intuition**: Only simple common-sense reasoning about why code works. No scary hardware jargon.
-5. **State Tracking**: Check `progress.json` to keep track of lessons and never repeat completed topics.
-6. **University Alignment**: Curriculum follows BRAC University CSE110 modules exactly.
+The single source of truth is `AGENTS.md` in the repo root. Read it fully before every session and follow it.
+If anything in this folder conflicts with `AGENTS.md`, `AGENTS.md` wins.
+
+Summary (details are in `AGENTS.md`):
+1. Every lesson runs: Orient -> Teach (concept cards) -> Consolidate -> Test -> Review.
+2. Each concept card: exact term -> one-sentence definition -> the idea -> ONE analogy (with where it breaks) -> runnable example with trace -> common mistake and real error message -> book page.
+3. Treat the student as a capable adult. Plain, respectful tone. No baby-talk.
+4. Use real visual diagrams (Python `.png` first), never ASCII art.
+5. Teach from `refs/md/INDEX.md` and the course cut. Never open the PDFs.
+6. Test only after teaching is complete. Pass mark: 80% on levels 1-3 and working code on level 4.
+7. Track progress in `progress.json`. Do not repeat completed lessons; do spaced review instead.
