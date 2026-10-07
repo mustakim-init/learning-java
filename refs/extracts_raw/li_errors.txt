@@ -1,0 +1,240 @@
+
+===== PDF p.42 =====
+1.10  Programming Errors  19
+1.9.2  Proper Indentation and Spacing
+A consistent indentation style makes programs clear and easy to read, debug, and maintain. 
+Indentation is used to illustrate the structural relationships between a program’s components 
+or statements. Java can read the program even if all of the statements are on the same long 
+line, but humans find it easier to read and maintain code that is aligned properly. Indent each 
+subcomponent or statement at least two spaces more than the construct within which it is 
+nested.
+A single space should be added on both sides of a binary operator, as shown in (a), rather 
+in (b).
+System.out.println(3 + 4 * 4);
+System.out.println(3+4*4);
+(a) Good style
+(b) Bad style
+1.9.3  Block Styles
+A block is a group of statements surrounded by braces. There are two popular styles, next-line 
+style and end-of-line style, as shown below.
+public class Test
+{
+  public static void main(String[] args)
+  {
+    System.out.println("Block Styles");
+  }
+}
+public class Test {
+  public static void main(String[] args) {
+    System.out.println("Block Styles");
+  }
+}
+Next-line style
+End-of-line style
+The next-line style aligns braces vertically and makes programs easy to read, whereas the 
+end-of-line style saves space and may help avoid some subtle programming errors. Both are 
+acceptable block styles. The choice depends on personal or organizational preference. You 
+should use a block style consistently—mixing styles is not recommended. This book uses the 
+end-of-line style to be consistent with the Java API source code.
+1.9.1	 Reformat the following program according to the programming style and documen-
+tation guidelines. Use the end-of-line brace style.
+public class Test
+{
+  // Main method
+public static void main(String[] args) {
+  /** Display output */
+  System.out.println("Welcome to Java");
+  }
+}
+1.10  Programming Errors
+Programming errors can be categorized into three types: syntax errors, runtime  
+errors, and logic errors.
+1.10.1  Syntax Errors
+Errors that are detected by the compiler are called syntax errors or compile errors. Syntax 
+errors result from errors in code construction, such as mistyping a keyword, omitting some 
+necessary punctuation, or using an opening brace without a corresponding closing brace. 
+indent code
+Point
+Check
+Point
+Key
+syntax errors
+compile errors
+M01_LIAN9966_12_SE_C01.indd   19
+12/09/19   8:27 PM
+
+===== PDF p.43 =====
+20  Chapter 1    Introduction to Computers, Programs, and Java™
+These errors are usually easy to detect because the compiler tells you where they are and 
+what caused them. For example, the program in Listing 1.4 has a syntax error, as shown in 
+Figure 1.10.
+Listing 1.4 
+ShowSyntaxErrors.java
+1  public class ShowSyntaxErrors {
+2    public static main(String[] args) {
+3      System.out.println("Welcome to Java);
+4    }
+5  }
+Four errors are reported, but the program actually has two errors:
+■
+■The keyword void is missing before main in line 2.
+■
+■The string Welcome to Java should be closed with a closing quotation mark in 
+line 3.
+Since a single error will often display many lines of compile errors, it is a good practice 
+to fix errors from the top line and work downward. Fixing errors that occur earlier in the pro-
+gram may also fix additional errors that occur later.
+Compile
+Figure 1.10  The compiler reports syntax errors.
+Tip
+If you don’t know how to correct an error, compare your program closely, character by 
+character, with similar examples in the text. In the first few weeks of this course, you 
+will probably spend a lot of time fixing syntax errors. Soon you will be familiar with Java 
+syntax, and can quickly fix syntax errors.
+1.10.2  Runtime Errors
+Runtime errors are errors that cause a program to terminate abnormally. They occur while 
+a program is running if the environment detects an operation that is impossible to carry out. 
+Input mistakes typically cause runtime errors. An input error occurs when the program is 
+waiting for the user to enter a value, but the user enters a value that the program cannot han-
+dle. For instance, if the program expects to read in a number, but instead the user enters a 
+string, this causes data-type errors to occur in the program.
+fix syntax errors
+runtime errors
+M01_LIAN9966_12_SE_C01.indd   20
+12/09/19   8:27 PM
+
+===== PDF p.44 =====
+1.10  Programming Errors  21
+Another example of runtime errors is division by zero. This happens when the divisor is 
+zero for integer divisions. For instance, the program in Listing 1.5 would cause a runtime 
+error, as shown in Figure 1.11.
+Listing 1.5 
+ShowRuntimeErrors.java
+1  public class ShowRuntimeErrors {
+2    public static void main(String[] args) {
+3      System.out.println(1 / 0);
+4    }
+5  }
+runtime error
+Run
+Figure 1.11  The runtime error causes the program to terminate abnormally.
+1.10.3  Logic Errors
+Logic errors occur when a program does not perform the way it was intended to. Errors of 
+this kind occur for many different reasons. For example, suppose you wrote the program in 
+Listing 1.6 to convert Celsius 35 degrees to a Fahrenheit degree:
+Listing 1.6 
+ShowLogicErrors.java
+1  public class ShowLogicErrors {
+2    public static void main(String[] args) {
+3      System.out.print("Celsius 35 is Fahrenheit degree ");
+4      System.out.println((9 / 5) * 35 + 32);
+5    }
+6  }
+logic errors
+You will get Fahrenheit 67 degrees, which is wrong. It should be 95.0. In Java, the divi-
+sion for integers is the quotient—the fractional part is truncated—so in Java 9 / 5 is 1. To 
+get the correct result, you need to use 9.0 / 5, which results in 1.8.
+In general, syntax errors are easy to find and easy to correct because the compiler gives 
+indications as to where the errors came from and why they are wrong. Runtime errors are 
+not difficult to find, either, since the reasons and locations for the errors are displayed on 
+the console when the program aborts. Finding logic errors, on the other hand, can be very 
+challenging. In the upcoming chapters, you will learn the techniques of tracing programs and 
+finding logic errors.
+1.10.4  Common Errors
+Missing a closing brace, missing a semicolon, missing quotation marks for strings, and mis-
+spelling names are common errors for new programmers.
+Celsius 35 is Fahrenheit degree 67
+M01_LIAN9966_12_SE_C01.indd   21
+12/09/19   8:27 PM
+
+===== PDF p.45 =====
+22  Chapter 1    Introduction to Computers, Programs, and Java™
+Common Error 1: Missing Braces
+The braces are used to denote a block in the program. Each opening brace must be matched 
+by a closing brace. A common error is missing the closing brace. To avoid this error, type a 
+closing brace whenever an opening brace is typed, as shown in the following example:
+public class Welcome {
+}
+Type this closing brace right away to match the
+opening brace
+public static void main(String[] args) {
+System.out.println("Programming is fun!");
+System.out.println("Fundamentals First");
+System.out.println("Problem Driven")
+}
+Missing a semicolon
+System.out.println("Problem Driven );
+Missing a quotation mark
+public class Test {
+  public static void Main(string[] args) {
+    System.out.println((10.5 + 2 * 3) / (45 - 3.5));
+  }
+}
+If you use an IDE such as NetBeans and Eclipse, the IDE automatically inserts a closing 
+brace for each opening brace typed.
+Common Error 2: Missing Semicolons
+Each statement ends with a statement terminator (;). Often, a new programmer forgets to place 
+a statement terminator for the last statement in a block, as shown in the following example:
+Common Error 3: Missing Quotation Marks
+A string must be placed inside the quotation marks. Often, a new programmer forgets to place 
+a quotation mark at the end of a string, as shown in the following example:
+If you use an IDE such as NetBeans and Eclipse, the IDE automatically inserts a closing 
+quotation mark for each opening quotation mark typed.
+Common Error 4: Misspelling Names
+Java is case sensitive. Misspelling names is a common error for new programmers. For ex-
+ample, the word main is misspelled as Main and String is misspelled as string in the 
+following code:
+1.10.1	
+What are syntax errors (compile errors), runtime errors, and logic errors?
+1.10.2	 Give examples of syntax errors, runtime errors, and logic errors.
+1.10.3	 If you forget to put a closing quotation mark on a string, what kind of error will be 
+raised?
+1.10.4	 If your program needs to read integers, but the user entered strings, an error would 
+occur when running this program. What kind of error is this?
+1.10.5	
+Suppose you write a program for computing the perimeter of a rectangle and you mistak-
+enly write your program so it computes the area of a rectangle. What kind of error is this?
+Point
+Check
+M01_LIAN9966_12_SE_C01.indd   22
+12/09/19   8:27 PM
+
+===== PDF p.46 =====
+1.11  Developing Java Programs Using NetBeans  23
+1.10.6	 Identify and fix the errors in the following code:
+1  public class Welcome {
+2    public void Main(String[] args) {
+3      System.out.println('Welcome to Java!);
+4    }
+5  )
+1.11  Developing Java Programs Using NetBeans
+You can edit, compile, run, and debug Java Programs using NetBeans.
+Note
+Section 1.8 introduced developing programs from the command line. Many of our 
+­readers also use an IDE. This section and next section introduce two most popular Java 
+IDEs: NetBeans and Eclipse. These two sections may be skipped.
+NetBeans and Eclipse are two free popular integrated development environments for developing 
+Java programs. They are easy to learn if you follow simple instructions. We recommend that 
+you use either one for developing Java programs. This section gives the essential instructions to 
+guide new users to create a project, create a class, compile, and run a class in NetBeans. The use 
+of Eclipse will be introduced in the next section. To use JDK 11, you need NetBeans 9 or higher. 
+For instructions on downloading and installing latest version of NetBeans, see Supplement II.B.
+1.11.1  Creating a Java Project
+Before you can create Java programs, you need to first create a project. A project is like a 
+folder to hold Java programs and all supporting files. You need to create a project only once. 
+Here are the steps to create a Java project:
+1.	 Choose File, New Project to display the New Project dialog box, as shown in Figure 1.12.
+2.	 Select Java in the Categories section and Java Application in the Projects section, and 
+then click Next to display the New Java Application dialog box, as shown in Figure 1.13.
+3.	 Type demo in the Project Name field and c:\michael in Project Location field. 
+Uncheck Use Dedicated Folder for Storing Libraries and uncheck Create Main Class.
+4.	 Click Finish to create the project, as shown in Figure 1.14.
+Point
+Key
+VideoNote
+NetBeans brief tutorial
+Figure 1.12  The New Project dialog is used to create a new project and specify a project type.
+Source: Copyright © 1995–2016 Oracle and/or its affiliates. All rights reserved. Used with 
+permission.
+M01_LIAN9966_12_SE_C01.indd   23
+12/09/19   8:27 PM

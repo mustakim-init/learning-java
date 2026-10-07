@@ -21,3 +21,11 @@ Desktop.ini
 # Python visuals
 __pycache__/
 *.pyc
+
+# Editor backups
+*~
+*.bak
+*.swp
+
+# Large reference PDFs - too big for GitHub (keep locally only)
+refs/*.pdf

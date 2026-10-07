@@ -1,0 +1,454 @@
+
+===== PDF p.910 =====
+Objectives
+■
+■To study and analyze time complexity of various sorting algorithms 
+(§§23.2–23.7).
+■
+■To design, implement, and analyze insertion sort (§23.2).
+■
+■To design, implement, and analyze bubble sort (§23.3).
+■
+■To design, implement, and analyze merge sort (§23.4).
+■
+■To design, implement, and analyze quick sort (§23.5).
+■
+■To design and implement a binary heap (§23.6).
+■
+■To design, implement, and analyze heap sort (§23.6).
+■
+■To design, implement, and analyze bucket and radix sorts (§23.7).
+■
+■To design, implement, and analyze external sort for files that have a 
+large amount of data (§23.8).
+Sorting
+CHAPTER
+23
+M23_LIAN9966_12_SE_C23.indd   887
+13/09/19   8:02 AM
+
+===== PDF p.911 =====
+888  Chapter 23    Sorting
+23.1  Introduction
+Sorting algorithms are good examples for studying algorithm design and analysis.
+When president Barack Obama visited Google in 2007, the Google CEO Eric Schmidt 
+asked Obama the most efficient way to sort a million 32-bit integers (www.youtube 
+.com/watch?v=k4RRi_ntQc8). Obama answered that the bubble sort would be the wrong way 
+to go. Was he right? We will examine different sorting algorithms in this chapter and see if he 
+was correct. 
+Sorting is a classic subject in computer science. There are three reasons to study sorting 
+algorithms.
+■
+■First, sorting algorithms illustrate many creative approaches to problem solving, and 
+these approaches can be applied to solve other problems.
+■
+■Second, sorting algorithms are good for practicing fundamental programming tech-
+niques using selection statements, loops, methods, and arrays.
+■
+■Third, sorting algorithms are excellent examples to demonstrate algorithm performance.
+The data to be sorted might be integers, doubles, characters, or objects. Section 7.11, Sorting 
+Arrays, presented selection sort. The selection-sort algorithm was extended to sort an array of 
+objects in Section 19.5, Case Study: Sorting an Array of Objects. The Java API contains 
+­several overloaded sort methods for sorting primitive-type values and objects in the java 
+.util.Arrays and java.util.Collections classes. For simplicity, this chapter assumes
+1.	 data to be sorted are integers,
+2.	 data are stored in an array, and
+3.	 data are sorted in ascending order.
+The programs can be easily modified to sort other types of data, to sort in descending order, 
+or to sort data in an ArrayList or a LinkedList.
+There are many algorithms for sorting. You have already learned selection sort. This chap-
+ter introduces insertion sort, bubble sort, merge sort, quick sort, bucket sort, radix sort, and 
+external sort.
+23.2  Insertion Sort
+The insertion-sort algorithm sorts a list of values by repeatedly inserting a new ele-
+ment into a sorted sublist until the whole list is sorted.
+Figure 23.1 shows how to sort a list {2, 9, 5, 4, 8, 1, 6} using insertion sort. For an interactive 
+demo on how insertion sort works, go to liveexample.pearsoncmg.com/dsanimation/Insertion-
+SortNeweBook.html.
+The algorithm can be described as follows:
+for (int i = 1; i < list.length; i++) {
+  insert list[i] into a sorted sublist list[0..i−1] so that
+  list[0..i] is sorted.
+}
+To insert list[i] into list[0..i−1], save list[i] into a temporary variable, say 
+­currentElement. Move list[i−1] to list[i] if list[i−1] > currentElement, 
+move list[i−2] to list[i−1] if list[i−2] > currentElement, and so on, until 
+list[i−k] <= currentElement or k > i (we pass the first element of the sorted list). 
+Assign currentElement to list[i−k+1]. For example, to insert 4 into {2, 5, 9} in Step 4 in 
+Figure 23.2, move list[2] (9) to list[3] since 9 > 4 and move list[1] (5) to list[2] 
+since 5 > 4. Finally, move currentElement (4) to list[1].
+Point
+Key
+why study sorting?
+what data to sort?
+Point
+Key
+insertion-sort animation on
+Companion Website
+M23_LIAN9966_12_SE_C23.indd   888
+13/09/19   8:02 AM
+
+===== PDF p.912 =====
+23.2  Insertion Sort  889
+Figure 23.1  Insertion sort repeatedly inserts a new element into a sorted sublist.
+Step 1: Initially, the sorted sublist contains the
+first element in the list. Insert 9 into the sublist.
+Step 2: The sorted sublist is {2, 9}. Insert 5 into
+the sublist.
+Step 3: The sorted sublist is {2, 5, 9}. Insert 4
+into the sublist.
+Step 4:  The sorted sublist is {2, 4, 5, 9}. Insert 8
+into the sublist.
+Step 5:  The sorted sublist is {2, 4, 5, 8, 9}.
+Insert 1 into the sublist.
+Step 6:  The sorted sublist is {1, 2, 4, 5, 8, 9}.
+Insert 6 into the sublist.
+Step 7:  The entire list is now sorted.
+2
+2
+2
+2
+2
+1
+1
+9
+9
+5
+4
+4
+2
+2
+5
+5
+9
+5
+5
+4
+4
+4
+4
+4
+9
+8
+5
+5
+8
+8
+8
+8
+9
+8
+6
+1
+1
+1
+1
+1
+9
+8
+6
+6
+6
+6
+6
+6
+9
+The algorithm can be expanded and implemented as in Listing 23.1.
+Listing 23.1 
+InsertionSort.java
+ 1  public class InsertionSort {
+ 2    /** The method for sorting the numbers */
+ 3    public static void insertionSort(int[] list) {
+ 4      for (int i = 1; i < list.length; i++) {
+ 5        /** Insert list[i] into a sorted sublist list[0..i−1] so that
+ 6            list[0..i] is sorted. */
+ 7        int currentElement = list[i];
+ 8        int k;
+ 9        for (k = i − 1; k >= 0 && list[k] > currentElement; k−−) {
+10          list[k + 1] = list[k];
+11        }
+12
+13        // Insert the current element into list[k + 1] 
+14        list[k + 1] = currentElement;
+15      }
+16    }
+17  }
+shift
+insert
+Figure 23.2  A new element is inserted into a sorted sublist.
+[0][1][2][3][4][5]
+2
+list
+5
+9
+4
+[6]
+[0][1][2][3][4][5]
+2
+list
+4
+5
+9
+[6]
+[6]
+[0][1][2][3][4][5]
+[6]
+[0][1][2][3][4][5]
+2
+list
+5
+9
+2
+5
+9
+list
+Step 1: Save 4 to a temporary variable currentElement 
+currentElement:  4
+Step 2: Move list[2] to list[3]
+Step 3: Move list[1] to list[2]
+Step 4: Assign currentElement to list[1]
+M23_LIAN9966_12_SE_C23.indd   889
+13/09/19   8:02 AM
+
+===== PDF p.913 =====
+890  Chapter 23    Sorting
+The insertionSort(int[] list) method sorts an array of int elements. The method is imple-
+mented with a nested for loop. The outer loop (with the loop control variable i) (line 4) is iterated in 
+order to obtain a sorted sublist, which ranges from list[0] to list[i]. The inner loop (with the 
+loop control variable k) inserts list[i] into the sublist from list[0] to list[i−1].
+To better understand this method, trace it with the following statements:
+int[] list = {1, 9, 4, 6, 5, −4};
+InsertionSort.insertionSort(list);
+The insertion-sort algorithm presented here sorts a list of elements by repeatedly inserting a new 
+element into a sorted partial array until the whole array is sorted. At the kth iteration, to insert an 
+element into an array of size k, it may take k comparisons to find the insertion position and k moves 
+to insert the element. Let T(n) denote the complexity for insertion sort, and c denote the total num-
+ber of other operations such as assignments and additional comparisons in each iteration. Thus,
+ T(n) = (2 + c) + (2 * 2 + c) + g + (2 * (n - 1) + c)
+ = 2(1 + 2 + g + n - 1) + c(n - 1)
+ = 2 (n - 1)n
+2
++ cn - c = n2 - n + cn - c
+ = O(n2)
+Therefore, the complexity of the insertion-sort algorithm is O(n2). Hence, the selection and 
+insertion sorts are of the same time complexity.
+	23.2.1	 Describe how an insertion sort works. What is the time complexity for an insertion 
+sort?
+	23.2.2	 Use Figure 23.1 as an example to show how to apply an insertion sort on {45, 11, 
+50, 59, 60, 2, 4, 7, 10}.
+	23.2.3	 If a list is already sorted, how many comparisons will the insertionSort method 
+perform?
+23.3  Bubble Sort
+A bubble sort sorts the array in multiple passes. Each pass successively swaps the 
+neighboring elements if the elements are not in order.
+The bubble-sort algorithm makes several passes through the array. On each pass, successive 
+neighboring pairs are compared. If a pair is in decreasing order, its values are swapped; other-
+wise, the values remain unchanged. The technique is called a bubble sort or sinking sort 
+because the smaller values gradually “bubble” their way to the top and the larger values sink 
+to the bottom. After the first pass, the last element becomes the largest in the array. After the 
+second pass, the second-to-last element becomes the second largest in the array. This process 
+is continued until all elements are sorted.
+Figure 23.3a shows the first pass of a bubble sort on an array of six elements (2 9 5 4 
+8 1). Compare the elements in the first pair (2 and 9) and no swap is needed because they 
+are already in order. Compare the elements in the second pair (9 and 5) and swap 9 with 5 
+because 9 is greater than 5. Compare the elements in the third pair (9 and 4) and swap 9 
+with 4. Compare the elements in the fourth pair (9 and 8) and swap 9 with 8. Compare the 
+elements in the fifth pair (9 and 1) and swap 9 with 1. The pairs being compared are high-
+lighted and the numbers already sorted are italicized in Figure 23.3. For an interactive demo 
+on how bubble sort works, go to liveexample.pearsoncmg.com/dsanimation/BubbleSort-
+NeweBook.html.
+insertion-sort time
+complexity
+Point
+Check
+Point
+Key
+bubble sort
+bubble-sort illustration
+bubble sort animation on the
+Companion Website
+M23_LIAN9966_12_SE_C23.indd   890
+13/09/19   8:02 AM
+
+===== PDF p.914 =====
+23.3  Bubble Sort  891
+The first pass places the largest number (9) as the last in the array. In the second pass, as 
+shown in Figure 23.3b, you ­compare and order pairs of elements sequentially. There is no need 
+to consider the last pair because the last element in the array is already the largest. In the third 
+pass, as shown in Figure 23.3c, you compare and order pairs of elements sequentially except 
+the last two elements because they are already in order. Thus, in the kth pass, you don’t need 
+to consider the last k - 1 elements because they are already ordered.
+The algorithm for a bubble sort is described in Listing 23.2.
+Listing 23.2 
+Bubble-Sort Algorithm
+1  for (int k = 1; k < list.length; k++) {
+2    // Perform the kth pass
+3    for (int i = 0; i < list.length − k; i++) {
+4      if (list[i] > list[i + 1])
+5        swap list[i] with list[i + 1];
+6    }
+7  }
+Note if no swap takes place in a pass, there is no need to perform the next pass because all the 
+elements are already sorted. You can use this property to improve the algorithm in Listing 23.2, 
+as in Listing 23.3.
+Listing 23.3 
+Improved Bubble-Sort Algorithm
+ 1  boolean needNextPass = true;
+ 2  for (int k = 1; k < list.length && needNextPass; k++) {
+ 3    // Array may be sorted and next pass not needed
+ 4    needNextPass = false;
+ 5    // Perform the kth pass
+ 6    for (int i = 0; i < list.length – k; i++) {
+ 7      if (list[i] > list[i + 1]) {
+ 8        swap list[i] with list[i + 1];
+ 9        needNextPass = true; // Next pass still needed
+10      }
+11    }
+12  }
+The algorithm can be implemented in Listing 23.4.
+Listing 23.4 
+BubbleSort.java
+ 1  public class BubbleSort {
+ 2    /** Bubble sort method */
+ 3    public static void bubbleSort(int[] list) {
+ 4      boolean needNextPass = true;
+ 5  
+ 6      for (int k = 1; k < list.length && needNextPass; k++) {
+ 7        // Array may be sorted and next pass not needed
+ 8        needNextPass = false; 
+ 9        for (int i = 0; i < list.length − k; i++) {
+algorithm
+perform one pass
+Figure 23.3  Each pass compares and orders the pairs of elements sequentially.
+(a) 1st pass
+(b) 2nd pass
+(c) 3rd pass
+(d) 4th pass
+(e) 5th pass
+2 5 9 4 8 1
+2
+4
+8 1
+5
+9
+2
+4
+9 1
+5
+8
+2
+4
+1 9
+5
+8
+2
+5
+8 1
+9
+4
+2
+5
+8 9
+4
+1
+2
+5
+8 9
+4
+1
+2
+1
+8 9
+4
+5
+2
+4
+8 9
+1
+5
+2
+1
+8 9
+4
+5
+1
+4
+8 9
+2
+5
+2
+4
+1 9
+5
+8
+2 4 5 8 1 9
+2 4 5 8 1 9
+2 4 5 1 8 9
+M23_LIAN9966_12_SE_C23.indd   891
+13/09/19   8:02 AM
+
+===== PDF p.915 =====
+892  Chapter 23    Sorting
+10          if (list[i] > list[i + 1]) {
+11            // Swap list[i] with list[i + 1] 
+12            int temp = list[i];
+13            list[i] = list[i + 1];
+14            list[i + 1] = temp;
+15     
+16            needNextPass = true; // Next pass still needed 
+17          }
+18        }
+19      }
+20    }
+21
+22    /** A test method */ 
+23    public static void main(String[] args) {
+24      int[] list = {2, 3, 2, 5, 6, 1, −2, 3, 14, 12};
+25      bubbleSort(list); 
+26      for (int i = 0; i < list.length; i++)
+27        System.out.print(list[i] + " ");
+28    }
+29  }
+−2 1 2 2 3 3 5 6 12 14
+In the best case, the bubble-sort algorithm needs just the first pass to find that the array is 
+already sorted—no next pass is needed. Since the number of comparisons is n - 1 in the first 
+pass, the best-case time for a bubble sort is O(n).
+In the worst case, the bubble-sort algorithm requires n - 1 passes. The first pass makes 
+n - 1 comparisons, the second pass makes n - 2 comparisons, and so on; the last pass makes 
+1 comparison. Thus, the total number of comparisons is as follows:
+(n - 1) + (n - 2) + g + 2 + 1
+= (n - 1)n
+2
+= n2
+2 - n
+2 = O(n2)
+Therefore, the worst-case time for a bubble sort is O(n2).
+	23.3.1	 Describe how a bubble sort works. What is the time complexity for a bubble sort?
+	23.3.2	 Use Figure 23.3 as an example to show how to apply a bubble sort on {45, 11, 50, 
+59, 60, 2, 4, 7, 10}.
+	23.3.3	 If a list is already sorted, how many comparisons will the bubbleSort method 
+perform?
+23.4  Merge Sort
+The merge-sort algorithm can be described recursively as follows: The algorithm 
+divides the array into two halves and applies a merge sort on each half recursively. 
+After the two halves are sorted, the algorithm then merges them.
+The algorithm for a merge sort is given in Listing 23.5.
+Listing 23.5 
+Merge-Sort Algorithm
+1  public static void mergeSort(int[] list) {
+2    if (list.length > 1) {
+3      mergeSort(list[0 ... list.length / 2);
+4      mergeSort(list[list.length / 2 + 1 ... list.length]);
+5      merge list[0 ... list.length / 2] with
+bubble-sort time complexity
+Point
+Check
+Point
+Key
+merge sort
+base condition
+sort first half
+sort second half
+merge two halves
+M23_LIAN9966_12_SE_C23.indd   892
+13/09/19   8:02 AM

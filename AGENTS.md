@@ -10,6 +10,26 @@
 
 ---
 
+## 0. VARSITY SOURCE OF TRUTH (READ THIS FIRST — PERSISTENT)
+
+All AI agents MUST consult the student's actual varsity materials before teaching anything:
+
+1. **Always check `refs/` folder** at session start (in addition to `progress.json` / `CURRENT_SESSION.md` / `curriculum/roadmap.json`):
+   - `refs/CSE110 Topic Wise Mapping.xlsx` — the master topic-to-book mapping. This decides WHAT to teach and what page ranges are in scope. Never teach beyond the mapped pages.
+   - Reference books (PDFs, use sparingly, only mapped pages):
+     - `1_Java The Complete Reference, 12E (Herbert Schildt).pdf`
+     - `2_Head First Java, 3E (Kathy Sierra, Bert Bates, and Trisha Gee).pdf`
+     - `Introduction to Java Programming and Data Structures -- Y. Daniel Liang -- 12E.pdf`
+   - Online copy of the same mapping: https://docs.google.com/spreadsheets/d/1XQw5U9WRe6vTKmzNiJO7M9O_WTLTUVdnN947A_8WHzA/edit?gid=0#gid=0
+   - **Token rule — NEVER open the PDFs directly (3,700 pages).** Instead read `refs/extracts/INDEX.md` + the small distilled file for the current lesson (e.g. `refs/extracts/M2_L1_variables.md`). If no distilled file exists for your lesson, read ONLY that lesson's `refs/extracts_raw/*.txt` file(s), distill into a ≤120-line `refs/extracts/<LESSON>.md`, then teach from it.
+2. **Coverage rule (NOT order rule):** The mapping decides WHAT must be covered (checklist), NOT the teaching order. Teaching order always follows `curriculum/roadmap.json` learning-optimized sequence (e.g. Scanner early for interactive programs, even though varsity lists it later). If the mapping says e.g. M1_L3 = Complete Reference Ch2 (pg10, pg27-31, pg34-38) + Head First Ch1 (pg2,7-9) + Liang Ch1 (1.6,1.7,1.8) — cover all that, but in roadmap order. Do not add advanced topics from outside those pages except as marked Bonus.
+3. **Student-verified preferences (do not ask again):**
+   - Python-generated `.png` diagrams are PRIMARY (clear arrows). HTML interactive visuals are bonus only.
+   - AI pre-creates starter files only to verify setup — the STUDENT must still compile/run them themselves. Never claim the student wrote code the AI wrote.
+4. **Do NOT store these rules in `CURRENT_SESSION.md`** — that file is temporary and gets overwritten. This section here in `AGENTS.md` is the permanent home.
+
+---
+
 ## 1. CORE TEACHING STYLE & RULES
 
 ### Rule 1: Use Everyday, Real-World Analogies First
@@ -72,7 +92,7 @@ After creating a visual file, tell the student:
 ## 2. AGENT BOOTSTRAP PROTOCOL (Every Session)
 
 Whenever a conversation starts in ANY AI tool (Antigravity, OpenCode, Claude Code, Cursor, etc.):
-1. **Read `progress.json` and `CURRENT_SESSION.md`**:
+1. **Read Section 0 (Varsity Source of Truth) + `refs/` mapping first**, then **read `progress.json` and `CURRENT_SESSION.md`**:
    - Check `current_position.lesson_id` and `current_position.lesson_title`.
    - Read `CURRENT_SESSION.md` to pick up the exact context of the last conversation.
    - Never repeat completed lessons in `completed_lessons`.
