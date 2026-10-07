@@ -1,414 +1,496 @@
 {
-  "curriculum_version": "3.0.0",
-  "title": "CSE110: Programming Language I (Java) — BRAC University Aligned",
-  "description": "Beginner-friendly Java course with real visual diagrams (Python + HTML/JS). Aligned with BRAC University CSE110 modules. Spoon-fed with everyday analogies.",
+  "curriculum_version": "4.0.0",
+  "title": "CSE110: Programming Language I (Java), BRAC University",
+  "description": "Teaching order for the Java course. Coverage is checked against 'CSE110 Topic Wise Mapping.xlsx'. Every lesson is taught with the loop in AGENTS.md: Orient, Teach (concept cards), Consolidate, Test, Review.",
+  "conventions": {
+    "refs": "Printed book pages and section numbers. CR = Complete Reference, HF = Head First, LI = Liang. Read refs/md/INDEX.md and the topic's course cut first.",
+    "core": "true = in the CSE110 mapping and examinable. false = extra or optional: teach only after the core lessons of the module, and say it is beyond the course.",
+    "practice": "true = integration lesson with no new terms.",
+    "terms": "Exact vocabulary the lesson must teach. Used for Phase A (goals) and Test level 1 (terminology).",
+    "analogies": "Suggested ONE analogy per concept (AGENTS.md Rule 1). Always give the mapping and where it breaks.",
+    "test": "Blueprint for Test levels 2-5. Level 1 comes from 'terms'. Mastery gate: 80% on levels 1-3 and all level-4 programs working."
+  },
+  "legacy_id_map": {
+    "M2_L3": "merged into M1_L3 (printing, comments) and M2_L3 (now constants and type conversion)",
+    "M4_L2": "moved to M2_L4 (errors appear as soon as variables do)",
+    "M5_L2": "ternary moved to M3_L3; switch is now optional M5_L3",
+    "M9_*": "arrays are now Module 10 (methods come first)",
+    "M10_*": "methods are now Module 9"
+  },
   "phases": [
     {
       "id": "module_1",
-      "name": "Module 1: Flowchart",
-      "summary": "Learning to plan solutions visually before writing any code — like drawing a map before a road trip.",
+      "name": "Module 1: Flowcharts and Your First Program",
+      "summary": "Plan with flowcharts, then run the first Java program.",
       "lessons": [
         {
-          "id": "M1_L1",
-          "title": "What is Programming & What are Flowcharts?",
-          "objectives": [
-            "Understand what programming is (giving step-by-step instructions to an obedient robot)",
-            "Why we plan with flowcharts before coding (drawing a map before driving)",
-            "The basic flowchart shapes: Oval (Start/End), Rectangle (Action), Diamond (Decision), Arrow (Flow)",
-            "Drawing your first flowchart: Making a cup of tea"
-          ],
-          "analogy": "A flowchart is a GPS map for your program — it shows every turn and decision before you start driving.",
-          "visuals": ["flowchart_shapes.html", "tea_flowchart.py"],
-          "estimated_minutes": 40
+          "id": "M1_L1", "title": "What Is Programming and What Are Flowcharts?", "core": true,
+          "terms": ["program", "algorithm", "flowchart", "start/end symbol", "process symbol", "decision symbol", "flow arrow"],
+          "objectives": ["Programming as writing exact step-by-step instructions", "Why plan with a flowchart first", "The four basic flowchart symbols", "Draw a flowchart for making tea"],
+          "analogies": {"flowchart": "a map you draw before the trip"},
+          "refs": "No book source (mapping: N/A). Teach from scratch.",
+          "prerequisites": [],
+          "test": {"trace": "follow a given flowchart with sample inputs", "write_code": "draw a flowchart for a daily routine", "mini": "flowchart for withdrawing cash from an ATM"},
+          "visuals": ["flowchart_shapes.html", "tea_flowchart.py"], "estimated_minutes": 40
         },
         {
-          "id": "M1_L2",
-          "title": "Flowcharts with Decisions and Loops",
-          "objectives": [
-            "Drawing flowcharts that make decisions (Diamond shape: Yes/No paths)",
-            "Drawing flowcharts that repeat steps (loops)",
-            "Converting a real-world problem into a flowchart step-by-step",
-            "Practice: Flowchart for checking if a number is even or odd"
-          ],
-          "analogy": "The diamond shape is a fork in the road — you check a condition and go left or right.",
-          "visuals": ["decision_flowchart.html", "loop_flowchart.py"],
-          "estimated_minutes": 45
+          "id": "M1_L2", "title": "Flowcharts with Decisions and Loops", "core": true,
+          "terms": ["decision", "condition", "branch", "loop", "iteration"],
+          "objectives": ["Decision symbol with Yes/No paths", "Loops in a flowchart", "Turn a word problem into a flowchart", "Flowchart: even or odd"],
+          "analogies": {"decision": "a fork in the road", "loop": "keep stirring until the sugar dissolves"},
+          "refs": "No book source (mapping: N/A).",
+          "prerequisites": ["M1_L1"],
+          "test": {"trace": "trace a flowchart with a loop", "spot_error": "find the missing arrow or missing Yes/No label", "mini": "flowchart for the largest of three numbers"},
+          "visuals": ["decision_flowchart.html", "loop_flowchart.py"], "estimated_minutes": 45
         },
         {
-          "id": "M1_L3",
-          "title": "Introduction to Java & Your First Program",
-          "objectives": [
-            "How Java code runs: javac (proofreader) → java (executor)",
-            "Writing and running Hello World",
-            "What each piece means: class, main, System.out.println, semicolons",
-            "Connecting flowcharts to actual Java code"
-          ],
-          "analogy": "javac is the strict spell-checker, java is the robot that follows the checked recipe.",
-          "visuals": ["java_execution_flow.html"],
-          "estimated_minutes": 45
+          "id": "M1_L3", "title": "Introduction to Java and Your First Program", "core": true,
+          "terms": ["source code", "compiler", "bytecode", "JVM", "class", "main method", "statement", "block", "keyword", "println", "comment"],
+          "objectives": ["javac turns source code into bytecode; the JVM runs it", "Anatomy of Hello World", "System.out.println vs print", "Single-line and multi-line comments", "Keywords and code blocks"],
+          "analogies": {"compiler": "a strict proofreader before the book is printed", "JVM": "an interpreter who can read bytecode on any machine"},
+          "refs": "CR p.10, 27-31, 34-38; HF p.2, 7-9; LI 1.6-1.8",
+          "prerequisites": ["M1_L2"],
+          "test": {"trace": "predict the output of 3 print/println sequences", "spot_error": "missing semicolon, wrong class name, missing brace", "write_code": "print your name and a 3-line pattern", "mini": "program that prints a small formatted receipt using println/print and comments"},
+          "visuals": ["java_execution_flow.html"], "estimated_minutes": 50
         }
       ]
     },
     {
       "id": "module_2",
-      "name": "Module 2: Variables & Data Types",
-      "summary": "Teaching the computer to remember things using labeled boxes that only hold specific types of stuff.",
+      "name": "Module 2: Variables and Data Types",
+      "summary": "Store values with the right type, convert safely, and read compiler errors.",
       "lessons": [
         {
-          "id": "M2_L1",
-          "title": "Variables: Labeled Boxes in the Computer's Memory",
-          "objectives": [
-            "What is a variable? (A labeled box that stores one value)",
-            "Declaring and initializing variables in Java",
-            "Naming rules: Why you can't start a name with a number",
-            "Changing the value inside a variable (reassignment)"
-          ],
-          "analogy": "A variable is like a labeled jar on a kitchen shelf — 'sugar' jar holds sugar, 'salt' jar holds salt.",
-          "visuals": ["variable_boxes.html", "variable_memory.py"],
-          "estimated_minutes": 40
+          "id": "M2_L1", "title": "Variables and Identifiers", "core": true,
+          "terms": ["variable", "declaration", "initialization", "assignment", "assignment operator", "identifier", "naming convention", "camelCase"],
+          "objectives": ["Declare, initialize, and reassign a variable", "'=' means store, not equals", "Identifier rules and why a name cannot start with a digit", "Naming conventions"],
+          "analogies": {"variable": "a labeled locker", "assignment": "replace what is inside the locker"},
+          "refs": "LI 2.4, 2.5, 2.6, 2.8; CR p.39-45, 48-55; HF p.49-53",
+          "prerequisites": ["M1_L3"],
+          "test": {"trace": "values of variables after 6 assignment lines (trace table)", "spot_error": "illegal names, use before assignment, redeclaration", "write_code": "swap two variables using a third", "mini": "program that stores and prints a student profile"},
+          "visuals": ["variable_boxes.html", "variable_memory.py"], "estimated_minutes": 45
         },
         {
-          "id": "M2_L2",
-          "title": "Data Types: The Shape of the Box Matters",
-          "objectives": [
-            "int (whole numbers), double (decimals), char (single letter), boolean (true/false), String (text)",
-            "Why you can't put text into a number box (type safety)",
-            "Type casting: Converting one type to another carefully",
-            "Printing and combining different types with +"
-          ],
-          "analogy": "A coin slot only accepts coins, not paper — the shape of the opening decides what fits.",
-          "visuals": ["data_types_visual.html", "type_boxes.py"],
-          "estimated_minutes": 50
+          "id": "M2_L2", "title": "Primitive Data Types and Literals", "core": true,
+          "terms": ["data type", "primitive type", "int", "double", "char", "boolean", "byte", "short", "long", "float", "literal", "range", "overflow", "String (preview)"],
+          "objectives": ["The 8 primitive types and what each holds", "Ranges and why overflow happens", "Integer vs floating-point literals, L and f suffixes", "Why Java checks types"],
+          "analogies": {"data type": "the shape of the opening decides what fits", "overflow": "an odometer rolling past its last digit"},
+          "refs": "LI 2.9 (Table 2.1 only), 2.10.1, 2.10.2; CR p.39-45; HF p.49-53",
+          "prerequisites": ["M2_L1"],
+          "test": {"trace": "which type fits which value", "spot_error": "int x = 3.5; boolean b = 1; missing L on a big literal", "write_code": "declare one variable of each type with a sensible value", "mini": "store and print a product record using suitable types"},
+          "visuals": ["data_types_visual.html", "type_boxes.py"], "estimated_minutes": 50
         },
         {
-          "id": "M2_L3",
-          "title": "Printing Output & Writing Comments",
-          "objectives": [
-            "System.out.println vs System.out.print (with newline vs without)",
-            "Printing variables alongside text",
-            "Single-line comments (//) and multi-line comments (/* */)",
-            "Why comments are your future-self's best friend"
-          ],
-          "analogy": "Comments are sticky notes on a recipe that the chef ignores — they are just for you to remember why you did something.",
-          "visuals": ["print_demo.html"],
-          "estimated_minutes": 30
+          "id": "M2_L3", "title": "Named Constants and Type Conversion", "core": true,
+          "terms": ["constant", "final", "widening conversion", "narrowing conversion", "cast", "implicit conversion", "explicit conversion", "precision loss"],
+          "objectives": ["final constants and naming style", "Small to big converts automatically", "Big to small needs a cast and can lose data", "Why 'int x = 24; byte b = x;' does not compile"],
+          "analogies": {"narrowing": "pouring a big cup into a small one can spill"},
+          "refs": "LI 2.7, 2.16; HF p.52 ('You really don't want to spill that'); CR p.48-55",
+          "prerequisites": ["M2_L2"],
+          "test": {"trace": "result of mixed int/double expressions and casts", "spot_error": "missing cast, assigning to a final", "write_code": "convert Celsius to Fahrenheit with correct types", "mini": "area and circumference of a circle with a constant PI"},
+          "visuals": ["type_conversion.py"], "estimated_minutes": 45
+        },
+        {
+          "id": "M2_L4", "title": "Understanding Errors: Syntax, Runtime, Logic", "core": true,
+          "terms": ["syntax error", "compile-time error", "runtime error", "exception", "logic error", "bug", "debugging"],
+          "objectives": ["Three kinds of errors and when each appears", "Read a compiler message: file, line, caret, text", "Fix errors one at a time", "Logic errors: correct run, wrong answer"],
+          "analogies": {"syntax error": "misspelled word in a recipe", "runtime error": "the oven fails mid-bake", "logic error": "salt instead of sugar: it bakes fine but tastes wrong"},
+          "refs": "LI 1.10.1-1.10.4; CR p.13-14 ('Robust')",
+          "prerequisites": ["M2_L3"],
+          "test": {"spot_error": "classify 6 snippets as syntax/runtime/logic and fix them", "trace": "find why the output is wrong", "write_code": "fix a broken program given only the error message", "mini": "debug a 15-line program with one error of each kind"},
+          "visuals": ["error_types.html", "error_flowchart.py"], "estimated_minutes": 40
         }
       ]
     },
     {
       "id": "module_3",
       "name": "Module 3: Operators",
-      "summary": "Using the computer as a powerful calculator — math, comparisons, and logic.",
+      "summary": "Arithmetic, comparison, logic, and how expressions are evaluated.",
       "lessons": [
         {
-          "id": "M3_L1",
-          "title": "Arithmetic Operators: The Computer's Calculator",
-          "objectives": [
-            "Addition (+), Subtraction (-), Multiplication (*), Division (/)",
-            "Integer division trap: Why 5 / 2 = 2 and how to get 2.5",
-            "Modulo (%): Finding remainders (useful for even/odd checks)",
-            "Increment (++) and Decrement (--) shortcuts"
-          ],
-          "analogy": "Integer division is like cutting a pizza into whole slices — no half-slices unless you ask for decimals.",
-          "visuals": ["calculator_demo.html", "integer_division.py"],
-          "estimated_minutes": 45
+          "id": "M3_L1", "title": "Arithmetic and Assignment Operators", "core": true,
+          "terms": ["operator", "operand", "integer division", "modulus (remainder)", "augmented assignment", "increment", "decrement", "prefix vs postfix", "Math.pow"],
+          "objectives": ["+ - * / %", "Why 5 / 2 is 2 and how to get 2.5", "Even/odd check with %", "+=, -=, *=, /=, %=", "++ and -- in prefix and postfix form", "Exponents with Math.pow"],
+          "analogies": {"integer division": "whole pizza slices only, the remainder is the leftover", "modulus": "the leftover after dealing cards equally"},
+          "refs": "LI 2.9.2, 2.9.3, 2.14, 2.15; CR p.67-75 (until shifts)",
+          "prerequisites": ["M2_L3"],
+          "test": {"trace": "value of x after a chain of ++, --, +=", "spot_error": "integer-division bug in an average", "write_code": "digits of a 3-digit number using / and %", "mini": "convert total seconds into hours, minutes, seconds"},
+          "visuals": ["calculator_demo.html", "integer_division.py"], "estimated_minutes": 50
         },
         {
-          "id": "M3_L2",
-          "title": "Comparison & Logical Operators",
-          "objectives": [
-            "Comparison: == (equal?), != (not equal?), >, <, >=, <=",
-            "The critical difference: = (put in box) vs == (check if same)",
-            "Logical AND (&&), OR (||), NOT (!)",
-            "Combining conditions: 'Is age > 18 AND has license?'"
-          ],
-          "analogy": "= is like putting a letter IN a mailbox. == is like asking 'Is there a letter in the mailbox?'",
-          "visuals": ["comparison_demo.html", "logic_gates.py"],
-          "estimated_minutes": 45
+          "id": "M3_L2", "title": "Relational and Logical Operators", "core": true,
+          "terms": ["boolean expression", "relational operator", "logical operator", "AND (&&)", "OR (||)", "NOT (!)", "truth table", "short-circuit evaluation"],
+          "objectives": ["== != > < >= <=", "= stores, == compares", "Combine conditions with && || !", "Truth tables", "Short-circuit evaluation"],
+          "analogies": {"AND": "both locks must open", "OR": "either key works"},
+          "refs": "LI 3.2, 3.10; CR p.80-83",
+          "prerequisites": ["M3_L1"],
+          "test": {"trace": "evaluate 6 boolean expressions with given values", "spot_error": "'if (x = 5)' style mistakes, 1 < x < 10 written wrongly", "write_code": "boolean expression for 'is a leap year'", "mini": "expression that validates a login rule"},
+          "visuals": ["comparison_demo.html", "logic_gates.py"], "estimated_minutes": 45
+        },
+        {
+          "id": "M3_L3", "title": "Precedence, Associativity, and the Conditional Operator", "core": true,
+          "terms": ["operator precedence", "associativity", "parentheses", "conditional operator (?:)"],
+          "objectives": ["Order of evaluation in mixed expressions", "Use parentheses to be clear", "Left-to-right vs right-to-left associativity", "The conditional operator as a short if-else"],
+          "analogies": {"precedence": "multiplication goes first like the 'priority lane'"},
+          "refs": "LI 2.12, 3.14, 3.15; CR p.85. Bitwise operators (CR p.67-75) are optional.",
+          "prerequisites": ["M3_L2"],
+          "test": {"trace": "evaluate 5 tricky mixed expressions by hand", "spot_error": "missing parentheses changing the meaning", "write_code": "max of two numbers with ?:", "mini": "evaluate and then verify by running a long expression"},
+          "visuals": ["precedence_table.py"], "estimated_minutes": 40
         }
       ]
     },
     {
       "id": "module_4",
-      "name": "Module 4: User Input & Errors in Java",
-      "summary": "Making your programs interactive — listening to what the user types, and understanding error messages.",
+      "name": "Module 4: User Input",
+      "summary": "Make programs interactive.",
       "lessons": [
         {
-          "id": "M4_L1",
-          "title": "Scanner: Giving the Computer Ears",
-          "objectives": [
-            "Importing Scanner (import java.util.Scanner)",
-            "Reading text (nextLine), numbers (nextInt, nextDouble) from keyboard",
-            "Building an interactive greeting program",
-            "Building a simple calculator that asks the user for 2 numbers"
-          ],
-          "analogy": "Scanner is like giving your robot a microphone — now it can listen to you!",
-          "visuals": ["scanner_flow.html"],
-          "estimated_minutes": 50
+          "id": "M4_L1", "title": "Scanner: Reading Input", "core": true,
+          "terms": ["input", "Scanner", "System.in", "import", "package", "token", "prompt", "nextInt / nextDouble / nextLine"],
+          "objectives": ["import java.util.Scanner and create a Scanner", "Read int, double, String, and a char", "The nextInt then nextLine newline trap", "Always prompt before you read"],
+          "analogies": {"Scanner": "a microphone attached to the keyboard"},
+          "refs": "CR p.691-695; LI 4.4.5, 4.4.6 (reading String and char). LI 2.3 and 2.9.1 are extra but useful.",
+          "prerequisites": ["M3_L3"],
+          "test": {"trace": "what is stored given typed input", "spot_error": "missing import, nextLine skipped after nextInt", "write_code": "read two numbers and print their average", "mini": "greeting plus age-in-days calculator"},
+          "visuals": ["scanner_flow.html"], "estimated_minutes": 50
         },
         {
-          "id": "M4_L2",
-          "title": "Understanding Errors: Syntax, Runtime & Logic Errors",
-          "objectives": [
-            "Syntax Errors: Typos the compiler catches before running (missing semicolons, wrong brackets)",
-            "Runtime Errors: Crashes that happen while running (dividing by zero, wrong input type)",
-            "Logic Errors: The program runs but gives the wrong answer (the trickiest kind!)",
-            "How to read error messages calmly and fix bugs step by step"
-          ],
-          "analogy": "Syntax error = misspelled word in a recipe. Runtime error = the oven explodes. Logic error = you baked a cake but it tastes like salt because you mixed up sugar and salt.",
-          "visuals": ["error_types.html", "error_flowchart.py"],
-          "estimated_minutes": 40
+          "id": "M4_L2", "title": "Mini-Project: Interactive Calculator and Converters", "core": true, "practice": true,
+          "terms": [],
+          "objectives": ["Combine variables, types, operators, and input", "Plan with a flowchart, then code it, then test with sample inputs"],
+          "refs": "Integration of Modules 2-4",
+          "prerequisites": ["M4_L1"],
+          "test": {"write_code": "tip calculator", "mini": "unit converter menu using only straight-line code"},
+          "visuals": [], "estimated_minutes": 50
         }
       ]
     },
     {
       "id": "module_5",
-      "name": "Module 5: Branching (Conditional Statements)",
-      "summary": "Teaching your program to make decisions — like choosing which road to take at a fork.",
+      "name": "Module 5: Branching",
+      "summary": "Programs that decide.",
       "lessons": [
         {
-          "id": "M5_L1",
-          "title": "if, else if, and else: The Decision Maker",
-          "objectives": [
-            "The if statement: Do something only when a condition is true",
-            "The else branch: What to do when the condition is false",
-            "Chaining decisions with else if for multiple options",
-            "Nested if statements: Decisions inside decisions"
-          ],
-          "analogy": "If it's raining → bring umbrella. Else if it's sunny → wear sunglasses. Else → just go out normally.",
-          "visuals": ["branching_flowchart.html", "if_else_visual.py"],
-          "estimated_minutes": 50
+          "id": "M5_L1", "title": "if and if-else", "core": true,
+          "terms": ["selection statement", "if statement", "else", "condition", "block", "braces"],
+          "objectives": ["if", "if-else", "Braces and indentation", "Common mistakes: semicolon after if, = instead of =="],
+          "analogies": {"if-else": "a fork in the road"},
+          "refs": "LI 3.3, 3.4; CR p.87-90; HF p.15",
+          "prerequisites": ["M4_L2", "M3_L2"],
+          "test": {"trace": "which branch runs for given inputs", "spot_error": "semicolon after if, missing braces, = vs ==", "write_code": "even/odd and positive/negative/zero", "mini": "pass/fail with a grade message"},
+          "visuals": ["branching_flowchart.html", "if_else_visual.py"], "estimated_minutes": 45
         },
         {
-          "id": "M5_L2",
-          "title": "switch Statement & Ternary Operator",
-          "objectives": [
-            "The switch statement for choosing between many fixed options",
-            "When to use switch vs if-else chains",
-            "The ternary operator (? :) as a shortcut for simple if-else",
-            "Practice: Grade calculator and day-of-week printer"
-          ],
-          "analogy": "switch is like a vending machine — press button A1, A2, A3 to get different snacks.",
-          "visuals": ["switch_visual.html"],
-          "estimated_minutes": 45
+          "id": "M5_L2", "title": "Nested if and Multi-Way if-else", "core": true,
+          "terms": ["nested if", "multi-way if-else", "else-if ladder", "dangling else"],
+          "objectives": ["if inside if", "else-if ladder for ranges", "The dangling else rule", "Choose between nested and multi-way"],
+          "analogies": {"else-if ladder": "stairs: stop at the first step that fits"},
+          "refs": "LI 3.5; CR p.89",
+          "prerequisites": ["M5_L1"],
+          "test": {"trace": "output for 4 inputs through a ladder", "spot_error": "wrong order of ranges, dangling else", "write_code": "grade letter from marks", "mini": "simple tax-slab or ticket-price calculator"},
+          "visuals": ["nested_if_visual.py"], "estimated_minutes": 50
+        },
+        {
+          "id": "M5_L3", "title": "OPTIONAL: switch Statement", "core": false,
+          "terms": ["switch", "case", "break", "default", "fall-through"],
+          "objectives": ["Choose among fixed values", "Why break matters", "switch vs if-else"],
+          "refs": "Not in the mapping (CR p.90-95 follows the mapped range). Teach only if time allows.",
+          "prerequisites": ["M5_L2"],
+          "test": {"trace": "fall-through output", "write_code": "day-of-week name", "mini": "simple menu"},
+          "visuals": ["switch_visual.html"], "estimated_minutes": 35
         }
       ]
     },
     {
       "id": "module_6",
-      "name": "Module 6: Iterations (Loops)",
-      "summary": "Making the computer repeat tasks automatically — no more copy-pasting the same code 100 times!",
+      "name": "Module 6: Loops",
+      "summary": "Repeat work with while, do-while, and for.",
       "lessons": [
         {
-          "id": "M6_L1",
-          "title": "while Loop: Keep Going Until Done",
-          "objectives": [
-            "Structure of a while loop: condition → body → repeat",
-            "Counter-controlled loops (counting from 1 to 10)",
-            "Sentinel-controlled loops (keep going until user says stop)",
-            "The danger of infinite loops and how to avoid them"
-          ],
-          "analogy": "While there are dirty dishes → wash one dish → check again. When the sink is empty, stop.",
-          "visuals": ["while_loop_animation.html", "loop_flowchart.py"],
-          "estimated_minutes": 50
+          "id": "M6_L1", "title": "while Loops and Loop Design", "core": true,
+          "terms": ["iteration", "loop", "loop body", "loop condition", "counter-controlled loop", "sentinel-controlled loop", "infinite loop", "off-by-one error"],
+          "objectives": ["Structure of while", "Counter and sentinel loops", "Loop design: what repeats, when does it stop", "Infinite loops and off-by-one"],
+          "analogies": {"while": "while dishes remain, wash one"},
+          "refs": "LI 5.1, 5.2, 5.4; CR p.95-99; HF p.13-14",
+          "prerequisites": ["M5_L2"],
+          "test": {"trace": "trace table of a loop for 5 iterations", "spot_error": "missing update, wrong condition, off-by-one", "write_code": "sum 1..n and count digits", "mini": "read numbers until -1 then print the average"},
+          "visuals": ["while_loop_animation.html", "loop_flowchart.py"], "estimated_minutes": 55
         },
         {
-          "id": "M6_L2",
-          "title": "for Loop: Counting with Precision",
-          "objectives": [
-            "The 3 parts: initialization; condition; update",
-            "Counting upwards and counting backwards",
-            "Using for loops to calculate sums, factorials, and averages",
-            "Choosing between while and for: When to use which?"
-          ],
-          "analogy": "Do 10 pushups: start at 1, do one pushup, add 1, stop when you hit 10.",
-          "visuals": ["for_loop_animation.html", "for_vs_while.py"],
-          "estimated_minutes": 50
+          "id": "M6_L2", "title": "do-while Loops", "core": true,
+          "terms": ["do-while loop", "pre-test loop", "post-test loop"],
+          "objectives": ["Runs the body at least once", "do-while vs while", "Input validation with do-while"],
+          "analogies": {"do-while": "taste the soup first, then decide to keep stirring"},
+          "refs": "LI 5.6; CR p.95-99",
+          "prerequisites": ["M6_L1"],
+          "test": {"trace": "run count when the condition starts false", "spot_error": "missing semicolon after while(...)", "write_code": "ask until the user enters a number 1-10", "mini": "simple repeat-until-quit menu"},
+          "visuals": ["do_while_visual.py"], "estimated_minutes": 35
+        },
+        {
+          "id": "M6_L3", "title": "for Loops", "core": true,
+          "terms": ["for loop", "initialization", "loop condition", "update", "loop variable", "scope of a loop variable"],
+          "objectives": ["The three parts of for", "Count up and down", "Sums, factorials, averages", "Which loop to choose"],
+          "analogies": {"for": "do 10 pushups: start at 1, add 1 each time, stop after 10"},
+          "refs": "LI 5.7; CR p.99-103",
+          "prerequisites": ["M6_L2"],
+          "test": {"trace": "values of i and sum each iteration", "spot_error": "wrong bound, wrong update direction", "write_code": "factorial and multiples of 7 up to 100", "mini": "average of n numbers entered by the user"},
+          "visuals": ["for_loop_animation.html", "for_vs_while.py"], "estimated_minutes": 50
         }
       ]
     },
     {
       "id": "module_7",
-      "name": "Module 7: Iterations (Nested)",
-      "summary": "Loops inside loops — like a clock where the minute hand goes around once for every hour tick.",
+      "name": "Module 7: Nested Loops, break, continue",
+      "summary": "Loops inside loops and controlling loop flow.",
       "lessons": [
         {
-          "id": "M7_L1",
-          "title": "Nested Loops: Loops Inside Loops",
-          "objectives": [
-            "How nested loops work: the inner loop completes fully for each step of the outer loop",
-            "Building a multiplication table with nested for loops",
-            "Printing patterns with stars (* triangles, rectangles, pyramids)",
-            "Tracing through nested loop execution step by step"
-          ],
-          "analogy": "For each hour on a clock, the minute hand goes around 60 times. That's a nested loop!",
-          "visuals": ["nested_loop_animation.html", "pattern_builder.py"],
-          "estimated_minutes": 60
+          "id": "M7_L1", "title": "Nested Loops", "core": true,
+          "terms": ["nested loop", "outer loop", "inner loop"],
+          "objectives": ["Inner loop finishes for each outer step", "Multiplication table", "Star patterns", "Trace nested loops"],
+          "analogies": {"nested loop": "the minute hand goes round once per hour"},
+          "refs": "LI 5.9; CR p.109",
+          "prerequisites": ["M6_L3"],
+          "test": {"trace": "number of iterations and output for 3x4", "spot_error": "wrong inner bound", "write_code": "right-angled triangle of stars", "mini": "number pyramid"},
+          "visuals": ["nested_loop_animation.html", "pattern_builder.py"], "estimated_minutes": 55
         },
         {
-          "id": "M7_L2",
-          "title": "break and continue: Controlling Loop Flow",
-          "objectives": [
-            "break: Emergency exit — leave the loop immediately",
-            "continue: Skip this round — jump to the next iteration",
-            "Using break to find the first match in a search",
-            "Common patterns with break and continue"
-          ],
-          "analogy": "break = walking out of a boring movie. continue = skipping a boring scene but staying for the rest.",
-          "visuals": ["break_continue_visual.html"],
-          "estimated_minutes": 40
+          "id": "M7_L2", "title": "break and continue", "core": true,
+          "terms": ["break", "continue"],
+          "objectives": ["break leaves the loop", "continue skips to the next iteration", "Search for the first match", "Their effect inside nested loops"],
+          "analogies": {"break": "walk out of the movie", "continue": "skip a scene but stay"},
+          "refs": "LI 5.12; CR p.109-111, 113-114",
+          "prerequisites": ["M7_L1"],
+          "test": {"trace": "output with break vs continue", "spot_error": "continue before the update causes an infinite loop", "write_code": "first number divisible by 7 and 11", "mini": "prime check using break"},
+          "visuals": ["break_continue_visual.html"], "estimated_minutes": 40
         }
       ]
     },
     {
       "id": "module_8",
-      "name": "Module 8: String",
-      "summary": "Working with text — words, sentences, and all the tricks you can do with them.",
+      "name": "Module 8: References, char, and String",
+      "summary": "Understand references first, then text.",
       "lessons": [
         {
-          "id": "M8_L1",
-          "title": "Strings: Working with Text in Java",
-          "objectives": [
-            "What is a String? (A chain of characters, like beads on a necklace)",
-            "String length, charAt, substring, indexOf",
-            "Comparing strings: .equals() vs == (a critical Java trap!)",
-            "String concatenation (joining strings together with +)"
-          ],
-          "analogy": "A String is like a necklace of letter beads — each bead has a position number starting from 0.",
-          "visuals": ["string_necklace.html", "string_methods_visual.py"],
-          "estimated_minutes": 55
+          "id": "M8_L1", "title": "Primitives vs References", "core": true,
+          "terms": ["primitive variable", "reference variable", "object", "reference", "null", "heap (preview)"],
+          "objectives": ["A primitive holds the value, a reference holds a way to reach an object", "Two references can point to one object", "Why == can be misleading for objects"],
+          "analogies": {"reference": "a TV remote that controls a TV, not the TV itself"},
+          "refs": "HF p.54-58",
+          "prerequisites": ["M7_L2"],
+          "test": {"trace": "what changes when two references share an object", "spot_error": "null reference use", "write_code": "short demo of two references to one array or String", "mini": "predict output of a reference-sharing program"},
+          "visuals": ["references_visual.py"], "estimated_minutes": 45
         },
         {
-          "id": "M8_L2",
-          "title": "String Manipulation & Common Operations",
-          "objectives": [
-            "toUpperCase, toLowerCase, trim, replace",
-            "Splitting strings into pieces (split)",
-            "Converting numbers to strings and strings to numbers",
-            "Practice: Password validator, word counter, text reverser"
-          ],
-          "analogy": "String methods are like text-editing superpowers — find-and-replace, capitalize, split a sentence into words.",
-          "visuals": ["string_manipulation.html"],
-          "estimated_minutes": 50
+          "id": "M8_L2", "title": "The char Type", "core": true,
+          "terms": ["char", "Unicode", "ASCII", "escape sequence", "character literal", "casting char and int"],
+          "objectives": ["Single quotes for char", "ASCII/Unicode codes", "Escape sequences \\n \\t \\\" \\\\", "Compare and test characters"],
+          "analogies": {"ASCII": "every character has a seat number"},
+          "refs": "LI 4.3; CR p.47",
+          "prerequisites": ["M8_L1"],
+          "test": {"trace": "result of ch + 1 and (char)(ch + 1)", "spot_error": "'ab' as a char", "write_code": "next letter and upper/lower test", "mini": "Caesar shift of one letter"},
+          "visuals": ["ascii_table.py"], "estimated_minutes": 40
+        },
+        {
+          "id": "M8_L3", "title": "String Basics", "core": true,
+          "terms": ["String", "string literal", "index", "length", "concatenation", "charAt", "substring", "indexOf", "equals", "compareTo"],
+          "objectives": ["Strings as text with indexes from 0", "length, charAt, substring, indexOf", "Concatenation with +", "equals vs == (connects to M8_L1)"],
+          "analogies": {"String": "a necklace of letter beads with position numbers from 0"},
+          "refs": "LI 4.4; CR p.47, 65, 160-161",
+          "prerequisites": ["M8_L2"],
+          "test": {"trace": "result of 4 substring/indexOf calls", "spot_error": "== for strings, index out of range", "write_code": "first and last character, count a letter in a word", "mini": "palindrome check"},
+          "visuals": ["string_necklace.html", "string_methods_visual.py"], "estimated_minutes": 55
+        },
+        {
+          "id": "M8_L4", "title": "String Methods and Conversions", "core": true,
+          "terms": ["immutable", "toUpperCase / toLowerCase", "trim", "replace", "split", "contains", "valueOf", "parseInt / parseDouble"],
+          "objectives": ["Search, compare, and modify strings (methods return new strings)", "Case conversion, trim, replace, split", "Strings to numbers and numbers to strings"],
+          "analogies": {"immutable": "a printed page: you make a new copy to change it"},
+          "refs": "LI 4.4.4, 4.4.10; CR p.483-502. LI 4.5 case studies are optional.",
+          "prerequisites": ["M8_L3"],
+          "test": {"trace": "chain of method calls on one string", "spot_error": "ignoring the returned string", "write_code": "count words, reverse a string", "mini": "password strength checker"},
+          "visuals": ["string_manipulation.html"], "estimated_minutes": 55
         }
       ]
     },
     {
       "id": "module_9",
-      "name": "Module 9: Array",
-      "summary": "Storing lists of related data together — like an egg carton with numbered slots.",
+      "name": "Module 9: Methods",
+      "summary": "Reusable code. Taught before arrays so arrays can be passed to methods.",
       "lessons": [
         {
-          "id": "M9_L1",
-          "title": "Arrays: Numbered Boxes in a Row",
-          "objectives": [
-            "Why we need arrays (50 separate variables is a nightmare!)",
-            "Declaring, creating, and initializing arrays",
-            "Accessing elements by index (starting from 0)",
-            "Looping through arrays with for and for-each"
-          ],
-          "analogy": "An array is like an egg carton — 12 numbered slots (0-11), each holding exactly one egg.",
-          "visuals": ["array_carton.html", "array_visual.py"],
-          "estimated_minutes": 55
+          "id": "M9_L1", "title": "Defining and Calling Methods", "core": true,
+          "terms": ["method", "method header", "parameter", "argument", "return type", "return value", "void", "method call", "static"],
+          "objectives": ["Write a method header", "Call a method from main", "void vs value-returning", "Why methods exist (do not repeat yourself)"],
+          "analogies": {"method": "a saved recipe card", "return": "the finished dish handed back"},
+          "refs": "LI 6.1-6.4; CR p.123-129",
+          "prerequisites": ["M8_L4"],
+          "test": {"trace": "values passed and returned in 3 calls", "spot_error": "missing return, wrong argument count or type", "write_code": "max of two, isPrime", "mini": "calculator with one method per operation"},
+          "visuals": ["method_flow.html", "method_visual.py"], "estimated_minutes": 55
         },
         {
-          "id": "M9_L2",
-          "title": "Array Operations & Sorting",
-          "objectives": [
-            "Finding min, max, sum, and average in an array",
-            "Searching for a value (linear search)",
-            "Sorting arrays: Bubble Sort (the simple visual way)",
-            "Using Arrays.sort() for quick sorting"
-          ],
-          "analogy": "Sorting is like arranging books on a shelf by height — compare two neighbors, swap if needed, repeat.",
-          "visuals": ["bubble_sort_animation.html", "sorting_visual.py"],
-          "estimated_minutes": 60
+          "id": "M9_L2", "title": "Passing Arguments, Scope, and Modularizing", "core": true,
+          "terms": ["pass by value", "local variable", "scope", "modularization", "call stack (preview)"],
+          "objectives": ["Arguments are copied into parameters", "A method cannot change the caller's primitive", "Scope of a variable", "Break a big problem into methods"],
+          "analogies": {"pass by value": "you hand over a photocopy, not the original"},
+          "refs": "LI 6.5, 6.6, 6.9; HF p.276-278 (Math methods)",
+          "prerequisites": ["M9_L1"],
+          "test": {"trace": "swap that does not swap, scope errors", "spot_error": "using a variable outside its scope", "write_code": "use Math.sqrt, Math.abs, Math.pow, Math.round, Math.random in two methods", "mini": "split a program into 3 methods"},
+          "visuals": ["parameter_return.html", "scope_visual.py"], "estimated_minutes": 55
         },
         {
-          "id": "M9_L3",
-          "title": "2D Arrays: Tables and Grids",
-          "objectives": [
-            "What is a 2D array? (A grid/table with rows and columns)",
-            "Declaring and using 2D arrays",
-            "Nested loops to traverse rows and columns",
-            "Practice: Tic-tac-toe board, student grade table"
-          ],
-          "analogy": "A 2D array is like a spreadsheet — rows and columns, and you say 'row 2, column 3' to find a cell.",
-          "visuals": ["grid_visual.html", "2d_array_visual.py"],
-          "estimated_minutes": 55
+          "id": "M9_L3", "title": "Case Study: Hexadecimal to Decimal", "core": true, "practice": true,
+          "terms": [],
+          "objectives": ["Design a solution with methods", "Use strings, loops, and methods together"],
+          "refs": "LI 6.7",
+          "prerequisites": ["M9_L2"],
+          "test": {"write_code": "binary to decimal", "mini": "your own multi-method program"},
+          "visuals": [], "estimated_minutes": 45
+        },
+        {
+          "id": "M9_L4", "title": "OPTIONAL: Method Overloading", "core": false,
+          "terms": ["overloading", "method signature"],
+          "objectives": ["Same name, different parameter lists", "How Java picks the method"],
+          "refs": "Not in the mapping (LI 6.8). Teach only if time allows.",
+          "prerequisites": ["M9_L2"],
+          "test": {"trace": "which overload is called", "write_code": "an overloaded max"},
+          "visuals": [], "estimated_minutes": 30
         }
       ]
     },
     {
       "id": "module_10",
-      "name": "Module 10: Methods",
-      "summary": "Creating your own reusable commands — write once, use anywhere.",
+      "name": "Module 10: Arrays and Sorting",
+      "summary": "Store, process, search, and sort collections of values.",
       "lessons": [
         {
-          "id": "M10_L1",
-          "title": "Methods: Your Own Custom Commands",
-          "objectives": [
-            "Why methods exist (Don't Repeat Yourself!)",
-            "Declaring a method: return type, name, parameters",
-            "Calling a method from main",
-            "void methods vs methods that return a value"
-          ],
-          "analogy": "A method is like a saved recipe card — instead of repeating all the steps, you just say 'follow the pancake recipe'.",
-          "visuals": ["method_flow.html", "method_visual.py"],
-          "estimated_minutes": 55
+          "id": "M10_L1", "title": "Array Basics", "core": true,
+          "terms": ["array", "element", "index", "length", "array declaration", "array creation", "default value", "array initializer"],
+          "objectives": ["Declare, create, and initialize arrays", "Index from 0 and the length field", "Default values", "ArrayIndexOutOfBoundsException"],
+          "analogies": {"array": "an egg carton with numbered slots from 0"},
+          "refs": "LI 7.1, 7.2.1-7.2.5; CR p.55-57, 62; HF p.59",
+          "prerequisites": ["M9_L2", "M8_L1"],
+          "test": {"trace": "contents after 5 assignments", "spot_error": "index equals length, forgot new", "write_code": "fill and print an array of 5 numbers", "mini": "store 5 marks and print them in reverse"},
+          "visuals": ["array_carton.html", "array_visual.py"], "estimated_minutes": 50
         },
         {
-          "id": "M10_L2",
-          "title": "Parameters, Return Values & Method Overloading",
-          "objectives": [
-            "Passing information into methods (parameters = ingredients)",
-            "Getting information back (return = the finished dish)",
-            "Method overloading: Same name, different parameters",
-            "Scope: Why variables inside a method can't be seen outside"
-          ],
-          "analogy": "You put bread in a toaster (parameter), press the lever (call), and get toast back (return value).",
-          "visuals": ["parameter_return.html", "scope_visual.py"],
-          "estimated_minutes": 55
+          "id": "M10_L2", "title": "Processing Arrays with Loops", "core": true,
+          "terms": ["traversal", "for-each loop", "sum", "maximum", "minimum", "average"],
+          "objectives": ["Traverse with for and for-each", "Sum, min, max, average", "Case study: analyzing numbers"],
+          "analogies": {"traversal": "walk down the row of lockers checking each one"},
+          "refs": "LI 7.2.6, 7.2.7, 7.3",
+          "prerequisites": ["M10_L1", "M6_L3"],
+          "test": {"trace": "running max across an array", "spot_error": "starting max at 0 with negative values", "write_code": "second largest", "mini": "statistics of marks (min, max, average, count above average)"},
+          "visuals": ["array_loop_trace.py"], "estimated_minutes": 50
+        },
+        {
+          "id": "M10_L3", "title": "Arrays and Methods: Copying, Passing, Returning", "core": true,
+          "terms": ["array reference", "shallow copy", "copying an array", "pass an array to a method", "return an array", "variable-length argument list"],
+          "objectives": ["Why b = a does not copy", "Copy with a loop and with Arrays methods", "A method can change the caller's array", "Return an array from a method", "Variable-length arguments"],
+          "analogies": {"b = a": "two remotes for one TV, not two TVs"},
+          "refs": "LI 7.5, 7.6, 7.7, 7.9",
+          "prerequisites": ["M10_L2", "M8_L1"],
+          "test": {"trace": "who sees the change after a method modifies the array", "spot_error": "assuming = copies an array", "write_code": "method that reverses an array, method that returns a new array", "mini": "method set: fill, print, sum, copy"},
+          "visuals": ["array_reference_visual.py"], "estimated_minutes": 55
+        },
+        {
+          "id": "M10_L4", "title": "Searching Arrays", "core": true,
+          "terms": ["linear search", "binary search", "sorted array", "frequency count"],
+          "objectives": ["Linear search", "Binary search on a sorted array", "Counting occurrences (counting letters)"],
+          "analogies": {"binary search": "guess a number by halving the range each time"},
+          "refs": "LI 7.8, 7.10",
+          "prerequisites": ["M10_L3"],
+          "test": {"trace": "binary search steps for a target", "spot_error": "binary search on an unsorted array", "write_code": "linear search returning the index or -1", "mini": "count each letter in a word"},
+          "visuals": ["binary_search_animation.html"], "estimated_minutes": 50
+        },
+        {
+          "id": "M10_L5", "title": "Sorting", "core": true,
+          "terms": ["sorting", "insertion sort", "bubble sort", "swap", "pass", "Arrays.sort"],
+          "objectives": ["Insertion sort", "Bubble sort", "Trace passes on a small array", "Arrays.sort for real programs"],
+          "analogies": {"insertion sort": "sorting playing cards in your hand", "bubble sort": "bubbles of large values rising to the end"},
+          "refs": "LI 23.1-23.3, 7.11",
+          "prerequisites": ["M10_L4"],
+          "test": {"trace": "array after each pass for both sorts", "spot_error": "swap without a temp variable", "write_code": "bubble sort as a method", "mini": "insertion sort method plus a printing method"},
+          "visuals": ["bubble_sort_animation.html", "sorting_visual.py"], "estimated_minutes": 60
+        },
+        {
+          "id": "M10_L6", "title": "OPTIONAL: Two-Dimensional Arrays", "core": false,
+          "terms": ["2D array", "row", "column", "row-major traversal"],
+          "objectives": ["Grid of values", "Nested loops over rows and columns"],
+          "analogies": {"2D array": "a spreadsheet: row 2, column 3"},
+          "refs": "CR p.58-61 (optional in the mapping)",
+          "prerequisites": ["M10_L2", "M7_L1"],
+          "test": {"trace": "sum of each row", "write_code": "print a 3x3 grid", "mini": "tic-tac-toe board display"},
+          "visuals": ["grid_visual.html", "2d_array_visual.py"], "estimated_minutes": 50
         }
       ]
     },
     {
       "id": "module_11",
-      "name": "Module 11: Recursive Methods",
-      "summary": "Methods that call themselves — like a mirror reflecting into another mirror.",
+      "name": "Module 11: Recursion",
+      "summary": "Methods that call themselves.",
       "lessons": [
         {
-          "id": "M11_L1",
-          "title": "Recursion: A Method That Calls Itself",
-          "objectives": [
-            "What is recursion? (Breaking a big problem into smaller identical problems)",
-            "Base case: When to STOP (the most critical part!)",
-            "Recursive case: The method calling itself with a smaller problem",
-            "Tracing recursion step by step: factorial, countdown"
-          ],
-          "analogy": "Russian nesting dolls — open one, there is a smaller one inside. Keep opening until you reach the tiniest doll (base case).",
-          "visuals": ["recursion_animation.html", "recursion_tree.py"],
-          "estimated_minutes": 60
+          "id": "M11_L1", "title": "Recursion Basics", "core": true,
+          "terms": ["recursion", "recursive method", "base case", "recursive case", "call stack", "stack overflow"],
+          "objectives": ["Define recursion", "Base case and recursive case", "Trace factorial and Fibonacci", "Why a missing base case crashes"],
+          "analogies": {"recursion": "nesting dolls: open until the smallest one", "call stack": "a pile of plates"},
+          "refs": "LI 18.1-18.3; CR p.147-149",
+          "prerequisites": ["M10_L5", "M9_L2"],
+          "test": {"trace": "call-by-call trace of factorial(4)", "spot_error": "missing base case, wrong smaller step", "write_code": "sum 1..n and power(x, n) recursively", "mini": "count digits or reverse a string recursively"},
+          "visuals": ["recursion_animation.html", "recursion_tree.py"], "estimated_minutes": 60
+        },
+        {
+          "id": "M11_L2", "title": "Thinking Recursively", "core": true,
+          "terms": ["problem solving using recursion", "recursive helper method", "recursion vs iteration"],
+          "objectives": ["Break a problem into a smaller same-kind problem", "Helper methods (binary search, selection sort)", "Recursion vs iteration trade-offs", "Optional: directory size, Tower of Hanoi, fractals"],
+          "analogies": {"Tower of Hanoi": "move a stack by first moving the smaller stack out of the way"},
+          "refs": "LI 18.4, 18.5, 18.9 (18.6-18.8 optional)",
+          "prerequisites": ["M11_L1"],
+          "test": {"trace": "Fibonacci call tree for n=4", "spot_error": "exponential repeated calls", "write_code": "recursive binary search", "mini": "palindrome check using recursion"},
+          "visuals": ["hanoi_visual.py"], "estimated_minutes": 60
         }
       ]
     },
     {
       "id": "module_12",
       "name": "Module 12: File I/O",
-      "summary": "Reading from and writing to files — saving your program's work permanently.",
+      "summary": "Save and load data.",
       "lessons": [
         {
-          "id": "M12_L1",
-          "title": "Reading and Writing Files in Java",
-          "objectives": [
-            "Why we need files (RAM is temporary — files are permanent)",
-            "Reading text from a file line by line",
-            "Writing text to a file",
-            "Practice: Reading student grades from a file and calculating averages"
-          ],
-          "analogy": "RAM is the kitchen counter (temporary). Files are the pantry (permanent). When you turn off the stove, counter items vanish, but pantry items stay.",
-          "visuals": ["file_io_flow.html"],
-          "estimated_minutes": 50
+          "id": "M12_L1", "title": "Files and Writing Text", "core": true,
+          "terms": ["file", "File class", "path", "PrintWriter", "close", "try-with-resources", "exception (minimal)", "throws"],
+          "objectives": ["Memory is temporary, files are permanent", "File class: exists, name, path", "Write with PrintWriter", "try-with-resources closes the file for you", "Just enough exception syntax: 'throws Exception'"],
+          "analogies": {"RAM": "kitchen counter, wiped when you leave", "file": "the pantry, still there tomorrow"},
+          "refs": "LI 12.10, 12.11.1, 12.11.2; HF p.559-569; CR p.324-333",
+          "prerequisites": ["M11_L2", "M8_L4"],
+          "test": {"trace": "contents of the file after the program runs", "spot_error": "forgot to close, wrong path", "write_code": "write 10 squares to a file", "mini": "save the user's entered marks to a file"},
+          "visuals": ["file_io_flow.html"], "estimated_minutes": 50
+        },
+        {
+          "id": "M12_L2", "title": "Reading Files", "core": true,
+          "terms": ["Scanner on a file", "hasNext", "end of file", "token vs line"],
+          "objectives": ["Read with Scanner(File)", "Loop until no more data", "Case study: replace text in a file", "Reading grades and computing averages"],
+          "analogies": {"reading until hasNext is false": "turn pages until there are none left"},
+          "refs": "LI 12.11.3, 12.11.5; HF p.559-569; CR p.324-333",
+          "prerequisites": ["M12_L1"],
+          "test": {"trace": "values read from a sample file", "spot_error": "file not found, reading past the end", "write_code": "sum numbers in a file", "mini": "read student marks, write averages to another file"},
+          "visuals": [], "estimated_minutes": 55
+        }
+      ]
+    },
+    {
+      "id": "module_13",
+      "name": "Module 13: Review and Exam Practice",
+      "summary": "Mixed questions across all modules, weighted toward weak terms in progress.json.",
+      "lessons": [
+        {
+          "id": "M13_L1", "title": "Mixed Review and Exam-Style Practice", "core": true, "practice": true,
+          "terms": [],
+          "objectives": ["Mixed terminology, tracing, error-finding, and coding questions from every module", "Revisit weak_terms from progress.json", "Timed practice"],
+          "refs": "LI Check Points and programming exercises; HF 'BE the Compiler' sets",
+          "prerequisites": ["M12_L2"],
+          "test": {"mini": "two full-length programs combining loops, arrays, methods, and files"},
+          "visuals": [], "estimated_minutes": 90
         }
       ]
     }
