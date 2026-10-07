@@ -1,0 +1,406 @@
+# Section outlines (every chapter, section, printed page and the file that holds it)
+
+
+## Complete Reference
+
+### ch01 The History and Evolution of Java  (printed pp. 3-20)
+- **`cr/cr_ch01_the-history-and-evolution-of-java.md`** pp. 3-20 (~14k tokens)
+  - p.4 The Birth of Modern Programming: C
+  - p.5 C++: The Next Step
+  - p.6 The Stage Is Set for Java
+  - p.8 The C# Connection
+  - p.8 Java Applets
+  - p.9 Security
+  - p.9 Portability
+  - p.13 Simple
+  - p.13 Object-Oriented
+  - p.13 Robust
+  - p.14 Multithreaded
+  - p.14 Architecture-Neutral
+  - p.14 Interpreted and High Performance
+  - p.15 Distributed
+  - p.15 Dynamic
+### ch02 An Overview of Java  (printed pp. 21-38)
+- **`cr/cr_ch02_an-overview-of-java.md`** pp. 21-38 (~11k tokens)
+  - p.21 Two Paradigms
+  - p.22 Abstraction
+  - p.22 The Three OOP Principles
+  - p.27 Entering the Program
+  - p.27 Compiling the Program
+  - p.28 A Closer Look at the First Sample Program
+  - p.32 The if Statement
+  - p.33 The for Loop
+  - p.36 Whitespace
+  - p.36 Identifiers
+  - p.36 Literals
+  - p.36 Comments
+  - p.37 Separators
+  - p.37 The Java Keywords
+### ch03 Data Types, Variables, and Arrays  (printed pp. 39-66)
+- **`cr/cr_ch03_data-types-variables-and-arrays.md`** pp. 39-66 (~15k tokens)
+  - p.40 byte
+  - p.41 short
+  - p.41 int
+  - p.41 long
+  - p.42 float
+  - p.42 double
+  - p.45 Integer Literals
+  - p.46 Floating-Point Literals
+  - p.47 Boolean Literals
+  - p.47 Character Literals
+  - p.47 String Literals
+  - p.48 Declaring a Variable
+  - p.49 Dynamic Initialization
+  - p.49 The Scope and Lifetime of Variables
+  - p.52 Java’s Automatic Conversions
+  - p.52 Casting Incompatible Types
+  - p.54 The Type Promotion Rules
+  - p.55 One-Dimensional Arrays
+  - p.58 Multidimensional Arrays
+  - p.62 Alternative Array Declaration Syntax
+  - p.64 Some var Restrictions
+### ch04 Operators  (printed pp. 67-86)
+- **`cr/cr_ch04_operators.md`** pp. 67-86 (~9k tokens)
+  - p.68 The Basic Arithmetic Operators
+  - p.69 The Modulus Operator
+  - p.69 Arithmetic Compound Assignment Operators
+  - p.70 Increment and Decrement
+  - p.73 The Bitwise Logical Operators
+  - p.75 The Left Shift
+  - p.77 The Right Shift
+  - p.78 The Unsigned Right Shift
+  - p.79 Bitwise Operator Compound Assignments
+  - p.83 Short-Circuit Logical Operators
+### ch05 Control Statements  (printed pp. 87-116)
+- **`cr/cr_ch05_control-statements.md`** pp. 87-116 (~14k tokens)
+  - p.87 if
+  - p.90 The Traditional switch
+  - p.95 while
+  - p.97 do-while
+  - p.99 for
+  - p.103 The For-Each Version of the for Loop
+  - p.108 Local Variable Type Inference in a for Loop
+  - p.109 Nested Loops
+  - p.109 Using break
+  - p.113 Using continue
+  - p.115 return
+### ch06 Introducing Classes  (printed pp. 117-136)
+- **`cr/cr_ch06_introducing-classes.md`** pp. 117-136 (~10k tokens)
+  - p.117 The General Form of a Class
+  - p.118 A Simple Class
+  - p.121 A Closer Look at new
+  - p.124 Adding a Method to the Box Class
+  - p.126 Returning a Value
+  - p.127 Adding a Method That Takes Parameters
+  - p.131 Parameterized Constructors
+  - p.133 Instance Variable Hiding
+### ch07 A Closer Look at Methods and Classes  (printed pp. 137-170)
+- **`cr/cr_ch07_a-closer-look-at-methods-and-classes.md`** pp. 137-170 (~16k tokens)
+  - p.140 Overloading Constructors
+  - p.166 Overloading Vararg Methods
+  - p.167 Varargs and Ambiguity
+### ch13 I/O, Try-with-Resources, and Other Topics  (printed pp. 315-346)
+- **`cr/cr_ch13_i-o-try-with-resources-and-other-topics.md`** pp. 315-346 (~17k tokens)
+  - p.316 Streams
+  - p.316 Byte Streams and Character Streams
+  - p.318 The Predefined Streams
+  - p.320 Reading Characters
+  - p.321 Reading Strings
+  - p.339 Assertion Enabling and Disabling Options
+### ch18 String Handling  (printed pp. 483-510)
+- **`cr/cr_ch18_string-handling.md`** pp. 483-510 (~13k tokens)
+  - p.486 String Literals
+  - p.487 String Concatenation
+  - p.487 String Concatenation with Other Data Types
+  - p.488 String Conversion and toString( )
+  - p.489 charAt( )
+  - p.489 getChars( )
+  - p.490 getBytes( )
+  - p.490 toCharArray( )
+  - p.491 equals( ) and equalsIgnoreCase( )
+  - p.491 regionMatches( )
+  - p.492 startsWith( ) and endsWith( )
+  - p.492 equals( ) Versus ==
+  - p.493 compareTo( )
+  - p.496 substring( )
+  - p.497 concat( )
+  - p.497 replace( )
+  - p.498 trim( ) and strip( )
+  - p.503 StringBuffer Constructors
+  - p.503 length( ) and capacity( )
+  - p.504 ensureCapacity( )
+  - p.504 setLength( )
+  - p.504 charAt( ) and setCharAt( )
+  - p.505 getChars( )
+  - p.505 append( )
+  - p.506 insert( )
+  - p.506 reverse( )
+  - p.507 delete( ) and deleteCharAt( )
+  - p.507 replace( )
+  - p.508 substring( )
+  - p.508 Additional StringBuffer Methods
+### ch21 java.util Part 2: More Utility Classes  (printed pp. 653-712)
+- **`cr/cr_ch21_java-util-part-2-more-utility-classes_part1.md`** pp. 653-706 (~28k tokens)
+  - p.676 The Formatter Constructors
+  - p.677 The Formatter Methods
+  - p.677 Formatting Basics
+  - p.679 Formatting Strings and Characters
+  - p.679 Formatting Numbers
+  - p.681 Formatting Time and Date
+  - p.683 The %n and %% Specifiers
+  - p.683 Specifying a Minimum Field Width
+  - p.685 Specifying Precision
+  - p.686 Using the Format Flags
+  - p.686 Justifying Output
+  - p.687 The Space, +, 0, and ( Flags
+  - p.688 The Comma Flag
+  - p.688 The # Flag
+  - p.688 The Uppercase Option
+  - p.689 Using an Argument Index
+  - p.690 Closing a Formatter
+  - p.691 The Java printf( ) Connection
+  - p.691 The Scanner Constructors
+  - p.691 Scanning Basics
+  - p.695 Some Scanner Examples
+  - p.699 Setting Delimiters
+  - p.700 Other Scanner Features
+- **`cr/cr_ch21_java-util-part-2-more-utility-classes_part2.md`** pp. 706-712 (~2k tokens)
+  - p.707 java.util.concurrent, java.util.concurrent.atomic, and java.util.concurrent.locks
+  - p.707 java.util.function
+  - p.707 java.util.jar
+  - p.710 java.util.logging
+  - p.710 java.util.prefs
+  - p.711 java.util.random
+  - p.711 java.util.regex
+  - p.711 java.util.spi
+  - p.711 java.util.stream
+  - p.711 java.util.zip
+
+## Head First Java
+
+### ch01 Breaking the Surface  (printed pp. 1-26)
+- **`hf/hf_ch01_breaking-the-surface.md`** pp. 1-26 (~11k tokens)
+  - p.2 The way Java works
+  - p.3 What you’ll do in Java
+  - p.4 A very brief history of Java
+  - p.4 Speed and memory usage
+  - p.7 Code structure in Java
+  - p.8 Anatomy of a class
+  - p.9 Writing a class with a main()
+  - p.13 Looping and looping and...
+  - p.15 Conditional branching
+  - p.16 Coding a serious business application
+  - p.19 Phrase-O-Matic
+### ch03 Know Your Variables  (printed pp. 49-70)
+- **`hf/hf_ch03_know-your-variables.md`** pp. 49-69 (~10k tokens)
+  - p.50 Declaring a variable
+  - p.51 “I’d like a double mocha, no, make it an int.”
+  - p.52 You really don’t want to spill that...
+  - p.53 Back away from that keyword!
+  - p.53 This table reserved
+  - p.54 Controlling your Dog object
+  - p.55 An object reference is just another variable value
+  - p.59 An array is like a tray of cups
+  - p.59 Arrays are objects too
+  - p.60 Make an array of Dogs
+  - p.61 Control your Dog
+  - p.62 A Dog example
+### ch05 Extra-Strength Methods  (printed pp. 95-124)
+- **`hf/hf_ch05_extra-strength-methods.md`** pp. 95-123 (~13k tokens)
+  - p.96 Let’s build a Battleship-style game: “Sink a Startup”
+  - p.97 First, a high-level design
+  - p.98 The “Simple Startup Game” a gentler introduction
+  - p.99 Developing a Class
+  - p.103 Test code for the SimpleStartup class
+  - p.104 The checkYourself() method
+  - p.110 The game’s main() method
+  - p.112 One last class: GameHelper
+  - p.113 Let’s play
+  - p.113 What’s this? A bug?
+  - p.114 More about for loops
+  - p.114 Regular (non-enhanced) for loops
+  - p.115 Trips through a loop
+  - p.116 The enhanced for loop
+  - p.117 Casting primitives
+### ch10 Numbers Matter  (printed pp. 275-308)
+- **`hf/hf_ch10_numbers-matter.md`** pp. 275-308 (~15k tokens)
+  - p.276 MATH methods: as close as you’ll ever get to a global method
+  - p.277 The difference between regular (non-static) and static methods
+  - p.278 What it means to have a class with static methods
+  - p.279 Static methods can’t use non-static (instance) variables!
+  - p.280 Static methods can’t use non-static methods, either!
+  - p.281 Static variable: value is the same for ALL instances of the class
+  - p.283 Initializing a static variable
+  - p.284 static final variables are constants
+  - p.285 final isn’t just for static variables...
+  - p.288 Math methods
+  - p.290 Wrapping a primitive
+  - p.291 Java will Autobox primitives for you
+  - p.292 Autoboxing works almost everywhere
+  - p.294 But wait! There’s more! Wrappers have static utility methods too!
+  - p.295 And now in reverse...turning a primitive number into a String
+  - p.296 Number formatting
+  - p.297 Formatting deconstructed...
+  - p.298 The percent (%) says, “insert argument here” (and format it using these instructions)
+  - p.299 The format String uses its own little language syntax
+  - p.300 The format specifier
+  - p.301 The only required specifier is for TYPE
+  - p.302 What happens if I have more than one argument?
+  - p.303 Just one more thing...static imports
+### ch16 Saving Objects (and Text)  (printed pp. 539-586)
+- **`hf/hf_ch16_saving-objects-and-text.md`** pp. 539-585 (~22k tokens)
+  - p.540 Capture the beat
+  - p.541 Saving state
+  - p.542 Writing a serialized object to a file
+  - p.543 Data moves in streams from one place to another
+  - p.544 What really happens to an object when it’s serialized?
+  - p.545 But what exactly IS an object’s state? What needs to be saved?
+  - p.547 If you want your class to be serializable, implement Serializable
+  - p.551 Deserialization: restoring an object
+  - p.552 What happens during deserialization?
+  - p.554 Saving and restoring the game characters
+  - p.556 Version ID: A big serialization gotcha
+  - p.557 Using the serialVersionUID
+  - p.559 Writing a String to a Text File
+  - p.560 Text file example: e-Flashcards
+  - p.561 Quiz Card Builder (code outline)
+  - p.564 The java.io.File class
+  - p.566 Reading from a text file
+  - p.567 Quiz Card Player (code outline)
+  - p.570 Parsing with String split()
+  - p.572 NIO.2 and the java.nio.file package
+  - p.573 Path, Paths, and Files (messing with directories)
+  - p.574 Finally, a closer look at finally
+  - p.574 Remember, finally ALWAYS runs!!
+  - p.575 Finally, a closer look at finally, cont.
+  - p.575 There IS a better way!
+  - p.576 The try-with-resources (TWR), statement
+  - p.577 Autocloseable, the very small catch
+  - p.577 Autocloseable, it’s everywhere you do I/O
+  - p.579 Saving a BeatBox pattern
+  - p.580 Restoring a BeatBox pattern
+
+## Liang
+
+### ch01 1.1 Introduction  (printed pp. 1-32)
+- **`li/li_ch01_1-1-introduction.md`** pp. 1-32 (~18k tokens)
+  - p.3 1.2.1 Central Processing Unit
+  - p.3 1.2.2 Bits and Bytes
+  - p.4 1.2.3 Memory
+  - p.4 1.2.4 Storage Devices
+  - p.5 1.2.5 Input and Output Devices
+  - p.6 1.2.6 Communication Devices
+  - p.7 1.3.1 Machine Language
+  - p.7 1.3.2 Assembly Language
+  - p.8 1.3.3 High-Level Language
+  - p.10 1.4.1 Controlling and Monitoring System Activities
+  - p.10 1.4.2 Allocating and Assigning System Resources
+  - p.10 1.4.3 Scheduling Operations
+  - p.18 1.9.1 Appropriate Comments and Comment Styles
+  - p.19 1.9.2 Proper Indentation and Spacing
+  - p.19 1.9.3 Block Styles
+  - p.19 1.10.1 Syntax Errors
+  - p.20 1.10.2 Runtime Errors
+  - p.21 1.10.3 Logic Errors
+  - p.21 1.10.4 Common Errors
+  - p.23 1.11.1 Creating a Java Project
+  - p.24 1.11.2 Creating a Java Class
+  - p.25 1.11.3 Compiling and Running a Class
+  - p.26 1.12.1 Creating a Java Project
+  - p.27 1.12.2 Creating a Java Class
+  - p.28 1.12.3 Compiling and Running a Class
+### ch02 2.1 Introduction  (printed pp. 33-76)
+- **`li/li_ch02_2-1-introduction_part1.md`** pp. 33-64 (~18k tokens)
+  - p.45 2.9.1 Reading Numbers from the Keyboard
+  - p.46 2.9.2 Numeric Operators
+  - p.48 2.9.3 Exponent Operations
+  - p.49 2.10.1 Integer Literals
+  - p.49 2.10.2 Floating-Point Literals
+  - p.50 2.10.3 Scientific Notation
+- **`li/li_ch02_2-1-introduction_part2.md`** pp. 64-75 (~6k tokens)
+### ch03 3.1 Introduction  (printed pp. 77-120)
+- **`li/li_ch03_3-1-introduction.md`** pp. 77-120 (~23k tokens)
+### ch04 4.1 Introduction  (printed pp. 121-158)
+- **`li/li_ch04_4-1-introduction.md`** pp. 121-157 (~20k tokens)
+  - p.122 4.2.1 Trigonometric Methods
+  - p.123 4.2.2 Exponent Methods
+  - p.123 4.2.3 The Rounding Methods
+  - p.124 4.2.4 The min, max, and abs Methods
+  - p.124 4.2.5 The random Method
+  - p.125 4.2.6 Case Study: Computing Angles of a Triangle
+  - p.127 4.3.1 Unicode and ASCII Code
+  - p.128 4.3.2 Escape Sequences for Special Characters
+  - p.128 4.3.3 Casting between char and Numeric Types
+  - p.129 4.3.4 Comparing and Testing Characters
+  - p.132 4.4.1 Getting String Length
+  - p.132 4.4.2 Getting Characters from a String
+  - p.133 4.4.3 Concatenating Strings
+  - p.133 4.4.4 Converting Strings
+  - p.134 4.4.5 Reading a String from the Console
+  - p.134 4.4.6 Reading a Character from the Console
+  - p.135 4.4.7 Comparing Strings
+  - p.137 4.4.8 Obtaining Substrings
+  - p.137 4.4.9 Finding a Character or a Substring in a String
+  - p.138 4.4.10 Conversion between Strings and Numbers
+  - p.140 4.5.1 Case Study: Guessing Birthdays
+  - p.143 4.5.2 Case Study: Converting a Hexadecimal Digit to a Decimal Value
+  - p.145 4.5.3 Case Study: Revising the Lottery Program Using Strings
+### ch05 5.1 Introduction  (printed pp. 159-204)
+- **`li/li_ch05_5-1-introduction.md`** pp. 159-204 (~26k tokens)
+  - p.182 5.11.1 Case Study: Finding the Greatest Common Divisor
+  - p.183 5.11.2 Case Study: Predicting the Future Tuition
+  - p.184 5.11.3 Case Study: Converting Decimals to Hexadecimals
+### ch06 6.1 Introduction  (printed pp. 205-248)
+- **`li/li_ch06_6-1-introduction.md`** pp. 205-248 (~24k tokens)
+  - p.228 6.11.1 Top-Down Design
+  - p.229 6.11.2 Top-Down and/or Bottom-Up Implementation
+  - p.231 6.11.3 Implementation Details
+  - p.234 6.11.4 Benefits of Stepwise Refinement
+### ch07 7.1 Introduction  (printed pp. 249-288)
+- **`li/li_ch07_7-1-introduction.md`** pp. 249-288 (~23k tokens)
+  - p.250 7.2.1 Declaring Array Variables
+  - p.251 7.2.2 Creating Arrays
+  - p.252 7.2.3 Array Size and Default Values
+  - p.252 7.2.4 Accessing Array Elements
+  - p.252 7.2.5 Array Initializers
+  - p.253 7.2.6 Processing Arrays
+  - p.255 7.2.7 Foreach Loops
+  - p.269 7.10.1 The Linear Search Approach
+  - p.270 7.10.2 The Binary Search Approach
+  - p.276 7.13.1 Passing Strings to the main Method
+  - p.277 7.13.2 Case Study: Calculator
+### ch12 12.1 Introduction  (printed pp. 453-498)
+- **`li/li_ch12_12-1-introduction.md`** pp. 453-497 (~27k tokens)
+  - p.462 12.4.1 Declaring Exceptions
+  - p.462 12.4.2 Throwing Exceptions
+  - p.463 12.4.3 Catching Exceptions
+  - p.465 12.4.4 Getting Information from Exceptions
+  - p.467 12.4.5 Example: Declaring, Throwing, and Catching Exceptions
+  - p.480 12.11.1 Writing Data Using PrintWriter
+  - p.481 12.11.2 Closing Resources Automatically Using try-with-resources
+  - p.482 12.11.3 Reading Data Using Scanner
+  - p.485 12.11.5 Case Study: Replacing Text
+### ch17 17.1 Introduction  (printed pp. 691-718)
+- **`li/li_ch17_17-1-introduction.md`** pp. 691-718 (~16k tokens)
+  - p.695 17.4.1 FileInputStream/FileOutputStream
+  - p.698 17.4.2 FilterInputStream/FilterOutputStream
+  - p.698 17.4.3 DataInputStream/DataOutputStream
+  - p.701 17.4.4 BufferedInputStream/BufferedOutputStream
+  - p.708 17.6.1 The Serializable Interface
+  - p.709 17.6.2 Serializing Arrays
+### ch18 18.1 Introduction  (printed pp. 719-750)
+- **`li/li_ch18_18-1-introduction.md`** pp. 719-750 (~17k tokens)
+  - p.729 18.5.1 Recursive Selection Sort
+  - p.730 18.5.2 Recursive Binary Search
+### ch23 23.1 Introduction  (printed pp. 887-922)
+- **`li/li_ch23_23-1-introduction.md`** pp. 887-921 (~17k tokens)
+  - p.901 23.6.1 Storing a Heap
+  - p.901 23.6.2 Adding a New Node
+  - p.902 23.6.3 Removing the Root
+  - p.903 23.6.4 The Heap Class
+  - p.906 23.6.5 Sorting Using the Heap Class
+  - p.906 23.6.6 Heap Sort Time Complexity
+  - p.911 23.8.1 Implementing Phase I
+  - p.912 23.8.2 Implementing Phase II
+  - p.913 23.8.3 Combining Two Phases
+  - p.916 23.8.4 External Sort Complexity

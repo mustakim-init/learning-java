@@ -9,8 +9,8 @@
   "current_position": {
     "phase_id": "module_2",
     "phase_name": "Module 2: Variables & Data Types",
-    "lesson_id": "M2_L1",
-    "lesson_title": "Variables: Labeled Boxes in the Computer's Memory",
+    "lesson_id": "M2_L2",
+    "lesson_title": "Data Types: The Shape of the Box Matters",
     "status": "ready_to_start",
     "active_exercise_id": null
   },
@@ -34,6 +34,13 @@
       "phase_id": "module_1",
       "completed_at": "2026-10-07",
       "key_takeaway": "Mustakim ran HelloWorld in DrJava, edited println to own name, mastered class=file rule and main=START. Knows javac proofreader -> java robot."
+    },
+    {
+      "id": "M2_L1",
+      "title": "Variables: Labeled Boxes in the Computer's Memory",
+      "phase_id": "module_2",
+      "completed_at": "2026-10-07",
+      "key_takeaway": "Declared/initialized/reassigned int age (17->18), mastered identifier rules: no leading digit, no keywords. Verified with DrJava errors."
     }
   ],
   "exercise_history": [],
@@ -47,8 +54,8 @@
   "stats": {
     "total_phases": 12,
     "total_lessons": 25,
-    "completed_lessons_count": 3,
+    "completed_lessons_count": 4,
     "exercises_passed": 0,
-    "overall_progress_percent": 12
+    "overall_progress_percent": 16
   }
 }

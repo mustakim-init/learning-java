@@ -7,14 +7,14 @@
 ## 📊 Progress Overview
 
 ```text
-Progress: [███░░░░░░░░░░░░░░░░░░░░░░] 12.0% (3/25 Lessons)
+Progress: [████░░░░░░░░░░░░░░░░░░░░░] 16.0% (4/25 Lessons)
 Exercises Passed: 0
 ```
 
 ## 📍 Current Station
 
 - **Phase:** `Module 2: Variables & Data Types`
-- **Current Lesson:** `M2_L1` - **Variables: Labeled Boxes in the Computer's Memory**
+- **Current Lesson:** `M2_L2` - **Data Types: The Shape of the Box Matters**
 - **Status:** `ready_to_start`
 
 ### 💡 How to Continue with Any AI Agent
@@ -37,8 +37,8 @@ Simply prompt your AI (Antigravity, Claude Code, OpenCode, Gemini CLI):
 
 | Status | ID | Lesson Title | Hardware & Systems Focus |
 | :---: | :---: | :--- | :--- |
-| 🔄 **IN PROGRESS** | `M2_L1` | [Variables: Labeled Boxes in the Computer's Memory](lessons/m2_l1.md) | undefined |
-| ⬜ Not Started | `M2_L2` | [Data Types: The Shape of the Box Matters](lessons/m2_l2.md) | undefined |
+| ✅ Completed | `M2_L1` | [Variables: Labeled Boxes in the Computer's Memory](lessons/m2_l1.md) | undefined |
+| 🔄 **IN PROGRESS** | `M2_L2` | [Data Types: The Shape of the Box Matters](lessons/m2_l2.md) | undefined |
 | ⬜ Not Started | `M2_L3` | [Printing Output & Writing Comments](lessons/m2_l3.md) | undefined |
 
 ### Module 3: Operators
@@ -127,6 +127,7 @@ Simply prompt your AI (Antigravity, Claude Code, OpenCode, Gemini CLI):
 | 2026-10-05 | `M1_L1` | What is Programming & What are Flowcharts? | Mastered first principles |
 | 2026-10-05 | `M1_L2` | Flowcharts with Decisions and Loops | Mastered decisions (YES/NO diamond) and loops (backward arrow). Traced even/odd and dish-washing correctly. Prefers Python PNG visuals. |
 | 2026-10-07 | `M1_L3` | Introduction to Java & Your First Program | Mustakim ran HelloWorld in DrJava, edited println to own name, mastered class=file rule and main=START. Knows javac proofreader -> java robot. |
+| 2026-10-07 | `M2_L1` | Variables: Labeled Boxes in the Computer's Memory | Declared/initialized/reassigned int age (17->18), mastered identifier rules: no leading digit, no keywords. Verified with DrJava errors. |
 
 ## 🧠 Concepts Mastered
 

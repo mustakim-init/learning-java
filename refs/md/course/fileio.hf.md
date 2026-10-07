@@ -1,0 +1,493 @@
+---
+topic: fileio
+lessons: "M12"
+book: "Head First Java, 3rd ed. (Sierra, Bates, Gee)"
+printed_pages: "559-569"
+pdf_offset: "pdf page = printed page + 38"
+generated_by: tools/extract_refs.py
+---
+# File I/O - Head First Java, 3rd ed. (Sierra, Bates, Gee)
+
+<!-- HF p.559 -->
+
+### Writing a String to a Text File
+
+Saving objects, through serialization, is the easiest way to save and restore data between runnings of a Java program. But sometimes you need to save data to a plain old text file. Imagine your Java program has to write data to a simple text file that some other (perhaps non-Java) program needs to read. You might, for example, have a servlet (Java code running within your web server) that takes form data the user typed into a browser and writes it to a text file that somebody else loads into a spreadsheet for analysis.
+
+Writing text data (a String, actually) is similar to writing an object, except you write a String instead of an object, and you use something like a FileWriter instead of a FileOutputStream (and you don’t chain it to an ObjectOutputStream).
+
+```java
+objectOutputStream.writeObject(someObject);
+```
+
+```java
+fileWriter.write("My first String to save");
+```
+
+```java
+import java.io.*;
+
+class WriteAFile {
+  public static void main(String[] args) {
+    try {
+      FileWriter writer = new FileWriter("Foo.txt");
+
+      writer.write("hello foo!");
+
+      writer.close();
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
+}
+```
+
+![figure](figures/hf_p559_1.png)
+
+> *Figure/sidebar text on this page:* What the game character data / might look like if you wrote it / out as a human-readable text file. / 50,Elf,bow,sword,dust / 200,Troll,bare hands,big ax / 120,Magician,spells,invisibility / To write a serialized object: / To write a String: / We need the java.io package for FileWriter. / If the file “Foo.txt” does not / exist, FileWriter will create it. / ALL the I/O stuff / must be in a try/catch. / The write() method takes / Everything can throw an / a String. / IOException!! / Close it when you’re done!
+
+<!-- HF p.560 -->
+
+### Text file example: e-Flashcards
+
+Remember those flashcards you used in school? Where you had a question on one side and the answer on the back? They aren’t much help when you’re trying to understand something, but nothing beats ’em for raw drill-and-practice and rote memorization. *When you have to burn in a fact.* And they’re also great for trivia games.
+
+**We’re going to make an electronic version that has three classes:**
+
+1. ***QuizCardBuilder***, a simple authoring tool for creating and saving a set of e-Flashcards.
+2. ***QuizCardPlayer***, a playback engine that can load a flashcard set and play it for the user.
+3. ***QuizCard***, a simple class representing card data. We’ll walk through the code for the builder and the player, and have you make the QuizCard class yourself, using this:
+
+![figure](figures/hf_p560_3.png)
+
+![figure](figures/hf_p560_4.png)
+
+![figure](figures/hf_p560_5.png)
+
+![figure](figures/hf_p560_2.png)
+
+![figure](figures/hf_p560_1.png)
+
+> *Figure/sidebar text on this page:* Old-fashioned 3 x 5 / Front / index flashcards / What’s the first / foreign country due / south of Detroit / Back / Michigan? / Canada (Ontario) / QuizCard / QuizCard(q, a) / question / answer / getQuestion() / getAnswer() / QuizCardBuilder / QuizCardPlayer / Has a File menu with a “Save” option for saving / Has a File menu with a “Load” option for loading a / the current set of cards to a text file. / set of cards from a text file.
+
+<!-- HF p.561 -->
+
+### Quiz Card Builder (code outline)
+
+```java
+public class QuizCardBuilder {
+  public void go() {
+    // build and display gui
+  }
+
+  private void nextCard() {
+    // add the current card to the list
+    // and clear the text areas
+  }
+
+  private void saveCard() {
+    // bring up a file dialog box
+    // let the user name and save the set
+  }
+
+  private void clearCard() {
+    // clear out the text areas
+  }
+
+  private void saveFile(File file) {
+    // iterate through the list of cards and write
+    // each one out to a text file in a parseable way
+    // (in other words, with clear separations between parts)
+  }
+}
+```
+
+The Java API has included I/O features since day one, you know, back in the last millennium. In 2002, Java 1.4 was released, and it included a new approach to I/O called “NIO,” short for non-blocking I/O. In 2011, Java 7 was released, and it included big enhancements to NIO. This yet again newer approach to I/O was dubbed “NIO.2.” Why should you care? When you’re writing new I/O, you should use the latest and greatest features. But you’re almost certainly going to encounter older code that uses the NIO approach. We want you to be covered for both situations, so in this chapter:
+
+• We’ll use original I/O for a while.
+
+• Then we’ll show some NIO.2.
+
+You'll see more I/O, NIO, and NIO.2 features in Chapter 17, *Make a Connection*, when we look at network connections.
+
+> *Figure/sidebar text on this page:* Builds and displays the GUI, including / making and registering event listeners. / Call when user hits ‘Next Card’ button; / means the user wants to store that card in / the list and start a new card. / Call when user chooses ‘Save’ from the File menu; / means the user wants to save all the cards in the / current list as a ‘set’ (like, Quantum Mechanics Set, / Hollywood Trivia, Java Rules, etc.). / Will need to clear the screen when the user / chooses ‘New’ from the File menu or moves / to the next card. / Called by the SaveMenuListener; / does the actual file writing. / Java I/O to NIO to NIO.2
+
+<!-- HF p.562 -->
+
+```java
+import javax.swing.*;
+import java.awt.*;
+import java.io.*;
+import java.util.ArrayList;
+
+public class QuizCardBuilder {
+  private ArrayList<QuizCard> cardList = new ArrayList<>();
+  private JTextArea question;
+  private JTextArea answer;
+  private JFrame frame;
+
+  public static void main(String[] args) {
+    new QuizCardBuilder().go();
+  }
+
+  public void go() {
+    frame = new JFrame("Quiz Card Builder");
+    JPanel mainPanel = new JPanel();
+    Font bigFont = new Font("sanserif", Font.BOLD, 24);
+
+    question = createTextArea(bigFont);
+    JScrollPane qScroller = createScroller(question);
+    answer = createTextArea(bigFont);
+    JScrollPane aScroller = createScroller(answer);
+
+    mainPanel.add(new JLabel("Question:"));
+    mainPanel.add(qScroller);
+    mainPanel.add(new JLabel("Answer:"));
+    mainPanel.add(aScroller);
+
+    JButton nextButton = new JButton("Next Card");
+    nextButton.addActionListener(e -> nextCard());
+    mainPanel.add(nextButton);
+
+    JMenuBar menuBar = new JMenuBar();
+    JMenu fileMenu = new JMenu("File");
+
+    JMenuItem newMenuItem = new JMenuItem("New");
+    newMenuItem.addActionListener(e -> clearAll());
+
+    JMenuItem saveMenuItem = new JMenuItem("Save");
+    saveMenuItem.addActionListener(e -> saveCard());
+
+    fileMenu.add(newMenuItem);
+    fileMenu.add(saveMenuItem);
+    menuBar.add(fileMenu);
+    frame.setJMenuBar(menuBar);
+
+    frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
+    frame.setSize(500, 600);
+    frame.setVisible(true);
+  }
+```
+
+> *Figure/sidebar text on this page:* Reminder: For the next eight / pages or so we’ll be using / older-style I/O code! / This is all GUI code here. Nothing / special, although you might want / to look at the code for the new / GUI components MenuBar, Menu, / and MenuItems. / Next Card button calls the / nextCard method when it's pressed. / When the user clicks “New" on / the menu, the clearAll method / is called. / When the user clicks “Save" on / the menu, the saveCard method / is called. / We make a menu bar, make a File / menu, then put ‘New’ and ‘Save’ / menu items into the File menu. We / add the menu to the menu bar, / and then tell the frame to use / this menu bar. Menu items can fire / an ActionEvent.
+
+<!-- HF p.563 -->
+
+```java
+  private JScrollPane createScroller(JTextArea textArea) {
+    JScrollPane scroller = new JScrollPane(textArea);
+    scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+    scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+    return scroller;
+  }
+
+  private JTextArea createTextArea(Font font) {
+    JTextArea textArea = new JTextArea(6, 20);
+    textArea.setLineWrap(true);
+    textArea.setWrapStyleWord(true);
+    textArea.setFont(font);
+    return textArea;
+  }
+
+  private void nextCard() {
+    QuizCard card = new QuizCard(question.getText(), answer.getText());
+    cardList.add(card);
+    clearCard();
+  }
+
+  private void saveCard() {
+    QuizCard card = new QuizCard(question.getText(), answer.getText());
+    cardList.add(card);
+
+    JFileChooser fileSave = new JFileChooser();
+    fileSave.showSaveDialog(frame);
+    saveFile(fileSave.getSelectedFile());
+  }
+
+  private void clearAll() {
+    cardList.clear();
+    clearCard();
+  }
+
+  private void clearCard() {
+    question.setText("");
+    answer.setText("");
+    question.requestFocus();
+  }
+
+  private void saveFile(File file) {
+    try {
+      BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+      for (QuizCard card : cardList) {
+        writer.write(card.getQuestion() + "/");
+        writer.write(card.getAnswer() + "\n");
+      }
+      writer.close();
+    } catch (IOException e) {
+      System.out.println("Couldn't write the cardList out: " + e.getMessage());
+    }
+  }
+}
+```
+
+> *Figure/sidebar text on this page:* Creating a scroll pane or a text area needs a / lot of similar-looking code. We've put the code / into a couple of helper methods that we can call / when we need a text area or scroll pane. / Brings up a file dialog box and waits on this / line until the user chooses ‘Save’ from the / dialog box. All the file dialog navigation and / selecting a file, etc., is done for you by the / JFileChooser! It really is this easy. / When we want a new set of / cards, we need to clear out the / card list AND the text areas. / The method that does the actual file writing / (called by the SaveMenuListener’s event handler). / The argument is the ‘File’ object the user is saving. / We’ll look at the File class on the next page. / We chain a BufferedWriter on to a new / FileWriter to make writing more efficient. / (We’ll talk about that in a few pages.) / Walk through the ArrayList of cards and / write them out, one card per line, with the / question and answer separated by a “/”, and / then add a newline character (“\n”).
+
+<!-- HF p.564 -->
+
+### The java.io.File class
+
+The `java.io.File` class is another example of an older class in the Java API. It’s been “replaced” by two classes in the newer `java.nio.file` package, but you’ll undoubtedly encounter code that uses the `File` class. **For new code, we recommend using the** `java.nio.file` **package instead of the** `java.io.File` **class.** In a few pages, we’ll take a look at a few of the most important capabilities in the `java.nio.file` package. With that said...
+
+The `java.io.File` class *represents* a file on disk but doesn’t actually represent the *contents* of the file. What? Think of a File object as something more like a *path name* of a file (or even a *directory*) rather than The Actual File Itself. The File class does not, for example, have methods for reading and writing. One VERY useful thing about a File object is that it offers a much safer way to represent a file than just using a String filename. For example, most classes that take a String filename in their constructor (like FileWriter or FileInputStream) can take a File object instead. You can construct a File object, verify that you’ve got a valid path, etc., and then give that File object to the FileWriter or FileInputStream.
+
+```java
+File f = new File("MyCode.txt");
+```
+
+```java
+File dir = new File("Chapter7");
+dir.mkdir();
+```
+
+```java
+if (dir.isDirectory()) {
+  String[] dirContents = dir.list();
+  for (String dirContent : dirContents) {
+    System.out.println(dirContent);
+  }
+}
+```
+
+```java
+boolean isDeleted = f.delete();
+```
+
+![figure](figures/hf_p564_2.png)
+
+![figure](figures/hf_p564_1.png)
+
+> *Figure/sidebar text on this page:* A File object represents the / name and path of a file or / directory on disk, for example: / /Users/Kathy/Data/Game.txt / But it does NOT represent, or / give you access to, the data in / the file! / An address is NOT the / same as the actual / house! A File object is / like a street address... / it represents the name / Some things you can do with a File object: / and location of a / particular file, but it / 1 / Make a File object representing an / isn’t the file itself. / existing file / A File object represents the / filename “GameFile.txt.” / 2 / Make a new directory / GameFile.txt / 50,Elf,bow, sword,dust / 200,Troll,bare hands,big ax / 3 / List the contents of a directory / 120,Magician,spells,invisibility / A File object does NOT / represent (or give you / direct access to) the / data inside the file! / Delete a file or directory (returns true if / 4 / successful)
+
+<!-- HF p.565 -->
+
+#### The beauty of buffers
+
+```text
+                 "Boulder"
+                    "Denver""Aspen"
+"Boulder"
+```
+
+```java
+BufferedWriter writer = new BufferedWriter(new FileWriter(aFile));
+```
+
+Using buffers is *much* more efficient than working without them. You can write to a file using FileWriter alone, by calling write(someString), but FileWriter writes each and every thing you pass to the file each and every time. That’s overhead you don’t want or need, since every trip to the disk is a Big Deal compared to manipulating data in memory. By chaining a BufferedWriter onto a FileWriter, the BufferedWriter will hold all the stuff you write to it until it’s full. *Only when the buffer is full will the FileWriter actually be told to write to the file on disk.*
+
+If you do want to send data *before* the buffer is full, you do have control. ***Just Flush It***. Calls to writer.flush() say, “send whatever’s in the buffer, ***now***!”
+
+![figure](figures/hf_p565_1.png)
+
+![figure](figures/hf_p565_2.png)
+
+> *Figure/sidebar text on this page:* If there were no buffers, it would be like / shopping without a cart. You’d have to / carry each thing out to your car, one soup / can or toilet paper roll at a time. / Buffers give you a temporary holding / place to group things until the holder / (like the cart) is full. You get to make / far fewer trips when you use a buffer. / destination / String is put into a buffer / When the buffer is full, the / Aspen / with other Strings / Strings are all written to / Denver / “Aspen Denver Boulder” / Boulder / is written to / is chained to / String / BufferedWriter / FileWriter / File / (a chain stream that / (a connection stream / works with characters) / that writes characters / as opposed to bytes) / Notice that we don’t even / need to keep a reference to / the FileWriter object. The / only thing we care about is the / BufferedWriter, because that’s / the object we’ll call methods / on, and when we close the / BufferedWriter, it will take / care of the rest of the chain.
+
+<!-- HF p.566 -->
+
+### Reading from a text file
+
+Reading text from a file is simple, but this time we’ll use a File object to represent the file, a FileReader to do the actual reading, and a BufferedReader to make the reading more efficient.
+
+The read happens by reading lines in a *while* loop, ending the loop when the result of a readLine() is null. That’s the most common style for reading data (pretty much anything that’s not a Serialized object): read stuff in a while loop (actually a while loop *test*), terminating when there’s nothing left to read (which we know because the result of whatever read method we’re using is null).
+
+```java
+import java.io.*;
+
+class ReadAFile {
+  public static void main(String[] args) {
+    try {
+      File myFile = new File("MyText.txt");
+      FileReader fileReader = new FileReader(myFile);
+
+      BufferedReader reader = new BufferedReader(fileReader);
+```
+
+```java
+      String line;
+      while ((line = reader.readLine()) != null) {
+        System.out.println(line);
+      }
+      reader.close();
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+If you’re using Java 8 and you feel comfortable using the Streams API, you can replace all the code inside the try block with the following:
+
+```java
+Files.lines(Path.of("MyText.txt"))
+     .forEach(line -> System.out.println(line));
+```
+
+We’ll see the Files and Path classes later in this chapter.
+
+![figure](figures/hf_p566_1.png)
+
+> *Figure/sidebar text on this page:* A file with two lines of text. / What’s 2 + 2?/4 / What’s 20+22/42 / Don’t forget the import. / MyText.txt / A FileReader is a connection stream for / characters that connects to a text file. / Chain the FileReader to a / Make a String variable to hold / BufferedReader for more / efficient reading. It’ll go back / each line as the line is read / to the file to read only when the / buffer is empty (because the / program has read everything in it). / This says, “Read a line of text, and assign it to the / String variable “line.” While that variable is not null / (because there WAS something to read), print out the / line that was just read.” / Or another way of saying it, “While there are still lines / to read, read them and print them.” / Java 8 Streams and I/O
+
+<!-- HF p.567 -->
+
+### Quiz Card Player (code outline)
+
+```java
+public class QuizCardPlayer {
+
+  public void go() {
+    // build and display gui
+  }
+
+  private void nextCard() {
+    // if this is a question, show the answer, otherwise show
+    // next question set a flag for whether we're viewing a
+    // question or answer
+  }
+
+  private void open() {
+    // bring up a file dialog box
+    // let the user navigate to and choose a card set to open
+  }
+
+  private void loadFile(File file) {
+    // must build an ArrayList of cards, by reading them from
+    // a text file called from the OpenMenuListener event handler,
+    // reads the file one line at a time and tells the makeCard()
+    // method to make a new card out of the line (one line in the
+    // file holds both the question and answer, separated by a "/")
+  }
+
+  private void makeCard(String lineToParse) {
+    // called by the loadFile method, takes a line from the text file
+    // and parses into two pieces—question and answer—and creates a
+    // new QuizCard and adds it to the ArrayList called CardList
+  }
+}
+import javax.swing.*;
+import java.awt.*;
+import java.io.*;
+import java.util.ArrayList;
+
+public class QuizCardPlayer {
+  private ArrayList<QuizCard> cardList;
+  private int currentCardIndex;
+  private QuizCard currentCard;
+  private JTextArea display;
+  private JFrame frame;
+  private JButton nextButton;
+  private boolean isShowAnswer;
+
+  public static void main(String[] args) {
+    QuizCardPlayer reader = new QuizCardPlayer();
+    reader.go();
+  }
+
+  public void go() {
+    frame = new JFrame("Quiz Card Player");
+    JPanel mainPanel = new JPanel();
+    Font bigFont = new Font("sanserif", Font.BOLD, 24);
+
+    display = new JTextArea(10, 20);
+    display.setFont(bigFont);
+    display.setLineWrap(true);
+    display.setEditable(false);
+
+    JScrollPane scroller = new JScrollPane(display);
+    scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+    scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+    mainPanel.add(scroller);
+
+    nextButton = new JButton("Show Question");
+    nextButton.addActionListener(e -> nextCard());
+    mainPanel.add(nextButton);
+
+    JMenuBar menuBar = new JMenuBar();
+    JMenu fileMenu = new JMenu("File");
+    JMenuItem loadMenuItem = new JMenuItem("Load card set");
+    loadMenuItem.addActionListener(e -> open());
+    fileMenu.add(loadMenuItem);
+    menuBar.add(fileMenu);
+    frame.setJMenuBar(menuBar);
+
+    frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
+    frame.setSize(500, 400);
+    frame.setVisible(true);
+  }
+```
+
+<!-- HF p.568 -->
+
+> *Figure/sidebar text on this page:* Just GUI code on this page; / nothing special.
+
+<!-- HF p.569 -->
+
+```java
+  private void nextCard() {
+    if (isShowAnswer) {
+      // show the answer because they've seen the question
+      display.setText(currentCard.getAnswer());
+      nextButton.setText("Next Card");
+      isShowAnswer = false;
+    } else { // show the next question
+      if (currentCardIndex < cardList.size()) {
+        showNextCard();
+      } else {
+        // there are no more cards!
+        display.setText("That was last card");
+        nextButton.setEnabled(false);
+      }
+    }
+  }
+
+  private void open() {
+    JFileChooser fileOpen = new JFileChooser();
+    fileOpen.showOpenDialog(frame);
+    loadFile(fileOpen.getSelectedFile());
+  }
+
+  private void loadFile(File file) {
+    cardList = new ArrayList<>();
+    currentCardIndex = 0;
+    try {
+      BufferedReader reader = new BufferedReader(new FileReader(file));
+      String line;
+      while ((line = reader.readLine()) != null) {
+        makeCard(line);
+      }
+      reader.close();
+    } catch (IOException e) {
+      System.out.println("Couldn't write the cardList out: " + e.getMessage());
+    }
+    showNextCard();
+  }
+
+  private void makeCard(String lineToParse) {
+    String[] result = lineToParse.split("/");
+    QuizCard card = new QuizCard(result[0], result[1]);
+    cardList.add(card);
+    System.out.println("made a card");
+  }
+
+  private void showNextCard() {
+    currentCard = cardList.get(currentCardIndex);
+    currentCardIndex++;
+    display.setText(currentCard.getQuestion());
+    nextButton.setText("Show Answer");
+    isShowAnswer = true;
+  }
+}
+```
+
+> *Figure/sidebar text on this page:* Check the isShowAnswer boolean flag to / see if they’re currently viewing a question / or an answer, and do the appropriate / thing depending on the answer. / Bring up the file dialog box and let them / navigate to and choose the file to open. / Make a BufferedReader chained / to a new FileReader, giving the / FileReader the File object the user / chose from the open file dialog. / Read a line at a time, passing the line to / the makeCard() method that parses it / and turns it into a real QuizCard and / adds it to the ArrayList. / Now time to start, / show the first card. / Each line of text corresponds to a single / flashcard, but we have to parse out the / question and answer as separate pieces. We / use the String split() method to break the / line into two tokens (one for the question / and one for the answer). We’ll look at the / split() method on the next page.

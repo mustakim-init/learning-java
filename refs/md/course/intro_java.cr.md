@@ -1,0 +1,417 @@
+---
+topic: intro_java
+lessons: "M1_L3"
+book: "Java: The Complete Reference, 12th ed. (Schildt)"
+printed_pages: "10-38"
+pdf_offset: "pdf page = printed page + 35"
+generated_by: tools/extract_refs.py
+---
+# Introduction to Java - Java: The Complete Reference, 12th ed. (Schildt)
+
+<!-- CR p.10 -->
+
+The *same* application code must work on *all* computers. Therefore, some means of generating portable executable code was needed. As you will soon see, the same mechanism that helps ensure security also helps create portability.
+
+## Java’s Magic: The Bytecode
+
+The key that allowed Java to solve both the security and the portability problems just described is that the output of a Java compiler is not executable code. Rather, it is bytecode. *Bytecode* is a highly optimized set of instructions designed to be executed by what is called the *Java Virtual Machine (JVM)*, which is part of the Java Runtime Environment (JRE). In essence, the original JVM was designed as an *interpreter for bytecode*. This may come as a bit of a surprise since many modern languages are designed to be compiled into executable code because of performance concerns. However, the fact that a Java program is executed by the JVM helps solve the major problems associated with web-based programs. Here is why.
+
+Translating a Java program into bytecode makes it much easier to run a program in a wide variety of environments because only the JVM needs to be implemented for each platform. Once a JRE exists for a given system, any Java program can run on it. Remember, although the details of the JVM will differ from platform to platform, all understand the same Java bytecode. If a Java program were compiled to native code, then different versions of the same program would have to exist for each type of CPU connected to the Internet. This is, of course, not a feasible solution. Thus, the execution of bytecode by the JVM is the easiest way to create truly portable programs.
+
+The fact that a Java program is executed by the JVM also helps to make it secure. Because the JVM is in control, it manages program execution. Thus, it is possible for the JVM to create a restricted execution environment, called the *sandbox*, that contains the program, preventing unrestricted access to the machine. Safety is also enhanced by certain restrictions that exist in the Java language.
+
+In general, when a program is compiled to an intermediate form and then interpreted by a virtual machine, it runs slower than it would run if compiled to executable code. However, with Java, the differential between the two is not so great. Because bytecode has been highly optimized, the use of bytecode enables the JVM to execute programs much faster than you might expect.
+
+Although Java was designed as an interpreted language, there is nothing about Java that prevents on-the-fly compilation of bytecode into native code in order to boost performance. For this reason, the HotSpot technology was introduced not long after Java’s initial release. HotSpot provides a Just-In-Time (JIT) compiler for bytecode. When a JIT compiler is part of the JVM, selected portions of bytecode are compiled into executable code in real time, on a piece-by-piece, demand basis. It is important to understand that an entire Java program is not compiled into executable code all at once. Instead, a JIT compiler compiles code as it is needed, during execution. Furthermore, not all sequences of bytecode are compiled—only those that will benefit from compilation. The remaining code is simply interpreted. However, the just-in-time approach still yields a significant performance boost. Even when dynamic compilation is applied to bytecode, the portability and safety features still apply, because the JVM is still in charge of the execution environment.
+
+<!-- CR p.27 -->
+
+As you will see, many of the features supplied by Java are part of its built-in class libraries, which do make extensive use of encapsulation, inheritance, and polymorphism.
+
+## A First Simple Program
+
+Now that the basic object-oriented underpinning of Java has been discussed, let’s look at some actual Java programs. Let’s start by compiling and running the short sample program shown here. As you will see, this involves a little more work than you might imagine.
+
+```java
+/*
+   This is a simple Java program.
+   Call this file "Example.java".
+*/
+class Example {
+  // Your program begins with a call to main().
+  public static void main(String[] args) {
+    System.out.println("This is a simple Java program.");
+  }
+}
+```
+
+**NOTE** The descriptions that follow use the standard Java SE Development Kit (JDK), which is available
+
+from Oracle. (Open source versions are also available.) If you are using an integrated development environment (IDE), then you will need to follow a different procedure for compiling and executing Java programs. In this case, consult your IDE’s documentation for details.
+
+### Entering the Program
+
+For some computer languages, the name of the file that holds the source code to a program is immaterial. However, this is not the case with Java. The first thing that you must learn about Java is that the name you give to a source file is very important. For this example, the name of the source file should be `Example.java`. Let’s see why.
+
+In Java, a source file is officially called a *compilation unit*. It is a text file that contains (among other things) one or more class definitions. (For now, we will be using source files that contain only one class.) The Java compiler requires that a source file use the `.java` filename extension.
+
+As you can see by looking at the program, the name of the class defined by the program is also **Example**. This is not a coincidence. In Java, all code must reside inside a class. By convention, the name of the main class should match the name of the file that holds the program. You should also make sure that the capitalization of the filename matches the class name. The reason for this is that Java is case-sensitive. At this point, the convention that filenames correspond to class names may seem arbitrary. However, this convention makes it easier to maintain and organize your programs. Furthermore, as you will see later in this book, in some cases, it is required.
+
+### Compiling the Program
+
+To compile the **Example** program, execute the compiler, `javac`, specifying the name of the source file on the command line, as shown here:
+
+```text
+C:\>javac Example.java
+```
+
+<!-- CR p.28 -->
+
+The `javac` compiler creates a file called `Example.class` that contains the bytecode version of the program. As discussed earlier, the Java bytecode is the intermediate representation of your program that contains instructions the Java Virtual Machine will execute. Thus, the output of `javac` is not code that can be directly executed.
+
+To actually run the program, you must use the Java application launcher called `java`. To do so, pass the class name **Example** as a command-line argument, as shown here:
+
+```text
+C:\>java Example
+```
+
+When the program is run, the following output is displayed:
+
+```text
+This is a simple Java program.
+```
+
+When Java source code is compiled, each individual class is put into its own output file named after the class and using the `.class` extension. This is why it is a good idea to give your Java source files the same name as the class they contain—the name of the source file will match the name of the `.class` file. When you execute `java` as just shown, you are actually specifying the name of the class that you want to execute. It will automatically search for a file by that name that has the `.class` extension. If it finds the file, it will execute the code contained in the specified class.
+
+**NOTE** Beginning with JDK 11, Java provides a way to run some types of simple programs directly from a source
+
+file, without explicitly invoking `javac`. This technique, which can be useful in some situations, is described in Appendix C. For the purposes of this book, it is assumed that you are using the normal compilation process just described.
+
+### A Closer Look at the First Sample Program
+
+Although `Example.java` is quite short, it includes several key features that are common to all Java programs. Let’s closely examine each part of the program.
+
+The program begins with the following lines:
+
+```text
+/*
+   This is a simple Java program.
+   Call this file "Example.java".
+*/
+```
+
+This is a *comment*. Like most other programming languages, Java lets you enter a remark into a program’s source file. The contents of a comment are ignored by the compiler. Instead, a comment describes or explains the operation of the program to anyone who is reading its source code. In this case, the comment describes the program and reminds you that the source file should be called `Example.java`. Of course, in real applications, comments generally explain how some part of the program works or what a specific feature does.
+
+Java supports three styles of comments. The one shown at the top of the program is called a *multiline comment*. This type of comment must begin with /* and end with */. Anything between these two comment symbols is ignored by the compiler. As the name suggests, a multiline comment may be several lines long.
+
+The next line of code in the program is shown here:
+
+```java
+class Example {
+```
+
+<!-- CR p.29 -->
+
+This line uses the keyword `class` to declare that a new class is being defined. **Example** is an *identifier* that is the name of the class. The entire class definition, including all of its members, will be between the opening curly brace ({) and the closing curly brace (}). For the moment, don’t worry too much about the details of a class except to note that in Java, all program activity occurs within one. This is one reason why all Java programs are (at least a little bit) object-oriented.
+
+The next line in the program is the *single-line comment*, shown here:
+
+```text
+// Your program begins with a call to main().
+```
+
+This is the second type of comment supported by Java. A *single-line comment* begins with a // and ends at the end of the line. As a general rule, programmers use multiline comments for longer remarks and single-line comments for brief, line-by-line descriptions. The third type of comment, a *documentation comment*, will be discussed in the “Comments” section later in this chapter.
+
+The next line of code is shown here:
+
+```java
+public static void main(String[] args) {
+```
+
+This line begins the **main( )** method. As the comment preceding it suggests, this is the line at which the program will begin executing. As a general rule, a Java program begins execution by calling **main( )**. The full meaning of each part of this line cannot be given now, since it involves a detailed understanding of Java’s approach to encapsulation. However, since most of the examples in the first part of this book will use this line of code, let’s take a brief look at each part now.
+
+The `public` keyword is an *access modifier*, which allows the programmer to control the visibility of class members. When a class member is preceded by `public`, then that member may be accessed by code outside the class in which it is declared. (The opposite of `public` is `private`, which prevents a member from being used by code defined outside of its class.) In this case, **main( )** must be declared as `public`, since it must be called by code outside of its class when the program is started. The keyword `static` allows **main( )** to be called without having to instantiate a particular instance of the class. This is necessary since **main( )** is called by the Java Virtual Machine before any objects are made. The keyword `void` simply tells the compiler that **main( )** does not return a value. As you will see, methods may also return values. If all this seems a bit confusing, don’t worry. All of these concepts will be discussed in detail in subsequent chapters.
+
+As stated, **main( )** is the method called when a Java application begins. Keep in mind that Java is case-sensitive. Thus, **Main** is different from `main`. It is important to understand that the Java compiler will compile classes that do not contain a **main( )** method. But `java` has no way to run these classes. So, if you had typed **Main** instead of `main`, the compiler would still compile your program. However, `java` would report an error because it would be unable to find the **main( )** method.
+
+Any information that you need to pass to a method is received by variables specified within the set of parentheses that follow the name of the method. These variables are called *parameters*. If there are no parameters required for a given method, you still need to include the empty parentheses. In **main( )**, there is only one parameter, albeit a complicated one. **String[ ] args** declares a parameter named `args`, which is an array of instances of the class `String`. (*Arrays* are collections of similar objects.) Objects of type `String` store character strings. In this case, `args` receives any command-line arguments present when the program is executed. This program does not make use of this information, but other programs shown later in this book will.
+
+<!-- CR p.30 -->
+
+The last character on the line is the {. This signals the start of **main( )**’s body. All of the code that comprises a method will occur between the method’s opening curly brace and its closing curly brace.
+
+One other point: **main( )** is simply a starting place for your program. A complex program will have dozens of classes, only one of which will need to have a **main( )** method to get things started. Furthermore, for some types of programs, you won’t need **main( )** at all. However, for most of the programs shown in this book, **main( )** is required.
+
+The next line of code is shown here. Notice that it occurs inside **main( )**.
+
+```java
+System.out.println("This is a simple Java program.");
+```
+
+This line outputs the string "This is a simple Java program." followed by a new line on the screen. Output is actually accomplished by the built-in **println( )** method. In this case, **println( )** displays the string which is passed to it. As you will see, **println( )** can be used to display other types of information, too. The line begins with `System.out`. While too complicated to explain in detail at this time, briefly, `System` is a predefined class that provides access to the system, and `out` is the output stream that is connected to the console.
+
+As you have probably guessed, console output (and input) is not used frequently in most real-world Java applications. Since most modern computing environments are graphical in nature, console I/O is used mostly for simple utility programs, demonstration programs, and server-side code. Later in this book, you will learn other ways to generate output using Java. But for now, we will continue to use the console I/O methods.
+
+Notice that the **println( )** statement ends with a semicolon. Many statements in Java end with a semicolon. As you will see, the semicolon is an important part of the Java syntax.
+
+The first } in the program ends **main( )**, and the last } ends the **Example** class definition.
+
+## A Second Short Program
+
+Perhaps no other concept is more fundamental to a programming language than that of a variable. As you may know, a variable is a named memory location that may be assigned a value by your program. The value of a variable may be changed during the execution of the program. The next program shows how a variable is declared and how it is assigned a value. The program also illustrates some new aspects of console output. As the comments at the top of the program state, you should call this file `Example2.java`.
+
+```java
+/*
+   Here is another short example.
+   Call this file "Example2.java".
+*/
+
+class Example2 {
+  public static void main(String[] args) {
+    int num; // this declares a variable called num
+
+    num = 100; // this assigns num the value 100
+
+    System.out.println("This is num: " + num);
+
+    num = num * 2;
+    System.out.print("The value of num * 2 is ");
+    System.out.println(num);
+  }
+}
+```
+
+<!-- CR p.31 -->
+
+When you run this program, you will see the following output:
+
+```text
+This is num: 100
+The value of num * 2 is 200
+```
+
+Let’s take a close look at why this output is generated. The first new line in the program is shown here:
+
+```java
+int num; // this declares a variable called num
+```
+
+This line declares an integer variable called `num`. Java (like many other languages) requires that variables be declared before they are used.
+
+Following is the general form of a variable declaration:
+
+*type var-name;*
+
+Here, *type* specifies the type of variable being declared, and *var-name* is the name of the variable. If you want to declare more than one variable of the specified type, you may use a comma-separated list of variable names. Java defines several data types, including integer, character, and floating-point. The keyword `int` specifies an integer type.
+
+In the program, the line
+
+```java
+num = 100; // this assigns num the value 100
+```
+
+assigns to `num` the value 100. In Java, the assignment operator is a single equal sign.
+
+The next line of code outputs the value of `num` preceded by the string "This is num:".
+
+```java
+System.out.println("This is num: " + num);
+```
+
+In this statement, the plus sign causes the value of `num` to be appended to the string that precedes it, and then the resulting string is output. (Actually, `num` is first converted from an integer into its string equivalent and then concatenated with the string that precedes it. This process is described in detail later in this book.) This approach can be generalized. Using the + operator, you can join together as many items as you want within a single **println( )** statement.
+
+The next line of code assigns `num` the value of `num` times 2. Like most other languages, Java uses the * operator to indicate multiplication. After this line executes, `num` will contain the value 200.
+
+Here are the next two lines in the program:
+
+```java
+System.out.print ("The value of num * 2 is ");
+System.out.println (num);
+```
+
+Several new things are occurring here. First, the built-in method **print( )** is used to display the string "The value of num * 2 is ". This string is not followed by a newline. This means that when the next output is generated, it will start on the same line. The **print( )** method is just like **println( )**, except that it does not output a newline character after each call. Now look at the call to **println( )**. Notice that `num` is used by itself. Both **print( )** and **println( )** can be used to output values of any of Java’s built-in types.
+
+<!-- CR p.34 -->
+
+```text
+This is x: 4
+This is x: 5
+This is x: 6
+This is x: 7
+This is x: 8
+This is x: 9
+```
+
+In this example, `x` is the loop control variable. It is initialized to zero in the initialization portion of the `for`. At the start of each iteration (including the first one), the conditional test **x < 10** is performed. If the outcome of this test is true, the **println( )** statement is executed, and then the iteration portion of the loop is executed, which increases `x` by 1. This process continues until the conditional test is false.
+
+As a point of interest, in professionally written Java programs you will almost never see the iteration portion of the loop written as shown in the preceding program. That is, you will seldom see statements like this:
+
+```java
+x = x + 1;
+```
+
+The reason is that Java includes a special increment operator which performs this operation more efficiently. The increment operator is ++. (That is, two plus signs back to back.) The increment operator increases its operand by one. By use of the increment operator, the preceding statement can be written like this:
+
+```java
+x++;
+```
+
+Thus, the `for` in the preceding program will usually be written like this:
+
+```java
+for(x = 0; x<10; x++)
+```
+
+You might want to try this. As you will see, the loop still runs exactly the same as it did before.
+
+Java also provides a decrement operator, which is specified as – –. This operator decreases its operand by one.
+
+## Using Blocks of Code
+
+Java allows two or more statements to be grouped into *blocks of code*, also called *code blocks*. This is done by enclosing the statements between opening and closing curly braces. Once a block of code has been created, it becomes a logical unit that can be used any place that a single statement can. For example, a block can be a target for Java’s `if` and `for` statements. Consider this `if` statement:
+
+```java
+if(x < y) { // begin a block
+  x = y;
+  y = 0;
+} // end of block
+```
+
+Here, if `x` is less than `y`, then both statements inside the block will be executed. Thus, the two statements inside the block form a logical unit, and one statement cannot execute without the other also executing. The key point here is that whenever you need to logically link two or more statements, you do so by creating a block.
+
+<!-- CR p.35 -->
+
+Let’s look at another example. The following program uses a block of code as the target of a `for` loop.
+
+```java
+/*
+  Demonstrate a block of code.
+
+  Call this file "BlockTest.java"
+*/
+class BlockTest {
+  public static void main(String[] args) {
+    int x, y;
+
+    y = 20;
+
+    // the target of this loop is a block
+    for(x = 0; x<10; x++) {
+      System.out.println("This is x: " + x);
+      System.out.println("This is y: " + y);
+      y = y - 2;
+   }
+  }
+}
+```
+
+The output generated by this program is shown here:
+
+```text
+This is x: 0
+This is y: 20
+This is x: 1
+This is y: 18
+This is x: 2
+This is y: 16
+This is x: 3
+This is y: 14
+This is x: 4
+This is y: 12
+This is x: 5
+This is y: 10
+This is x: 6
+This is y: 8
+This is x: 7
+This is y: 6
+This is x: 8
+This is y: 4
+This is x: 9
+This is y: 2
+```
+
+In this case, the target of the `for` loop is a block of code and not just a single statement. Thus, each time the loop iterates, the three statements inside the block will be executed. This fact is, of course, evidenced by the output generated by the program. As you will see later in this book, blocks of code have additional properties and uses. However, the main reason for their existence is to create logically inseparable units of code.
+
+<!-- CR p.36 -->
+
+## Lexical Issues
+
+Now that you have seen several short Java programs, it is time to more formally describe the atomic elements of Java. Java programs are a collection of whitespace, identifiers, literals, comments, operators, separators, and keywords. The operators are described in the next chapter. The others are described next.
+
+### Whitespace
+
+Java is a free-form language. This means that you do not need to follow any special indentation rules. For instance, the **Example** program could have been written all on one line or in any other strange way you felt like typing it, as long as there was at least one whitespace character between each token that was not already delineated by an operator or separator. In Java, whitespace includes a space, tab, newline, or form feed.
+
+### Identifiers
+
+Identifiers are used to name things, such as classes, variables, and methods. An identifier may be any descriptive sequence of uppercase and lowercase letters, numbers, or the underscore and dollar-sign characters. (The dollar-sign character is not intended for general use.) They must not begin with a number, lest they be confused with a numeric literal. Again, Java is case-sensitive, so **VALUE** is a different identifier than **Value**. Some examples of valid identifiers are
+
+AvgTemp count a4 $test this_is_ok
+
+Invalid identifier names include these:
+
+2count high-temp Not/ok
+
+**NOTE** Beginning with JDK 9, the underscore cannot be used by itself as an identifier.
+
+### Literals
+
+A constant value in Java is created by using a *literal* representation of it. For example, here are some literals:
+
+100 98.6 ‘X’ “This is a test”
+
+Left to right, the first literal specifies an integer, the next is a floating-point value, the third is a character constant, and the last is a string. A literal can be used anywhere a value of its type is allowed.
+
+### Comments
+
+As mentioned, there are three types of comments defined by Java. You have already seen two: single-line and multiline. The third type is called a *documentation comment*. This type of comment is used to produce an HTML file that documents your program. The documentation comment begins with a /** and ends with a */. Documentation comments are explained in Appendix A.
+
+<!-- CR p.37 -->
+
+### Separators
+
+In Java, there are a few characters that are used as separators. The most commonly used separator in Java is the semicolon. As you have seen, it is often used to terminate statements. The separators are shown in the following table:
+
+| Symbol | Name | Purpose |
+|---|---|---|
+| ( ) | Parentheses | Used to contain lists of parameters in method definition and invocation. Also used for defining precedence in expressions, containing expressions in control statements, and surrounding cast types. |
+| { } | Braces | Used to contain the values of automatically initialized arrays. Also used to define a block of code, for classes, methods, and local scopes. |
+| [ ] | Brackets | Used to declare array types. Also used when dereferencing array values. |
+| ; | Semicolon | Terminates statements. |
+| , | Comma | Separates consecutive identifiers in a variable declaration. Also used to chain statements together inside a for statement. |
+| . | Period | Used to separate package names from subpackages and classes. Also used to separate a variable or method from a reference variable. |
+| :: | Colons | Used to create a method or constructor reference. |
+| ... | Ellipsis | Indicates a variable-arity parameter. |
+| @ | At-sign | Begins an annotation. |
+
+### The Java Keywords
+
+There are 67 keywords currently defined in the Java language (see Table 2-1). These keywords, combined with the syntax of the operators and separators, form the foundation of the Java language. In general, keywords cannot be used as identifiers, meaning that they cannot be used as names for a variable, class, or method. However, 16 of the keywords are context-sensitive, which means that they are only keywords when used with the feature to which they relate. They support features added to Java over the past few years. Ten relate to modules: `exports`, `module`, `open`, `opens`, `provides`, `requires`, `to`, `transitive`, `uses`, and `with`. Records are declared by `record`; sealed classes and interfaces use `sealed`, `non-sealed`, and `permits`; `yield` is used by the enhanced `switch`; and `var` supports local variable type inference. Because they are context-sensitive, existing programs were unaffected by their addition. Also, beginning with JDK 9, an underscore by itself is considered a keyword in order to prevent its use as the name of something in your program. Beginning with JDK 17, `strictfp` has been rendered obsolete because it has no effect.
+
+The keywords `const` and `goto` are reserved but not used. In the early days of Java, several other keywords were reserved for possible future use. However, the current specification for Java defines only the keywords shown in Table 2-1.
+
+<!-- CR p.38 -->
+
+| abstract | assert | boolean | break | byte | case |
+|---|---|---|---|---|---|
+| catch | char | class | const | continue | default |
+| do | double | else | enum | exports | extends |
+| final | finally | float | for | goto | if |
+| implements | import | instanceof | int | interface | long |
+| module | native | new | non-sealed | open | opens |
+| package | permits | private | protected | provides | public |
+| record | requires | return | sealed | short | static |
+| strictfp | super | switch | synchronized | this | throw |
+| throws | to | transient | transitive | try | uses |
+| var | void | volatile | while | with | yield |
+| _ |  |  |  |  |  |
+
+**Table 2-1**
+
+Java Keywords
+
+In addition to the keywords, Java reserves three other names that have been part of Java from the start: `true`, `false`, and `null`. These are values defined by Java. You may not use these words for the names of variables, classes, and so on.
+
+## The Java Class Libraries
+
+The sample programs shown in this chapter make use of two of Java’s built-in methods: **println( )** and **print( )**. As mentioned, these methods are available through `System.out`. `System` is a class predefined by Java that is automatically included in your programs. In the larger view, the Java environment relies on several built-in class libraries that contain many built-in methods that provide support for such things as I/O, string handling, networking, and graphics. The standard classes also provide support for a graphical user interface (GUI). Thus, Java as a totality is a combination of the Java language itself, plus its standard classes. As you will see, the class libraries provide much of the functionality that comes with Java. Indeed, part of becoming a Java programmer is learning to use the standard Java classes. Throughout Part I of this book, various elements of the standard library classes and methods are described as needed. In Part II, several class libraries are described in detail.

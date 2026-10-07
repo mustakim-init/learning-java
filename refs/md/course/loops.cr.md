@@ -1,0 +1,422 @@
+---
+topic: loops
+lessons: "M6_L1, M6_L2"
+book: "Java: The Complete Reference, 12th ed. (Schildt)"
+printed_pages: "95-103"
+pdf_offset: "pdf page = printed page + 35"
+generated_by: tools/extract_refs.py
+---
+# Loops (while, for) - Java: The Complete Reference, 12th ed. (Schildt)
+
+<!-- CR p.95 -->
+
+- No two `case` constants in the same `switch` can have identical values. Of course, a `switch` statement and an enclosing outer `switch` can have `case` constants in common.
+- A `switch` statement is usually more efficient than a set of nested `if`s.
+
+The last point is particularly interesting because it gives insight into how the Java compiler works. When it compiles a `switch` statement, the Java compiler will inspect each of the `case` constants and create a “jump table” that it will use for selecting the path of execution depending on the value of the expression. Therefore, if you need to select among a large group of values, a `switch` statement will run much faster than the equivalent logic coded using a sequence of `if-else`s. The compiler can do this because it knows that the `case` constants are all the same type and simply must be compared for equality with the `switch` expression. The compiler has no such knowledge of a long list of `if` expressions.
+
+**REMEMBER** Recently, the capabilities and features of `switch` have been substantially expanded beyond those
+
+offered by the traditional `switch` just described. Refer to Chapter 17 for details on the enhanced `switch`.
+
+## Iteration Statements
+
+Java’s iteration statements are `for`, `while`, and `do-while`. These statements create what we commonly call *loops*. As you probably know, a loop repeatedly executes the same set of instructions until a termination condition is met. As you will see, Java has a loop to fit any programming need.
+
+### while
+
+The `while` loop is Java’s most fundamental loop statement. It repeats a statement or block while its controlling expression is true. Here is its general form:
+
+while(*condition*) { // body of loop }
+
+The *condition* can be any Boolean expression. The body of the loop will be executed as long as the conditional expression is true. When *condition* becomes false, control passes to the next line of code immediately following the loop. The curly braces are unnecessary if only a single statement is being repeated.
+
+Here is a `while` loop that counts down from 10, printing exactly ten lines of "tick":
+
+```java
+// Demonstrate the while loop.
+class While {
+  public static void main(String[] args) {
+    int n = 10;
+
+    while(n > 0) {
+      System.out.println("tick " + n);
+      n--;
+    }
+  }
+}
+```
+
+<!-- CR p.96 -->
+
+When you run this program, it will “tick” ten times:
+
+```text
+tick 10
+tick 9
+tick 8
+tick 7
+tick 6
+tick 5
+tick 4
+tick 3
+tick 2
+tick 1
+```
+
+Since the `while` loop evaluates its conditional expression at the top of the loop, the body of the loop will not execute even once if the condition is false to begin with. For example, in the following fragment, the call to `println()` is never executed:
+
+```java
+int a = 10, b = 20;
+
+while(a > b)
+  System.out.println("This will not be displayed");
+```
+
+The body of the `while` (or any other of Java’s loops) can be empty. This is because a *null statement* (one that consists only of a semicolon) is syntactically valid in Java. For example, consider the following program:
+
+```java
+// The target of a loop can be empty.
+class NoBody {
+  public static void main(String[] args) {
+    int i, j;
+
+    i = 100;
+    j = 200;
+
+    // find midpoint between i and j
+    while(++i < --j); // no body in this loop
+
+    System.out.println("Midpoint is " + i);
+  }
+}
+```
+
+This program finds the midpoint between `i` and `j`. It generates the following output:
+
+```text
+Midpoint is 150
+```
+
+Here is how this `while` loop works. The value of `i` is incremented, and the value of `j` is decremented. These values are then compared with one another. If the new value of `i` is still less than the new value of `j`, then the loop repeats. If `i` is equal to or greater than `j`, the loop stops. Upon exit from the loop, `i` will hold a value that is midway between the original values of `i` and `j`.
+
+<!-- CR p.97 -->
+
+(Of course, this procedure only works when `i` is less than `j` to begin with.) As you can see, there is no need for a loop body; all of the action occurs within the conditional expression, itself. In professionally written Java code, short loops are frequently coded without bodies when the controlling expression can handle all of the details itself.
+
+### do-while
+
+As you just saw, if the conditional expression controlling a `while` loop is initially false, then the body of the loop will not be executed at all. However, sometimes it is desirable to execute the body of a loop at least once, even if the conditional expression is false to begin with. In other words, there are times when you would like to test the termination expression at the end of the loop rather than at the beginning. Fortunately, Java supplies a loop that does just that: the `do-while`. The `do-while` loop always executes its body at least once, because its conditional expression is at the bottom of the loop. Its general form is
+
+do { // body of loop } while (*condition*);
+
+Each iteration of the `do-while` loop first executes the body of the loop and then evaluates the conditional expression. If this expression is true, the loop will repeat. Otherwise, the loop terminates. As with all of Java’s loops, *condition* must be a Boolean expression.
+
+Here is a reworked version of the “tick” program that demonstrates the `do-while` loop. It generates the same output as before.
+
+```java
+// Demonstrate the do-while loop.
+class DoWhile {
+  public static void main(String[] args) {
+    int n = 10;
+
+    do {
+      System.out.println("tick " + n);
+      n--;
+    } while(n > 0);
+  }
+}
+```
+
+The loop in the preceding program, while technically correct, can be written more efficiently as follows:
+
+```java
+do {
+  System.out.println("tick " + n);
+} while(--n > 0);
+```
+
+In this example, the expression **(– –n > 0)** combines the decrement of `n` and the test for zero into one expression. Here is how it works. First, the **– –n** statement executes, decrementing `n` and returning the new value of `n`. This value is then compared with zero. If it is greater than zero, the loop continues; otherwise, it terminates.
+
+<!-- CR p.98 -->
+
+The `do-while` loop is especially useful when you process a menu selection, because you will usually want the body of a menu loop to execute at least once. Consider the following program, which implements a very simple help system for Java’s selection and iteration statements:
+
+```java
+// Using a do-while to process a menu selection
+class Menu {
+  public static void main(String[] args)
+    throws java.io.IOException {
+    char choice;
+
+    do {
+      System.out.println("Help on: ");
+      System.out.println("  1. if");
+      System.out.println("  2. switch");
+      System.out.println("  3. while");
+      System.out.println("  4. do-while");
+      System.out.println("  5. for\n");
+      System.out.println("Choose one:");
+      choice = (char) System.in.read();
+    } while( choice < '1' || choice > '5');
+
+    System.out.println("\n");
+
+    switch(choice) {
+      case '1':
+        System.out.println("The if:\n");
+        System.out.println("if(condition) statement;");
+        System.out.println("else statement;");
+        break;
+      case '2':
+        System.out.println("The switch:\n");
+        System.out.println("switch(expression) {");
+        System.out.println("  case constant:");
+        System.out.println("    statement sequence");
+        System.out.println("    break;");
+        System.out.println("  //...");
+        System.out.println("}");
+        break;
+      case '3':
+        System.out.println("The while:\n");
+        System.out.println("while(condition) statement;");
+        break;
+      case '4':
+        System.out.println("The do-while:\n");
+        System.out.println("do {");
+        System.out.println("  statement;");
+        System.out.println("} while (condition);");
+        break;
+      case '5':
+        System.out.println("The for:\n");
+        System.out.print("for(init; condition; iteration)");
+        System.out.println(" statement;");
+        break;
+    }
+  }
+}
+```
+
+<!-- CR p.99 -->
+
+Here is a sample run produced by this program:
+
+```java
+Help on:
+  1. if
+  2. switch
+  3. while
+  4. do-while
+  5. for
+Choose one:
+4
+The do-while:
+do {
+  statement;
+} while (condition);
+```
+
+In the program, the `do-while` loop is used to verify that the user has entered a valid choice. If not, then the user is reprompted. Since the menu must be displayed at least once, the `do-while` is the perfect loop to accomplish this.
+
+A few other points about this example: Notice that characters are read from the keyboard by calling **System.in.read( )**. This is one of Java’s console input functions. Although Java’s console I/O methods won’t be discussed in detail until Chapter 13, **System.in.read( )** is used here to obtain the user’s choice. It reads characters from standard input (returned as integers, which is why the return value was cast to `char`). By default, standard input is line buffered, so you must press enter before any characters that you type will be sent to your program.
+
+Java’s console input can be a bit awkward to work with. Further, most real-world Java programs will use a graphical user interface (GUI). For these reasons, not much use of console input has been made in this book. However, it is useful in this context. One other point to consider: Because **System.in.read( )** is being used, the program must specify the **throws java** `.io.IOException` clause. This line is necessary to handle input errors. It is part of Java’s exception handling features, which are discussed in Chapter 10.
+
+### for
+
+You were introduced to a simple form of the `for` loop in Chapter 2. As you will see, it is a powerful and versatile construct.
+
+There are two forms of the `for` loop. The first is the traditional form that has been in use since the original version of Java. The second is the newer “for-each” form, added by JDK 5. Both types of `for` loops are discussed here, beginning with the traditional form.
+
+Here is the general form of the traditional `for` statement:
+
+for(*initialization*; *condition*; *iteration*) { // body }
+
+If only one statement is being repeated, there is no need for the curly braces.
+
+The `for` loop operates as follows. When the loop first starts, the *initialization* portion of the loop is executed. Generally, this is an expression that sets the value of the *loop control variable*, which acts as a counter that controls the loop. It is important to understand that the initialization expression is executed only once. Next, *condition* is evaluated. This must be a Boolean expression.
+
+<!-- CR p.100 -->
+
+It usually tests the loop control variable against a target value. If this expression is true, then the body of the loop is executed. If it is false, the loop terminates. Next, the *iteration* portion of the loop is executed. This is usually an expression that increments or decrements the loop control variable. The loop then iterates, first evaluating the conditional expression, then executing the body of the loop, and then executing the iteration expression with each pass. This process repeats until the controlling expression is false.
+
+Here is a version of the “tick” program that uses a `for` loop:
+
+```java
+// Demonstrate the for loop.
+class ForTick {
+  public static void main(String[] args) {
+    int n;
+
+    for(n=10; n>0; n--)
+      System.out.println("tick " + n);
+  }
+}
+```
+
+##### Declaring Loop Control Variables Inside the for Loop
+
+Often the variable that controls a `for` loop is needed only for the purposes of the loop and is not used elsewhere. When this is the case, it is possible to declare the variable inside the initialization portion of the `for`. For example, here is the preceding program recoded so that the loop control variable `n` is declared as an `int` inside the `for`:
+
+```java
+// Declare a loop control variable inside the for.
+class ForTick {
+  public static void main(String[] args) {
+
+    // here, n is declared inside of the for loop
+    for(int n=10; n>0; n--)
+      System.out.println("tick " + n);
+  }
+}
+```
+
+When you declare a variable inside a `for` loop, there is one important point to remember: the scope of that variable ends when the `for` statement does. (That is, the scope of the variable is limited to the `for` loop.) Outside the `for` loop, the variable will cease to exist. If you need to use the loop control variable elsewhere in your program, you will not be able to declare it inside the `for` loop.
+
+When the loop control variable will not be needed elsewhere, most Java programmers declare it inside the `for`. For example, here is a simple program that tests for prime numbers. Notice that the loop control variable, `i`, is declared inside the `for` since it is not needed elsewhere.
+
+```java
+// Test for primes.
+class FindPrime {
+  public static void main(String[] args) {
+    int num;
+    boolean isPrime;
+
+    num = 14;
+    if(num < 2) isPrime = false;
+    else isPrime = true;
+
+    for(int i=2; i <= num/i; i++) {
+      if((num % i) == 0) {
+        isPrime = false;
+        break;
+      }
+    }
+
+    if(isPrime) System.out.println("Prime");
+    else System.out.println("Not Prime");
+  }
+}
+```
+
+<!-- CR p.101 -->
+
+##### Using the Comma
+
+There will be times when you will want to include more than one statement in the initialization and iteration portions of the `for` loop. For example, consider the loop in the following program:
+
+```java
+class Sample {
+  public static void main(String[] args) {
+    int a, b;
+
+    b = 4;
+    for(a=1; a<b; a++) {
+      System.out.println("a = " + a);
+      System.out.println("b = " + b);
+      b--;
+    }
+  }
+}
+```
+
+As you can see, the loop is controlled by the interaction of two variables. Since the loop is governed by two variables, it would be useful if both could be included in the `for` statement, itself, instead of `b` being handled manually. Fortunately, Java provides a way to accomplish this. To allow two or more variables to control a `for` loop, Java permits you to include multiple statements in both the initialization and iteration portions of the `for`. Each statement is separated from the next by a comma.
+
+Using the comma, the preceding `for` loop can be more efficiently coded, as shown here:
+
+```java
+// Using the comma.
+class Comma {
+  public static void main(String[] args) {
+    int a, b;
+
+    for(a=1, b=4; a<b; a++, b--) {
+      System.out.println("a = " + a);
+      System.out.println("b = " + b);
+    }
+  }
+}
+```
+
+<!-- CR p.102 -->
+
+In this example, the initialization portion sets the values of both `a` and `b`. The two comma-separated statements in the iteration portion are executed each time the loop repeats. The program generates the following output:
+
+```text
+a = 1
+b = 4
+a = 2
+b = 3
+```
+
+##### Some for Loop Variations
+
+The `for` loop supports a number of variations that increase its power and applicability. The reason it is so flexible is that its three parts—the initialization, the conditional test, and the iteration—do not need to be used for only those purposes. In fact, the three sections of the `for` can be used for any purpose you desire. Let’s look at some examples.
+
+One of the most common variations involves the conditional expression. Specifically, this expression does not need to test the loop control variable against some target value. In fact, the condition controlling the `for` can be any Boolean expression. For example, consider the following fragment:
+
+```java
+boolean done = false;
+
+for(int i=1; !done; i++) {
+  // ...
+  if(interrupted()) done = true;
+}
+```
+
+In this example, the `for` loop continues to run until the `boolean` variable `done` is set to `true`. It does not test the value of `i`.
+
+Here is another interesting `for` loop variation. Either the initialization or the iteration expression or both may be absent, as in this next program:
+
+```java
+// Parts of the for loop can be empty.
+class ForVar {
+  public static void main(String[] args) {
+    int i;
+    boolean done = false;
+
+    i = 0;
+    for( ; !done; ) {
+      System.out.println("i is " + i);
+      if(i == 10) done = true;
+      i++;
+    }
+  }
+}
+```
+
+Here, the initialization and iteration expressions have been moved out of the `for`. Thus, parts of the `for` are empty. While this is of no value in this simple example—indeed, it would be considered quite poor style—there can be times when this type of approach makes sense.
+
+<!-- CR p.103 -->
+
+For example, if the initial condition is set through a complex expression elsewhere in the program or if the loop control variable changes in a nonsequential manner determined by actions that occur within the body of the loop, it may be appropriate to leave these parts of the `for` empty.
+
+Here is one more `for` loop variation. You can intentionally create an infinite loop (a loop that never terminates) if you leave all three parts of the `for` empty. For example:
+
+```java
+for( ; ; ) {
+  // ...
+}
+```
+
+This loop will run forever because there is no condition under which it will terminate. Although there are some programs, such as operating system command processors, that require an infinite loop, most “infinite loops” are really just loops with special termination requirements. As you will soon see, there is a way to terminate a loop—even an infinite loop like the one shown—that does not make use of the normal loop conditional expression.
+
+### The For-Each Version of the for Loop
+
+A second form of `for` implements a “for-each” style loop. As you may know, contemporary language theory has embraced the for-each concept, and it has become a standard feature that programmers have come to expect. A for-each style loop is designed to cycle through a collection of objects, such as an array, in strictly sequential fashion, from start to finish. In Java, the for-each style of `for` is also referred to as the *enhanced* `for` loop.
+
+The general form of the for-each version of the `for` is shown here:
+
+for(*type itr-var* : *collection*) *statement-block*
+
+Here, *type* specifies the type and *itr-var* specifies the name of an *iteration variable* that will receive the elements from a collection, one at a time, from beginning to end. The collection being cycled through is specified by *collection*. There are various types of collections that can be used with the `for`, but the only type used in this chapter is the array. (Other types of collections that can be used with the `for`, such as those defined by the Collections Framework, are discussed later in this book.) With each iteration of the loop, the next element in the collection is retrieved and stored in *itr-var*. The loop repeats until all elements in the collection have been obtained.
+
+Because the iteration variable receives values from the collection, *type* must be the same as (or compatible with) the elements stored in the collection. Thus, when iterating over arrays, *type* must be compatible with the element type of the array.
+
+To understand the motivation behind a for-each style loop, consider the type of `for` loop that it is designed to replace. The following fragment uses a traditional `for` loop to compute the sum of the values in an array:
+
+```java
+int[] nums = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+int sum = 0;
+
+for(int i=0; i < 10; i++) sum += nums[i];
+```

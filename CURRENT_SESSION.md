@@ -6,8 +6,15 @@
 ### 📍 Current Position
 - **Course:** CSE110: Programming Language I (BRAC University)
 - **Current Module:** Module 2: Variables & Data Types
-- **Current Lesson:** `M2_L1` — Variables: Labeled Boxes in the Computer's Memory
-- **Status:** Ready to start M2_L1! M1_L3 completed! Module 1 finished!
+- **Current Lesson:** `M2_L2` — Data Types: The Shape of the Box Matters
+- **Status:** Ready to start M2_L2! M2_L1 completed!
+
+---
+
+### 🏆 Completed Milestone
+- **Lesson `M2_L1` Completed (2026-10-07):**
+  - Ran MyJars.java: printed 17, then 18 after reassignment.
+  - Identifier rules mastered: predicted + verified `int 1stPlace` (leading digit) and `int class` (keyword) rejected, `int myAge` legal.
 
 ---
 
@@ -54,5 +61,6 @@
 ---
 
 ### 🎯 Exact Next Action for ANY AI Agent
-1. Start **M2_L1: Variables (labeled jars)** — declare, initialize, reassign, naming rules.
-2. Python visual primary: `visuals/variable_memory.py`.
+1. New master prompt active (lesson loop: Orient -> Teach cards -> Consolidate -> Test -> Review). M2_L1 stays completed (concepts demonstrated hands-on); apply the full loop from M2_L2 onward.
+2. Start **M2_L2: Data Types** with Phase A (Orient): goal + terms + one review question.
+3. Course cuts: `refs/md/course/variables.cr.md`, `variables.hf.md`, `variables.li.md`. Answer key fixed: HF p.52 exercise legal = 3,4,5,6,8,9,10.
