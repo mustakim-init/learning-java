@@ -64,3 +64,4 @@
 1. New master prompt active (lesson loop: Orient -> Teach cards -> Consolidate -> Test -> Review). M2_L1 stays completed (concepts demonstrated hands-on); apply the full loop from M2_L2 onward.
 2. Start **M2_L2: Data Types** with Phase A (Orient): goal + terms + one review question.
 3. Course cuts: `refs/md/course/variables.cr.md`, `variables.hf.md`, `variables.li.md`. Answer key fixed: HF p.52 exercise legal = 3,4,5,6,8,9,10.
+4. M1_L3 backfill in progress: Card 1 (print vs println) done — ran PrintDemo, predicted the merged-line output correctly.
